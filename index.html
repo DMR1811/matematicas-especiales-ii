@@ -1,0 +1,430 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Matemáticas Especiales II</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fa;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* ENCABEZADO */
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 70px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: auto;
+            opacity: 0.9;
+        }
+
+        .boton {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 13px 25px;
+            background: white;
+            color: #172554;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .boton:hover {
+            background: #e5e7eb;
+        }
+
+        /* CONTENEDOR */
+
+        .contenedor {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .descripcion {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #6b7280;
+        }
+
+        /* TARJETAS */
+
+        .modulos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tarjeta {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .numero {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        .tarjeta h3 {
+            margin: 10px 0;
+            color: #172554;
+        }
+
+        .tarjeta p {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        /* COMO USAR */
+
+        .como-usar {
+            background: white;
+        }
+
+        .pasos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .paso {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .icono {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .paso h3 {
+            margin-bottom: 8px;
+        }
+
+        /* PIE DE PAGINA */
+
+        footer {
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* CELULARES */
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 2.2rem;
+            }
+
+            header {
+                padding: 50px 20px;
+            }
+
+            section {
+                padding: 45px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+
+    <header>
+
+        <h1>Matemáticas Especiales II</h1>
+
+        <p>
+            Recurso de aprendizaje para explorar,
+            comprender y practicar los conceptos
+            fundamentales del análisis complejo.
+        </p>
+
+        <a href="#modulos" class="boton">
+            Comenzar
+        </a>
+
+    </header>
+
+
+    <!-- INTRODUCCIÓN -->
+
+    <section>
+
+        <div class="contenedor">
+
+            <h2>Explora Especiales II</h2>
+
+            <p class="descripcion">
+                Este recurso organiza los principales contenidos
+                de Matemáticas Especiales II en diferentes módulos
+                de aprendizaje.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- MÓDULOS -->
+
+    <section id="modulos">
+
+        <div class="contenedor">
+
+            <h2>Ruta de aprendizaje</h2>
+
+            <p class="descripcion">
+                Avanza por los diferentes temas y fortalece
+                tus conocimientos mediante explicaciones,
+                ejemplos y actividades.
+            </p>
+
+
+            <div class="modulos">
+
+                <div class="tarjeta">
+
+                    <span class="numero">MÓDULO 01</span>
+
+                    <h3>Números Complejos</h3>
+
+                    <p>
+                        Representación de números complejos,
+                        módulo, argumento, forma polar,
+                        teorema de Moivre y raíces complejas.
+                    </p>
+
+                </div>
+
+
+                <div class="tarjeta">
+
+                    <span class="numero">MÓDULO 02</span>
+
+                    <h3>Funciones Complejas</h3>
+
+                    <p>
+                        Funciones de variable compleja,
+                        transformaciones y funciones elementales.
+                    </p>
+
+                </div>
+
+
+                <div class="tarjeta">
+
+                    <span class="numero">MÓDULO 03</span>
+
+                    <h3>Funciones Analíticas</h3>
+
+                    <p>
+                        Límites, continuidad, derivación compleja
+                        y ecuaciones de Cauchy-Riemann.
+                    </p>
+
+                </div>
+
+
+                <div class="tarjeta">
+
+                    <span class="numero">MÓDULO 04</span>
+
+                    <h3>Teorema de Cauchy</h3>
+
+                    <p>
+                        Teorema de Cauchy, fórmula integral de
+                        Cauchy y resultados fundamentales.
+                    </p>
+
+                </div>
+
+
+                <div class="tarjeta">
+
+                    <span class="numero">MÓDULO 05</span>
+
+                    <h3>Funciones Armónicas</h3>
+
+                    <p>
+                        Funciones armónicas, conjugados armónicos
+                        y aplicaciones a la física.
+                    </p>
+
+                </div>
+
+
+                <div class="tarjeta">
+
+                    <span class="numero">MÓDULO 06</span>
+
+                    <h3>Series de Potencias</h3>
+
+                    <p>
+                        Series de Taylor y Laurent,
+                        singularidades y polos.
+                    </p>
+
+                </div>
+
+
+                <div class="tarjeta">
+
+                    <span class="numero">MÓDULO 07</span>
+
+                    <h3>Teorema del Residuo</h3>
+
+                    <p>
+                        Teorema del residuo y aplicaciones
+                        al cálculo de integrales.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- COMO USAR -->
+
+    <section class="como-usar">
+
+        <div class="contenedor">
+
+            <h2>¿Cómo usar este recurso?</h2>
+
+            <p class="descripcion">
+                Aprende de manera progresiva combinando
+                conceptos, visualizaciones y práctica.
+            </p>
+
+
+            <div class="pasos">
+
+                <div class="paso">
+
+                    <div class="icono">📖</div>
+
+                    <h3>1. Aprende</h3>
+
+                    <p>
+                        Revisa las explicaciones y conceptos
+                        fundamentales de cada tema.
+                    </p>
+
+                </div>
+
+
+                <div class="paso">
+
+                    <div class="icono">🔎</div>
+
+                    <h3>2. Explora</h3>
+
+                    <p>
+                        Utiliza representaciones visuales
+                        para comprender mejor los conceptos.
+                    </p>
+
+                </div>
+
+
+                <div class="paso">
+
+                    <div class="icono">🧮</div>
+
+                    <h3>3. Practica</h3>
+
+                    <p>
+                        Resuelve ejercicios y comprueba
+                        tu comprensión.
+                    </p>
+
+                </div>
+
+
+                <div class="paso">
+
+                    <div class="icono">🚀</div>
+
+                    <h3>4. Avanza</h3>
+
+                    <p>
+                        Continúa con nuevos temas y
+                        construye tus conocimientos.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PIE DE PÁGINA -->
+
+    <footer>
+
+        <p>
+            Matemáticas Especiales II · Recurso de aprendizaje
+        </p>
+
+    </footer>
+
+</body>
+</html>
+```
