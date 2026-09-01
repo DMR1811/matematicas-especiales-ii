@@ -1,213 +1,602 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Matemáticas Especiales II</title>
 
+    <!-- Ancizar Sans -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/fontsource/fonts/ancizar-sans:vf@latest/latin-wght-normal.css"
+    >
+
     <style>
+
+        /* =========================
+           CONFIGURACIÓN GENERAL
+        ========================= */
+
+        :root {
+            --azul: #003B5C;
+            --azul-oscuro: #00263A;
+            --azul-claro: #EAF3F7;
+            --verde: #65A19B;
+            --gris: #5F6B73;
+            --gris-claro: #F5F7F8;
+            --blanco: #FFFFFF;
+        }
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fa;
-            color: #1f2937;
+            font-family: "Ancizar Sans Variable", "Ancizar Sans", sans-serif;
+            font-weight: 400;
+            color: var(--azul-oscuro);
+            background: var(--blanco);
             line-height: 1.6;
         }
 
-        /* ENCABEZADO */
+        /* =========================
+           BARRA DE NAVEGACIÓN
+        ========================= */
 
-        header {
-            background: #172554;
-            color: white;
-            padding: 70px 20px;
-            text-align: center;
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 7%;
+
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid #E4E9EC;
+
+            backdrop-filter: blur(8px);
         }
 
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--azul);
+            text-decoration: none;
         }
 
-        header p {
-            font-size: 1.2rem;
+        .menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--gris);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .menu a:hover {
+            color: var(--azul);
+        }
+
+        /* =========================
+           PORTADA
+        ========================= */
+
+        .hero {
+            min-height: 85vh;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 80% 40%,
+                    rgba(101, 161, 155, 0.18),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #F7FAFB 0%,
+                    #EAF3F7 100%
+                );
+
+            padding: 80px 7%;
+        }
+
+        .hero-contenido {
+            width: 55%;
             max-width: 700px;
-            margin: auto;
-            opacity: 0.9;
+        }
+
+        .etiqueta {
+            display: inline-block;
+
+            margin-bottom: 20px;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            background: rgba(101, 161, 155, 0.15);
+
+            color: var(--azul);
+
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+
+            line-height: 0.98;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 28px;
+
+            font-weight: 700;
+        }
+
+        .hero h1 span {
+            color: var(--verde);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+
+            max-width: 620px;
+
+            color: var(--gris);
+
+            margin-bottom: 35px;
         }
 
         .boton {
             display: inline-block;
-            margin-top: 30px;
-            padding: 13px 25px;
-            background: white;
-            color: #172554;
-            text-decoration: none;
+
+            padding: 14px 28px;
+
+            background: var(--azul);
+
+            color: white;
+
             border-radius: 8px;
-            font-weight: bold;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            transition:
+                transform 0.2s,
+                background 0.2s;
         }
 
         .boton:hover {
-            background: #e5e7eb;
+            background: var(--azul-oscuro);
+            transform: translateY(-2px);
         }
 
-        /* CONTENEDOR */
+        /* =========================
+           PLANO COMPLEJO DECORATIVO
+        ========================= */
+
+        .plano {
+            position: absolute;
+
+            right: 8%;
+
+            width: 360px;
+            height: 360px;
+
+            opacity: 0.75;
+        }
+
+        .eje-x {
+            position: absolute;
+
+            top: 50%;
+            left: 0;
+
+            width: 100%;
+            height: 1px;
+
+            background: var(--azul);
+        }
+
+        .eje-y {
+            position: absolute;
+
+            left: 50%;
+            top: 0;
+
+            width: 1px;
+            height: 100%;
+
+            background: var(--azul);
+        }
+
+        .vector {
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            width: 145px;
+            height: 2px;
+
+            background: var(--verde);
+
+            transform-origin: left center;
+
+            transform: rotate(-35deg);
+        }
+
+        .punto {
+            position: absolute;
+
+            width: 14px;
+            height: 14px;
+
+            border-radius: 50%;
+
+            background: var(--verde);
+
+            left: 73%;
+            top: 34%;
+        }
+
+        .z-label {
+            position: absolute;
+
+            left: 76%;
+            top: 27%;
+
+            color: var(--azul);
+
+            font-size: 1.4rem;
+
+            font-weight: 600;
+        }
+
+        /* =========================
+           SECCIONES
+        ========================= */
+
+        section {
+            padding: 90px 7%;
+        }
 
         .contenedor {
-            width: 90%;
-            max-width: 1100px;
+            max-width: 1150px;
             margin: auto;
         }
 
-        section {
-            padding: 60px 0;
-        }
-
-        section h2 {
+        .titulo-seccion {
             text-align: center;
-            font-size: 2rem;
+
+            font-size: 2.6rem;
+
             margin-bottom: 15px;
+
+            font-weight: 700;
         }
 
         .descripcion {
+            max-width: 680px;
+
+            margin: 0 auto 50px;
+
             text-align: center;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            color: #6b7280;
+
+            color: var(--gris);
+
+            font-size: 1.1rem;
         }
 
-        /* TARJETAS */
+        /* =========================
+           MÓDULOS
+        ========================= */
+
+        #modulos {
+            background: white;
+        }
 
         .modulos {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(270px, 1fr));
+
+            gap: 22px;
         }
 
         .tarjeta {
-            background: white;
+            position: relative;
+
+            padding: 30px;
+
+            border: 1px solid #E3E9EC;
+
             border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.2s, box-shadow 0.2s;
+
+            background: white;
+
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s,
+                border-color 0.25s;
         }
 
         .tarjeta:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transform: translateY(-6px);
+
+            border-color: var(--verde);
+
+            box-shadow:
+                0 15px 35px rgba(0, 59, 92, 0.10);
         }
 
         .numero {
-            font-size: 0.9rem;
-            color: #64748b;
-            font-weight: bold;
+            font-size: 0.85rem;
+
+            color: var(--verde);
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
         }
 
         .tarjeta h3 {
             margin: 10px 0;
-            color: #172554;
+
+            font-size: 1.5rem;
+
+            color: var(--azul);
         }
 
         .tarjeta p {
-            color: #6b7280;
-            font-size: 0.95rem;
+            color: var(--gris);
+
+            font-size: 1rem;
         }
 
-        /* COMO USAR */
+        /* =========================
+           CÓMO APRENDER
+        ========================= */
 
-        .como-usar {
-            background: white;
+        .aprendizaje {
+            background: var(--gris-claro);
         }
 
         .pasos {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            margin-top: 35px;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 30px;
         }
 
         .paso {
             text-align: center;
-            padding: 20px;
+
+            padding: 25px;
         }
 
         .icono {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            width: 60px;
+            height: 60px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: var(--azul-claro);
+
+            font-size: 1.5rem;
         }
 
         .paso h3 {
             margin-bottom: 8px;
+
+            font-size: 1.3rem;
         }
 
-        /* PIE DE PAGINA */
+        .paso p {
+            color: var(--gris);
+        }
+
+        /* =========================
+           PIE DE PÁGINA
+        ========================= */
 
         footer {
-            background: #172554;
+            padding: 35px 7%;
+
+            background: var(--azul-oscuro);
+
             color: white;
+
             text-align: center;
-            padding: 30px 20px;
-            font-size: 0.9rem;
         }
 
-        /* CELULARES */
+        footer p {
+            opacity: 0.8;
+        }
 
-        @media (max-width: 600px) {
+        /* =========================
+           RESPONSIVE
+        ========================= */
 
-            header h1 {
-                font-size: 2.2rem;
+        @media (max-width: 800px) {
+
+            nav {
+                padding: 15px 5%;
             }
 
-            header {
-                padding: 50px 20px;
+            .menu {
+                display: none;
+            }
+
+            .hero {
+                min-height: 80vh;
+
+                padding: 70px 6%;
+            }
+
+            .hero-contenido {
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 3.3rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .plano {
+                display: none;
             }
 
             section {
-                padding: 45px 0;
+                padding: 65px 6%;
+            }
+
+            .titulo-seccion {
+                font-size: 2.2rem;
             }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <!-- ENCABEZADO -->
 
-    <header>
+    <!-- =========================
+         NAVEGACIÓN
+    ========================= -->
 
-        <h1>Matemáticas Especiales II</h1>
+    <nav>
 
-        <p>
-            Recurso de aprendizaje para explorar,
-            comprender y practicar los conceptos
-            fundamentales del análisis complejo.
-        </p>
-
-        <a href="#modulos" class="boton">
-            Comenzar
+        <a href="#" class="logo">
+            Especiales II
         </a>
+
+        <div class="menu">
+
+            <a href="#inicio">
+                Inicio
+            </a>
+
+            <a href="#modulos">
+                Módulos
+            </a>
+
+            <a href="#aprendizaje">
+                Cómo aprender
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         PORTADA
+    ========================= -->
+
+    <header class="hero" id="inicio">
+
+        <div class="hero-contenido">
+
+            <span class="etiqueta">
+                Matemáticas para Física
+            </span>
+
+            <h1>
+                Matemáticas<br>
+                <span>Especiales II</span>
+            </h1>
+
+            <p>
+                Explora los conceptos fundamentales del
+                análisis complejo mediante explicaciones,
+                visualizaciones y actividades interactivas.
+            </p>
+
+            <a href="#modulos" class="boton">
+                Comenzar a explorar
+            </a>
+
+        </div>
+
+
+        <!-- PLANO COMPLEJO -->
+
+        <div class="plano">
+
+            <div class="eje-x"></div>
+
+            <div class="eje-y"></div>
+
+            <div class="vector"></div>
+
+            <div class="punto"></div>
+
+            <div class="z-label">
+                z
+            </div>
+
+        </div>
 
     </header>
 
 
-    <!-- INTRODUCCIÓN -->
+    <!-- =========================
+         INTRODUCCIÓN
+    ========================= -->
 
     <section>
 
         <div class="contenedor">
 
-            <h2>Explora Especiales II</h2>
+            <h2 class="titulo-seccion">
+                Una ruta por el análisis complejo
+            </h2>
 
             <p class="descripcion">
+
                 Este recurso organiza los principales contenidos
-                de Matemáticas Especiales II en diferentes módulos
-                de aprendizaje.
+                de Matemáticas Especiales II en una ruta de
+                aprendizaje progresiva.
+
+                Aprende los conceptos, explóralos visualmente
+                y ponlos a prueba mediante ejercicios.
+
             </p>
 
         </div>
@@ -215,120 +604,169 @@
     </section>
 
 
-    <!-- MÓDULOS -->
+    <!-- =========================
+         MÓDULOS
+    ========================= -->
 
     <section id="modulos">
 
         <div class="contenedor">
 
-            <h2>Ruta de aprendizaje</h2>
+            <h2 class="titulo-seccion">
+                Ruta de aprendizaje
+            </h2>
 
             <p class="descripcion">
-                Avanza por los diferentes temas y fortalece
-                tus conocimientos mediante explicaciones,
-                ejemplos y actividades.
+
+                Siete módulos para recorrer los conceptos
+                fundamentales del curso.
+
             </p>
 
 
             <div class="modulos">
 
-                <div class="tarjeta">
 
-                    <span class="numero">MÓDULO 01</span>
+                <article class="tarjeta">
 
-                    <h3>Números Complejos</h3>
+                    <span class="numero">
+                        01
+                    </span>
+
+                    <h3>
+                        Números Complejos
+                    </h3>
 
                     <p>
-                        Representación de números complejos,
-                        módulo, argumento, forma polar,
-                        teorema de Moivre y raíces complejas.
+
+                        Representación, módulo, argumento,
+                        formas polar y exponencial,
+                        teorema de Moivre y raíces.
+
                     </p>
 
-                </div>
+                </article>
 
 
-                <div class="tarjeta">
+                <article class="tarjeta">
 
-                    <span class="numero">MÓDULO 02</span>
+                    <span class="numero">
+                        02
+                    </span>
 
-                    <h3>Funciones Complejas</h3>
+                    <h3>
+                        Funciones Complejas
+                    </h3>
 
                     <p>
+
                         Funciones de variable compleja,
                         transformaciones y funciones elementales.
+
                     </p>
 
-                </div>
+                </article>
 
 
-                <div class="tarjeta">
+                <article class="tarjeta">
 
-                    <span class="numero">MÓDULO 03</span>
+                    <span class="numero">
+                        03
+                    </span>
 
-                    <h3>Funciones Analíticas</h3>
+                    <h3>
+                        Funciones Analíticas
+                    </h3>
 
                     <p>
+
                         Límites, continuidad, derivación compleja
                         y ecuaciones de Cauchy-Riemann.
+
                     </p>
 
-                </div>
+                </article>
 
 
-                <div class="tarjeta">
+                <article class="tarjeta">
 
-                    <span class="numero">MÓDULO 04</span>
+                    <span class="numero">
+                        04
+                    </span>
 
-                    <h3>Teorema de Cauchy</h3>
+                    <h3>
+                        Teorema de Cauchy
+                    </h3>
 
                     <p>
-                        Teorema de Cauchy, fórmula integral de
-                        Cauchy y resultados fundamentales.
+
+                        Teorema de Cauchy, fórmula integral
+                        de Cauchy y sus principales consecuencias.
+
                     </p>
 
-                </div>
+                </article>
 
 
-                <div class="tarjeta">
+                <article class="tarjeta">
 
-                    <span class="numero">MÓDULO 05</span>
+                    <span class="numero">
+                        05
+                    </span>
 
-                    <h3>Funciones Armónicas</h3>
+                    <h3>
+                        Funciones Armónicas
+                    </h3>
 
                     <p>
+
                         Funciones armónicas, conjugados armónicos
                         y aplicaciones a la física.
+
                     </p>
 
-                </div>
+                </article>
 
 
-                <div class="tarjeta">
+                <article class="tarjeta">
 
-                    <span class="numero">MÓDULO 06</span>
+                    <span class="numero">
+                        06
+                    </span>
 
-                    <h3>Series de Potencias</h3>
+                    <h3>
+                        Series de Potencias
+                    </h3>
 
                     <p>
+
                         Series de Taylor y Laurent,
                         singularidades y polos.
+
                     </p>
 
-                </div>
+                </article>
 
 
-                <div class="tarjeta">
+                <article class="tarjeta">
 
-                    <span class="numero">MÓDULO 07</span>
+                    <span class="numero">
+                        07
+                    </span>
 
-                    <h3>Teorema del Residuo</h3>
+                    <h3>
+                        Teorema del Residuo
+                    </h3>
 
                     <p>
+
                         Teorema del residuo y aplicaciones
                         al cálculo de integrales.
+
                     </p>
 
-                </div>
+                </article>
+
 
             </div>
 
@@ -337,31 +775,45 @@
     </section>
 
 
-    <!-- COMO USAR -->
+    <!-- =========================
+         APRENDIZAJE
+    ========================= -->
 
-    <section class="como-usar">
+    <section
+        id="aprendizaje"
+        class="aprendizaje"
+    >
 
         <div class="contenedor">
 
-            <h2>¿Cómo usar este recurso?</h2>
+            <h2 class="titulo-seccion">
+                Aprende haciendo
+            </h2>
 
             <p class="descripcion">
-                Aprende de manera progresiva combinando
-                conceptos, visualizaciones y práctica.
+
+                La idea no es solamente leer teoría:
+                explora, experimenta y comprueba lo que aprendes.
+
             </p>
 
 
             <div class="pasos">
 
+
                 <div class="paso">
 
-                    <div class="icono">📖</div>
+                    <div class="icono">
+                        01
+                    </div>
 
-                    <h3>1. Aprende</h3>
+                    <h3>
+                        Comprende
+                    </h3>
 
                     <p>
-                        Revisa las explicaciones y conceptos
-                        fundamentales de cada tema.
+                        Revisa los conceptos fundamentales
+                        de cada tema.
                     </p>
 
                 </div>
@@ -369,13 +821,17 @@
 
                 <div class="paso">
 
-                    <div class="icono">🔎</div>
+                    <div class="icono">
+                        02
+                    </div>
 
-                    <h3>2. Explora</h3>
+                    <h3>
+                        Visualiza
+                    </h3>
 
                     <p>
-                        Utiliza representaciones visuales
-                        para comprender mejor los conceptos.
+                        Explora representaciones gráficas
+                        de los conceptos matemáticos.
                     </p>
 
                 </div>
@@ -383,9 +839,13 @@
 
                 <div class="paso">
 
-                    <div class="icono">🧮</div>
+                    <div class="icono">
+                        03
+                    </div>
 
-                    <h3>3. Practica</h3>
+                    <h3>
+                        Practica
+                    </h3>
 
                     <p>
                         Resuelve ejercicios y comprueba
@@ -397,16 +857,21 @@
 
                 <div class="paso">
 
-                    <div class="icono">🚀</div>
+                    <div class="icono">
+                        04
+                    </div>
 
-                    <h3>4. Avanza</h3>
+                    <h3>
+                        Conecta
+                    </h3>
 
                     <p>
-                        Continúa con nuevos temas y
-                        construye tus conocimientos.
+                        Relaciona las matemáticas con
+                        problemas y aplicaciones de la física.
                     </p>
 
                 </div>
+
 
             </div>
 
@@ -415,7 +880,9 @@
     </section>
 
 
-    <!-- PIE DE PÁGINA -->
+    <!-- =========================
+         FOOTER
+    ========================= -->
 
     <footer>
 
@@ -425,6 +892,7 @@
 
     </footer>
 
+
 </body>
+
 </html>
-```
