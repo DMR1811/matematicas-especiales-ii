@@ -15,7 +15,7 @@ window.MathJax = {
   svg: { fontCache: 'global' }
 };
 </script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
 <style>
 :root{
@@ -156,6 +156,10 @@ section{padding:72px 7%}
   padding:20px;
   margin:20px 0;
   overflow-x:auto;
+  text-align:center;
+}
+.formula mjx-container{
+  color:#fff !important;
 }
 .note{
   background:var(--azul-claro);
@@ -354,9 +358,7 @@ footer p{margin:5px 0;opacity:.82}
         frontera es aquel cuyas vecindades contienen puntos interiores y
         exteriores del conjunto.
       </p>
-      <div class="formula">\[
-        B_r(z_0)=\{z\in\mathbb C:|z-z_0|<r\}
-      \]</div>
+      <div class="formula">\[B_r(z_0)=\{z\in\mathbb{C}: |z-z_0|<r\}\]</div>
     </div>
 
     <div class="card">
@@ -568,10 +570,10 @@ footer p{margin:5px 0;opacity:.82}
         <div class="field">
           <label for="crFun">Función</label>
           <select id="crFun">
-            <option value="z2">\(f(z)=z^2\)</option>
-            <option value="conj">\(f(z)=\overline z\)</option>
-            <option value="mod2">\(f(z)=|z|^2\)</option>
-            <option value="re">\(f(z)=\operatorname{Re}(z)\)</option>
+            <option value="z2">f(z) = z²</option>
+            <option value="conj">f(z) = z̄</option>
+            <option value="mod2">f(z) = |z|²</option>
+            <option value="re">f(z) = Re(z)</option>
           </select>
         </div>
         <button onclick="checkCR()">Verificar</button>
@@ -926,10 +928,10 @@ function limitLab(){
   const z={x:z0.x+d.x,y:z0.y+d.y};
   const z2=complexPow(z.x,z.y,2);
   document.getElementById('limitOut').innerHTML =
-    `Tomando \(z_0=1+i\) y un punto a distancia aproximada \(\rho=${fmt(rho)}\): `+
+    `Tomando \\(z_0=1+i\\) y un punto a distancia aproximada \\(\rho=${fmt(rho)}\\): `+
     `<strong>z=${fmt(z.x)}${z.y>=0?'+':'−'}${fmt(Math.abs(z.y))}i</strong>.<br>`+
-    `Entonces \(f(z)=z^2\\approx ${fmt(z2.x)}${z2.y>=0?'+':'−'}${fmt(Math.abs(z2.y))}i\). `+
-    `Al hacer \(\rho\\to0\), \(f(z)\\to(1+i)^2=2i\).`;
+    `Entonces \\(f(z)=z^2\\approx ${fmt(z2.x)}${z2.y>=0?'+':'−'}${fmt(Math.abs(z2.y))}i\\). `+
+    `Al hacer \\(\rho\\to0\\), \\(f(z)\\to(1+i)^2=2i\\).`;
   MathJax.typesetPromise();
 }
 function derivativeLab(){
@@ -939,8 +941,8 @@ function derivativeLab(){
   const p=complexPow(x,y,n-1);
   const R=n*p.x, I=n*p.y;
   document.getElementById('derivOut').innerHTML =
-    `Para \(f(z)=z^{${n}}\), \(f'(z)=${n}z^{${n-1}}\).<br>`+
-    `En \(z=${fmt(x)}${y>=0?'+':'−'}${fmt(Math.abs(y))}i\): `+
+    `Para \\(f(z)=z^{${n}}\\), \\(f'(z)=${n}z^{${n-1}}\\).<br>`+
+    `En \\(z=${fmt(x)}${y>=0?'+':'−'}${fmt(Math.abs(y))}i\\): `+
     `<strong>${fmt(R)}${I>=0?'+':'−'}${fmt(Math.abs(I))}i</strong>.`;
   MathJax.typesetPromise();
 }
@@ -948,13 +950,13 @@ function checkCR(){
   const f=document.getElementById('crFun').value;
   let out='';
   if(f==='z2'){
-    out='<strong>u=x²−y², v=2xy.</strong> Entonces \(u_x=2x=v_y\) y \(u_y=-2y=-v_x\). Sí satisface Cauchy-Riemann.';
+    out='<strong>u=x²−y², v=2xy.</strong> Entonces \\(u_x=2x=v_y\\) y \\(u_y=-2y=-v_x\\). Sí satisface Cauchy-Riemann.';
   }else if(f==='conj'){
-    out='<strong>u=x, v=−y.</strong> Se tiene \(u_x=1\) y \(v_y=-1\). No satisface Cauchy-Riemann.';
+    out='<strong>u=x, v=−y.</strong> Se tiene \\(u_x=1\\) y \\(v_y=-1\\). No satisface Cauchy-Riemann.';
   }else if(f==='mod2'){
-    out='<strong>u=x²+y², v=0.</strong> Las ecuaciones exigen \(2x=0\) y \(2y=0\), por lo que solo se cumplen en el origen; esto no basta para afirmar derivabilidad en un entorno.';
+    out='<strong>u=x²+y², v=0.</strong> Las ecuaciones exigen \\(2x=0\\) y \\(2y=0\\), por lo que solo se cumplen en el origen; esto no basta para afirmar derivabilidad en un entorno.';
   }else{
-    out='<strong>u=x, v=0.</strong> Cauchy-Riemann exige \(u_x=0\), pero \(u_x=1\). No satisface las ecuaciones.';
+    out='<strong>u=x, v=0.</strong> Cauchy-Riemann exige \\(u_x=0\\), pero \\(u_x=1\\). No satisface las ecuaciones.';
   }
   document.getElementById('crOut').innerHTML=out;
   MathJax.typesetPromise();
@@ -988,7 +990,7 @@ function drawContour(){
 }
 function circleIntegral(){
   document.getElementById('circleOut').innerHTML =
-    'Para cualquier \(R>0\), la parametrización \(z=Re^{it}\) da '+
+    'Para cualquier \\(R>0\\), la parametrización \\(z=Re^{it}\\) da '+
     '\\(\\displaystyle\\oint_{|z|=R}\\frac{1}{z}\\,dz=2\\pi i\\). '+
     'El resultado no depende del radio.';
   MathJax.typesetPromise();
@@ -1004,7 +1006,7 @@ function checkE2(){
   const ok=v==='4z^3-2' || v==='4z3-2';
   const box=document.getElementById('e2');
   box.className='feedback '+(ok?'ok':'bad');
-  box.innerHTML=ok?'✓ Correcto: \(f\\'(z)=4z^3-2\).':'✗ Recuerda que \\((z^4)'=4z^3\\) y \\((-2z)'=-2\\).';
+  box.innerHTML = ok ? `✓ Correcto: \\(f'(z)=4z^3-2\\).` : `✗ Recuerda que \\((z^4)'=4z^3\\) y \\((-2z)'=-2\\).`;
   MathJax.typesetPromise();
 }
 checkDisk(); drawContour();
