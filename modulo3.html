@@ -995,10 +995,45 @@ function circleIntegral(){
     'El resultado no depende del radio.';
   MathJax.typesetPromise();
 }
+const feedbackData={
+  p1:{
+    hint:'Pista: recuerda que, si f(z)=u(x,y)+iv(x,y), las ecuaciones relacionan las derivadas parciales de u y v en pares.',
+    correct:'✓ Correcto. Las ecuaciones de Cauchy-Riemann son la condición central para evaluar la derivabilidad compleja mediante las partes real e imaginaria.'
+  },
+  p2:{
+    hint:'Pista: un segmento debe avanzar linealmente desde z₁ hasta z₂ cuando t pasa de 0 a 1.',
+    correct:'✓ Correcto. La combinación (1−t)z₁+tz₂ interpola linealmente entre los dos extremos del segmento.'
+  },
+  p3:{
+    hint:'Pista: identifica la integral como la forma fundamental de 1/z sobre una circunferencia orientada positivamente.',
+    correct:'✓ Correcto. La integral de 1/z alrededor de una circunferencia positivamente orientada vale 2πi, independientemente de su radio.'
+  },
+  p4:{
+    hint:'Pista: para que exista la derivada compleja, el cociente incremental debe conducir al mismo límite sin importar cómo se aproxime z a z₀.',
+    correct:'✓ Correcto. La derivada compleja existe cuando el límite del cociente incremental es único e independiente del camino de aproximación.'
+  },
+  e1:{
+    hint:'Pista: escribe z=x+iy y determina primero u y v para f(z)=conjugado de z; después compara sus derivadas parciales.',
+    correct:'✓ Correcto. Para f(z)=conjugado de z, las ecuaciones de Cauchy-Riemann no se cumplen, por lo que no es derivable en ningún punto.'
+  },
+  e2:{
+    hint:'Pista: deriva término a término y aplica la regla de la potencia a z⁴; recuerda que la derivada de −2z es constante.',
+    correct:'✓ Correcto. Al derivar término a término se obtiene f′(z)=4z³−2.'
+  },
+  e3:{
+    hint:'Pista: usa una interpolación lineal entre los extremos y comprueba que t=0 da el primer punto y t=1 el segundo.',
+    correct:'✓ Correcto. La parametrización lineal recorre exactamente el segmento desde 1+i hasta 2+3i cuando 0≤t≤1.'
+  },
+  e4:{
+    hint:'Pista: compara el exponente del denominador con el caso fundamental de la integral de 1/(z−z₀) alrededor de una curva cerrada.',
+    correct:'✓ Correcto. Como el integrando es 1/z² y el exponente es distinto de 1, la integral sobre la circunferencia es cero.'
+  }
+};
 function choice(btn,id,correct){
   const box=document.getElementById(id);
+  const data=feedbackData[id];
   box.className='feedback '+(correct?'ok':'bad');
-  box.innerHTML=correct?'✓ Correcto.':'✗ Revisa el concepto y vuelve a intentarlo.';
+  box.innerHTML=correct ? data.correct : '✗ Aún no. '+data.hint;
   MathJax.typesetPromise();
 }
 function checkE2(){
