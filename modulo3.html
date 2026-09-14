@@ -32,6 +32,35 @@ window.MathJax = {
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
+.site-header{
+  height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 7%;
+  background:#fff;
+  border-top:4px solid #2F2F2F;
+  border-bottom:1px solid var(--borde);
+}
+.site-header .brand{
+  color:var(--azul);
+  text-decoration:none;
+  font-size:1.35rem;
+  font-weight:700;
+}
+.explore-button{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:11px 18px;
+  border-radius:9px;
+  background:var(--azul);
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  transition:.2s;
+}
+.explore-button:hover{background:var(--azul-oscuro);transform:translateY(-1px)}
 body{
   margin:0;
   font-family:"Ancizar Sans",sans-serif;
@@ -276,6 +305,11 @@ footer p{margin:5px 0;opacity:.82}
 </head>
 
 <body>
+
+<nav class="site-header" aria-label="Navegación principal">
+  <a class="brand" href="index.html">Especiales II</a>
+  <a class="explore-button" href="#conjuntos">Explorar módulo ↓</a>
+</nav>
 
 <header class="hero" id="comienzo">
   <div class="hero-inner">
