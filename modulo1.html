@@ -65,10 +65,10 @@ h1{font-size:clamp(2.8rem,6vw,5rem);line-height:1;letter-spacing:-1.5px;margin-b
 .progress{
   margin-top:30px;display:flex;flex-wrap:wrap;gap:9px
 }
-.progress span{
+.progress a{
   padding:6px 11px;border:1px solid var(--borde);border-radius:20px;
   background:#fff;color:var(--gris);font-size:.88rem
-}
+}.progress a{text-decoration:none}
 section{padding:80px 7%}
 .section-soft{background:var(--gris-claro)}
 .section-title{font-size:2.4rem;line-height:1.1;margin-bottom:14px}
@@ -155,6 +155,15 @@ footer p{opacity:.8}
   .hero{padding:65px 6%}
   .footer-nav{flex-direction:column}
 }
+
+.page-button{display:block;background:var(--azul);color:#fff;text-decoration:none;border-radius:10px;padding:14px 22px;font-weight:700}
+.page-button:hover{opacity:.92}
+.page-button.secondary{background:var(--azul)}
+.final-actions{max-width:1100px;margin:0 auto;padding:20px 7% 70px;display:grid;gap:18px}
+
+
+.source-footer{margin:12px auto 0;max-width:850px;font-size:.9rem;line-height:1.6;opacity:.78}
+
 </style>
 </head>
 
@@ -171,7 +180,7 @@ footer p{opacity:.8}
   </div>
 </nav>
 
-<header class="hero">
+<header class="hero" id="comienzo">
   <div class="hero-inner">
     <span class="eyebrow">Módulo 01 · Números Complejos</span>
     <h1>Del número al plano complejo</h1>
@@ -181,13 +190,13 @@ footer p{opacity:.8}
       para operar, calcular potencias y encontrar raíces.
     </p>
     <div class="progress">
-      <span>01 · Conceptos</span>
-      <span>02 · Representación</span>
-      <span>03 · Argumento</span>
-      <span>04 · Moivre</span>
-      <span>05 · Raíces</span>
-      <span>06 · Propiedades</span>
-      <span>07 · Practica</span>
+      <a href="#conceptos">01 · Conceptos</a>
+      <a href="#visualizacion">02 · Representación</a>
+      <a href="#argumento">03 · Argumento</a>
+      <a href="#moivre">04 · Moivre</a>
+      <a href="#raices">05 · Raíces</a>
+      <a href="#propiedades">06 · Propiedades</a>
+      <a href="#practica">07 · Practica</a>
     </div>
   </div>
 </header>
@@ -278,7 +287,7 @@ footer p{opacity:.8}
   </div>
 </section>
 
-<section>
+<section id="argumento">
   <div class="container">
     <h2 class="section-title">3. Módulo y argumento</h2>
     <p class="section-intro">
@@ -427,7 +436,7 @@ footer p{opacity:.8}
   </div>
 </section>
 
-<section class="section-soft">
+<section id="propiedades" class="section-soft">
   <div class="container">
     <h2 class="section-title">6. Propiedades que debes reconocer</h2>
 
@@ -646,8 +655,16 @@ footer p{opacity:.8}
   </div>
 </section>
 
+
+<div class="final-actions">
+  <a class="page-button" href="index.html">← Volver al inicio</a>
+  <a class="page-button secondary" href="#comienzo">Volver al comienzo ↑</a>
+</div>
+
 <footer>
   <p>Matemáticas Especiales II · Módulo 1: Números Complejos</p>
+
+    <p class="source-footer">Contenido basado en las <em>Notas de Clase: Matemáticas Especiales II para Física</em>, de <strong>William Herrera y Herbert Vinck Posada</strong>, docentes del Departamento de Física de la Universidad Nacional de Colombia.</p>
 </footer>
 
 <script>
