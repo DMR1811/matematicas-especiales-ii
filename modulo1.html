@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 1 · Números Complejos | Matemáticas Especiales II</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:wght@100;200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --azul:#003B5C;
+  --azul-oscuro:#00263A;
+  --azul-claro:#EAF3F7;
+  --verde:#65A19B;
+  --gris:#5F6B73;
+  --gris-claro:#F5F7F8;
+  --blanco:#FFFFFF;
+  --borde:#DDE6EA;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Ancizar Sans",sans-serif;
+  color:var(--azul-oscuro);
+  background:#fff;
+  line-height:1.65;
+}
+nav{
+  position:sticky;top:0;z-index:20;
+  background:rgba(255,255,255,.96);
+  border-bottom:1px solid var(--borde);
+  backdrop-filter:blur(8px);
+  padding:15px 7%;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.logo{font-size:1.2rem;font-weight:700;color:var(--azul);text-decoration:none}
+nav a{color:var(--gris);text-decoration:none}
+.nav-links{display:flex;gap:25px;font-weight:500}
+.hero{
+  padding:85px 7% 75px;
+  background:linear-gradient(135deg,#F7FAFB 0%,#EAF3F7 100%);
+}
+.hero-inner,.container{max-width:1100px;margin:auto}
+.eyebrow{
+  display:inline-block;
+  color:var(--azul);
+  background:rgba(101,161,155,.15);
+  padding:6px 13px;border-radius:20px;
+  font-size:.9rem;font-weight:600;
+  margin-bottom:18px;
+}
+h1{font-size:clamp(2.8rem,6vw,5rem);line-height:1;letter-spacing:-1.5px;margin-bottom:20px}
+.hero p{max-width:720px;color:var(--gris);font-size:1.2rem}
+.progress{
+  margin-top:30px;display:flex;flex-wrap:wrap;gap:9px
+}
+.progress span{
+  padding:6px 11px;border:1px solid var(--borde);border-radius:20px;
+  background:#fff;color:var(--gris);font-size:.88rem
+}
+section{padding:80px 7%}
+.section-soft{background:var(--gris-claro)}
+.section-title{font-size:2.4rem;line-height:1.1;margin-bottom:14px}
+.section-intro{max-width:720px;color:var(--gris);margin-bottom:38px}
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px
+}
+.card{
+  border:1px solid var(--borde);border-radius:14px;padding:25px;background:#fff
+}
+.card h3{color:var(--azul);font-size:1.35rem;margin-bottom:9px}
+.formula{
+  background:var(--azul-claro);border-left:4px solid var(--verde);
+  border-radius:8px;padding:18px 20px;margin:18px 0;overflow-x:auto
+}
+.note{
+  background:#fff;border:1px solid var(--borde);border-radius:10px;
+  padding:15px 18px;margin-top:18px;color:var(--gris)
+}
+.interactive{
+  display:grid;grid-template-columns:340px 1fr;gap:28px;align-items:start
+}
+.controls{
+  border:1px solid var(--borde);border-radius:14px;padding:25px;background:#fff
+}
+.field{margin-bottom:18px}
+.field label{display:block;font-weight:600;margin-bottom:6px}
+input,select{
+  width:100%;padding:10px 12px;border:1px solid #C9D6DB;border-radius:8px;
+  font:inherit;background:#fff
+}
+button{
+  border:0;border-radius:8px;padding:11px 17px;
+  background:var(--azul);color:#fff;font:inherit;font-weight:600;cursor:pointer
+}
+button:hover{background:var(--azul-oscuro)}
+.results{
+  margin-top:20px;display:grid;gap:9px
+}
+.result{
+  padding:10px 12px;background:var(--gris-claro);border-radius:8px
+}
+.result strong{color:var(--azul)}
+.graph-wrap{
+  border:1px solid var(--borde);border-radius:14px;padding:18px;background:#fff
+}
+svg{width:100%;height:auto;display:block}
+.exercise{
+  border:1px solid var(--borde);border-radius:14px;padding:24px;background:#fff;
+  margin-bottom:18px
+}
+.exercise h3{margin-bottom:10px;color:var(--azul)}
+.feedback{margin-top:12px;font-weight:600;min-height:26px}
+.correct{color:#26705F}
+.incorrect{color:#A33A3A}
+.footer-nav{
+  display:flex;justify-content:space-between;gap:15px;margin-top:35px;
+}
+.footer-nav a{
+  display:inline-block;padding:12px 17px;border-radius:8px;
+  text-decoration:none;background:var(--azul);color:#fff;font-weight:600
+}
+footer{
+  background:var(--azul-oscuro);color:#fff;text-align:center;padding:35px 7%;
+}
+footer p{opacity:.8}
+@media(max-width:800px){
+  .nav-links{display:none}
+  .interactive{grid-template-columns:1fr}
+  section{padding:60px 6%}
+  .hero{padding:65px 6%}
+  .footer-nav{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Especiales II</a>
+  <div class="nav-links">
+    <a href="#conceptos">Conceptos</a>
+    <a href="#visualizacion">Visualización</a>
+    <a href="#moivre">Moivre</a>
+    <a href="#raices">Raíces</a>
+    <a href="#practica">Practica</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Módulo 01 · Números Complejos</span>
+    <h1>Del número al plano complejo</h1>
+    <p>
+      Construye una representación geométrica de los números complejos,
+      comprende su módulo y argumento, y utiliza las formas polar y exponencial
+      para operar, calcular potencias y encontrar raíces.
+    </p>
+    <div class="progress">
+      <span>01 · Conceptos</span>
+      <span>02 · Representación</span>
+      <span>03 · Argumento</span>
+      <span>04 · Moivre</span>
+      <span>05 · Raíces</span>
+      <span>06 · Propiedades</span>
+      <span>07 · Practica</span>
+    </div>
+  </div>
+</header>
+
+<section id="conceptos">
+  <div class="container">
+    <h2 class="section-title">1. Conceptos fundamentales</h2>
+    <p class="section-intro">
+      Un número complejo se expresa como \(z=x+iy\), donde \(x\) e \(y\) son
+      números reales e \(i=\sqrt{-1}\).
+    </p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Forma cartesiana</h3>
+        <p>
+          La parte real es \(\operatorname{Re}(z)=x\) y la parte imaginaria es
+          \(\operatorname{Im}(z)=y\).
+        </p>
+        <div class="formula">\[
+          z=x+iy
+        \]</div>
+      </article>
+
+      <article class="card">
+        <h3>Conjugado</h3>
+        <p>
+          El conjugado se obtiene cambiando el signo de la parte imaginaria.
+        </p>
+        <div class="formula">\[
+          \overline z=x-iy
+        \]</div>
+      </article>
+
+      <article class="card">
+        <h3>Producto</h3>
+        <p>
+          Para \(z_1=x_1+iy_1\) y \(z_2=x_2+iy_2\), se multiplican y se usa
+          \(i^2=-1\).
+        </p>
+        <div class="formula">\[
+          z_1z_2=(x_1x_2-y_1y_2)+i(x_1y_2+x_2y_1)
+        \]</div>
+      </article>
+    </div>
+
+    <div class="note">
+      <strong>Idea clave:</strong> el número complejo no es solamente una
+      expresión algebraica; también puede interpretarse como un punto o vector
+      en el plano cartesiano.
+    </div>
+  </div>
+</section>
+
+<section id="visualizacion" class="section-soft">
+  <div class="container">
+    <h2 class="section-title">2. Explora un número complejo</h2>
+    <p class="section-intro">
+      Cambia \(x\) e \(y\). La visualización muestra el punto
+      \(z=x+iy\), su módulo y su argumento principal.
+    </p>
+
+    <div class="interactive">
+      <div class="controls">
+        <div class="field">
+          <label for="x">Parte real \(x\)</label>
+          <input id="x" type="number" step="0.1" value="3">
+        </div>
+        <div class="field">
+          <label for="y">Parte imaginaria \(y\)</label>
+          <input id="y" type="number" step="0.1" value="2">
+        </div>
+        <button onclick="actualizarComplejo()">Actualizar</button>
+
+        <div class="results">
+          <div class="result"><strong>z:</strong> <span id="zOut"></span></div>
+          <div class="result"><strong>|z|:</strong> <span id="modOut"></span></div>
+          <div class="result"><strong>Arg(z):</strong> <span id="argOut"></span></div>
+          <div class="result"><strong>Forma polar:</strong> <span id="polarOut"></span></div>
+          <div class="result"><strong>Forma exponencial:</strong> <span id="expOut"></span></div>
+        </div>
+      </div>
+
+      <div class="graph-wrap">
+        <svg id="complexPlane" viewBox="0 0 600 500" aria-label="Plano complejo interactivo"></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">3. Módulo y argumento</h2>
+    <p class="section-intro">
+      Si \(z=x+iy\), su representación \(z=r(\cos\alpha+i\sin\alpha)\)
+      relaciona la geometría del plano con su forma trigonométrica.
+    </p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Módulo</h3>
+        <p>Es la distancia desde el origen hasta el punto que representa a \(z\).</p>
+        <div class="formula">\[
+          |z|=r=\sqrt{x^2+y^2}
+        \]</div>
+      </article>
+
+      <article class="card">
+        <h3>Argumento</h3>
+        <p>
+          El argumento describe el ángulo que forma el vector con el eje real
+          positivo.
+        </p>
+        <div class="formula">\[
+          \alpha=\arg(z)
+        \]</div>
+      </article>
+
+      <article class="card">
+        <h3>Argumento principal</h3>
+        <p>
+          En las notas se toma el argumento principal en el intervalo
+          \((-\pi,\pi]\).
+        </p>
+        <div class="formula">\[
+          \operatorname{Arg}(z)=\arg(z)+2\pi k
+        \]</div>
+      </article>
+    </div>
+
+    <div class="note">
+      <strong>Atención:</strong> para determinar correctamente el argumento a
+      partir de \(x\) e \(y\), no basta con mirar solamente
+      \(\tan^{-1}(y/x)\); también hay que considerar el cuadrante.
+    </div>
+  </div>
+</section>
+
+<section id="moivre" class="section-soft">
+  <div class="container">
+    <h2 class="section-title">4. Forma polar y teorema de Moivre</h2>
+    <p class="section-intro">
+      La forma polar permite convertir productos y potencias en operaciones
+      sobre módulos y ángulos.
+    </p>
+
+    <div class="formula">
+      \[
+      z=r(\cos\theta+i\sin\theta)=re^{i\theta}
+      \]
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Producto</h3>
+        <div class="formula">\[
+          z_1z_2=r_1r_2e^{i(\theta_1+\theta_2)}
+        \]</div>
+      </article>
+
+      <article class="card">
+        <h3>Cociente</h3>
+        <div class="formula">\[
+          \frac{z_1}{z_2}=
+          \frac{r_1}{r_2}e^{i(\theta_1-\theta_2)}
+        \]</div>
+      </article>
+
+      <article class="card">
+        <h3>Moivre</h3>
+        <div class="formula">\[
+          (\cos\theta+i\sin\theta)^n
+          =\cos(n\theta)+i\sin(n\theta)
+        \]</div>
+      </article>
+    </div>
+
+    <div class="note">
+      <strong>Interpretación geométrica:</strong> elevar a una potencia \(n\)
+      eleva el módulo a \(r^n\) y multiplica el argumento por \(n\).
+    </div>
+  </div>
+</section>
+
+<section id="raices">
+  <div class="container">
+    <h2 class="section-title">5. Raíces de números complejos</h2>
+    <p class="section-intro">
+      Si \(z=re^{i\alpha}\), las \(n\) raíces se obtienen variando
+      \(k=0,1,\ldots,n-1\).
+    </p>
+
+    <div class="formula">
+      \[
+      z_k^{1/n}=r^{1/n}
+      \left[
+      \cos\left(\frac{\alpha+2\pi k}{n}\right)
+      +i\sin\left(\frac{\alpha+2\pi k}{n}\right)
+      \right]
+      \]
+    </div>
+
+    <div class="interactive">
+      <div class="controls">
+        <div class="field">
+          <label for="rx">Parte real de \(z\)</label>
+          <input id="rx" type="number" step="0.1" value="1">
+        </div>
+        <div class="field">
+          <label for="ry">Parte imaginaria de \(z\)</label>
+          <input id="ry" type="number" step="0.1" value="0">
+        </div>
+        <div class="field">
+          <label for="nRoots">Índice de la raíz \(n\)</label>
+          <select id="nRoots">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected>4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </div>
+        <button onclick="actualizarRaices()">Mostrar raíces</button>
+        <div class="results" id="rootsResults"></div>
+      </div>
+
+      <div class="graph-wrap">
+        <svg id="rootsPlane" viewBox="0 0 600 500" aria-label="Raíces de un número complejo"></svg>
+      </div>
+    </div>
+
+    <div class="note">
+      Las notas señalan que las raíces corresponden a los vértices de un
+      polígono regular inscrito en una circunferencia de radio constante
+      \(r^{1/n}\).
+    </div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="container">
+    <h2 class="section-title">6. Propiedades que debes reconocer</h2>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Conjugación y módulo</h3>
+        <div class="formula">\[
+          z\overline z=|z|^2
+        \]</div>
+      </article>
+
+      <article class="card">
+        <h3>Producto de módulos</h3>
+        <div class="formula">\[
+          |z_1z_2|=|z_1||z_2|
+        \]</div>
+      </article>
+
+      <article class="card">
+        <h3>Representación</h3>
+        <p>
+          \(z=x+iy\) corresponde al par ordenado \((x,y)\), con
+          \(x=\operatorname{Re}(z)\) y \(y=\operatorname{Im}(z)\).
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="practica">
+  <div class="container">
+    <h2 class="section-title">7. Comprueba lo que aprendiste</h2>
+    <p class="section-intro">
+      Estos ejercicios retoman habilidades trabajadas en el primer capítulo:
+      módulo, argumento y forma trigonométrica.
+    </p>
+
+    <article class="exercise">
+      <h3>Ejercicio 1 · Módulo</h3>
+      <p>¿Cuál es el módulo de \(z=3+4i\)?</p>
+      <div class="field" style="max-width:300px;margin-top:14px">
+        <input id="q1" type="number" step="0.1" placeholder="Escribe tu respuesta">
+      </div>
+      <button onclick="check(1)">Comprobar</button>
+      <div id="f1" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 2 · Argumento</h3>
+      <p>
+        Para \(z=1+i\), ¿cuál es su argumento principal en radianes?
+      </p>
+      <div class="field" style="max-width:300px;margin-top:14px">
+        <select id="q2">
+          <option value="">Selecciona</option>
+          <option value="pi/6">π/6</option>
+          <option value="pi/4">π/4</option>
+          <option value="pi/2">π/2</option>
+          <option value="3pi/4">3π/4</option>
+        </select>
+      </div>
+      <button onclick="check(2)">Comprobar</button>
+      <div id="f2" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 3 · Moivre</h3>
+      <p>
+        Si \(z=2e^{i\pi/3}\), ¿cuál es el módulo de \(z^3\)?
+      </p>
+      <div class="field" style="max-width:300px;margin-top:14px">
+        <input id="q3" type="number" step="0.1" placeholder="Escribe tu respuesta">
+      </div>
+      <button onclick="check(3)">Comprobar</button>
+      <div id="f3" class="feedback"></div>
+    </article>
+
+    <div class="footer-nav">
+      <a href="index.html">← Volver al inicio</a>
+      <a href="#conceptos">Volver al comienzo ↑</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Matemáticas Especiales II · Módulo 1: Números Complejos</p>
+</footer>
+
+<script>
+function fmt(n){
+  return Number.isFinite(n) ? n.toFixed(3).replace(/\.?0+$/,'') : '—';
+}
+function degToPi(a){
+  let q=a/Math.PI;
+  return (Math.abs(q) < 1e-10 ? '0' : q.toFixed(3).replace(/\.?0+$/,'') + 'π');
+}
+function drawPlane(svgId,x,y,extraPoints=[]){
+  const svg=document.getElementById(svgId);
+  const W=600,H=500,cx=300,cy=250,s=55;
+  let out='';
+  out += '<rect x="0" y="0" width="600" height="500" rx="10" fill="#fff"/>';
+  for(let i=-5;i<=5;i++){
+    let px=cx+i*s, py=cy-i*s;
+    out += `<line x1="${px}" y1="20" x2="${px}" y2="480" stroke="#E6ECEF" stroke-width="1"/>`;
+    out += `<line x1="20" y1="${py}" x2="580" y2="${py}" stroke="#E6ECEF" stroke-width="1"/>`;
+  }
+  out += `<line x1="20" y1="${cy}" x2="580" y2="${cy}" stroke="#003B5C" stroke-width="2"/>`;
+  out += `<line x1="${cx}" y1="20" x2="${cx}" y2="480" stroke="#003B5C" stroke-width="2"/>`;
+  out += `<text x="565" y="${cy-10}" fill="#003B5C" font-size="18">Re</text>`;
+  out += `<text x="${cx+10}" y="35" fill="#003B5C" font-size="18">Im</text>`;
+  out += `<line x1="${cx}" y1="${cy}" x2="${cx+x*s}" y2="${cy-y*s}" stroke="#65A19B" stroke-width="4"/>`;
+  out += `<circle cx="${cx+x*s}" cy="${cy-y*s}" r="7" fill="#65A19B"/>`;
+  out += `<text x="${cx+x*s+10}" y="${cy-y*s-10}" fill="#003B5C" font-size="18">z</text>`;
+  for(const p of extraPoints){
+    let px=cx+p.x*s,py=cy-p.y*s;
+    out += `<circle cx="${px}" cy="${py}" r="6" fill="#003B5C"/>`;
+  }
+  svg.innerHTML=out;
+}
+function actualizarComplejo(){
+  const x=parseFloat(document.getElementById('x').value)||0;
+  const y=parseFloat(document.getElementById('y').value)||0;
+  const r=Math.hypot(x,y);
+  let a=Math.atan2(y,x);
+  if(a<=-Math.PI) a+=2*Math.PI;
+  const sign=y>=0?'+':'−';
+  document.getElementById('zOut').textContent=`${fmt(x)} ${sign} ${fmt(Math.abs(y))}i`;
+  document.getElementById('modOut').textContent=fmt(r);
+  document.getElementById('argOut').textContent=`${fmt(a)} rad (${degToPi(a)})`;
+  document.getElementById('polarOut').textContent=`${fmt(r)}[cos(${fmt(a)}) + i sin(${fmt(a)})]`;
+  document.getElementById('expOut').textContent=`${fmt(r)}e^{i(${fmt(a)})}`;
+  drawPlane('complexPlane',x,y);
+}
+function actualizarRaices(){
+  const x=parseFloat(document.getElementById('rx').value)||0;
+  const y=parseFloat(document.getElementById('ry').value)||0;
+  const n=parseInt(document.getElementById('nRoots').value);
+  const r=Math.hypot(x,y);
+  const a=Math.atan2(y,x);
+  const rr=Math.pow(r,1/n);
+  let points=[], html='';
+  for(let k=0;k<n;k++){
+    const ak=(a+2*Math.PI*k)/n;
+    const xr=rr*Math.cos(ak), yi=rr*Math.sin(ak);
+    points.push({x:xr,y:yi});
+    html += `<div class="result"><strong>k=${k}:</strong> ${fmt(xr)} ${yi>=0?'+':'−'} ${fmt(Math.abs(yi))}i</div>`;
+  }
+  document.getElementById('rootsResults').innerHTML=html;
+  drawPlane('rootsPlane',0,0,points);
+}
+function check(n){
+  let correct=false, msg='';
+  if(n===1){
+    const v=parseFloat(document.getElementById('q1').value);
+    correct=Math.abs(v-5)<0.01;
+    msg=correct?'Correcto: |3+4i|=5.':'Revisa: |z|=√(x²+y²).';
+  }
+  if(n===2){
+    const v=document.getElementById('q2').value;
+    correct=v==='pi/4';
+    msg=correct?'Correcto: Arg(1+i)=π/4.':'Observa el punto (1,1) en el primer cuadrante.';
+  }
+  if(n===3){
+    const v=parseFloat(document.getElementById('q3').value);
+    correct=Math.abs(v-8)<0.01;
+    msg=correct?'Correcto: el módulo se eleva a la potencia 3, 2³=8.':'Recuerda: |z^n|=|z|^n.';
+  }
+  const el=document.getElementById('f'+n);
+  el.textContent=msg;
+  el.className='feedback '+(correct?'correct':'incorrect');
+}
+actualizarComplejo();
+actualizarRaices();
+</script>
+
+</body>
+</html>
