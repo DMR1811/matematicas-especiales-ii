@@ -305,6 +305,12 @@ footer p{margin:5px 0;opacity:.82}
   .final-actions{padding:0 6%}
   .page-button{padding:12px 15px;font-size:.92rem}
 }
+
+.formula-center{
+  text-align:center;
+  font-size:1.08rem;
+}
+.plain-formula{font-size:1.08em;font-weight:500;white-space:nowrap;}
 </style>
 </head>
 
@@ -358,7 +364,7 @@ footer p{margin:5px 0;opacity:.82}
         frontera es aquel cuyas vecindades contienen puntos interiores y
         exteriores del conjunto.
       </p>
-      <div class="formula">\[B_r(z_0)=\{z\in\mathbb{C}: |z-z_0|<r\}\]</div>
+      <div class="formula formula-center"><span class="plain-formula">B<sub>r</sub>(z<sub>0</sub>) = { z ∈ ℂ : |z − z<sub>0</sub>| &lt; r }</span></div>
     </div>
 
     <div class="card">
@@ -1046,6 +1052,8 @@ function checkE2(){
 }
 checkDisk(); drawContour();
 </script>
+
+
 
 </body>
 </html>
