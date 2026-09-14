@@ -836,9 +836,11 @@ footer p{margin:5px 0;opacity:.82}
   <div class="exercise" style="margin-top:18px">
     <span class="small">Ejercicio 2 · Derivada</span>
     <h3>Calcula \(f'(z)\) para \(f(z)=z^4-2z\)</h3>
-    <div class="controls">
-      <div class="field"><label for="ans2">Respuesta</label><input id="ans2" type="text" placeholder="Escribe la derivada"></div>
-      <button onclick="checkE2()">Comprobar</button>
+    <p>Selecciona la derivada correcta.</p>
+    <div class="choice-grid">
+      <button class="choice" onclick="choice(this,'e2',true)">\(4z^3-2\)</button>
+      <button class="choice" onclick="choice(this,'e2',false)">\(4z^3-2z\)</button>
+      <button class="choice" onclick="choice(this,'e2',false)">\(z^3-2\)</button>
     </div>
     <div id="e2" class="feedback"></div>
   </div>
