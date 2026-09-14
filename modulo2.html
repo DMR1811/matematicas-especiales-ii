@@ -37,7 +37,7 @@ nav a{color:var(--gris);text-decoration:none}
 h1{font-size:clamp(2.7rem,6vw,5rem);line-height:1;letter-spacing:-1.5px;margin-bottom:20px}
 .hero p{max-width:760px;color:var(--gris);font-size:1.2rem}
 .progress{margin-top:30px;display:flex;flex-wrap:wrap;gap:9px}
-.progress span{padding:6px 11px;border:1px solid var(--borde);border-radius:20px;background:#fff;color:var(--gris);font-size:.88rem}
+.progress a{padding:6px 11px;border:1px solid var(--borde);border-radius:20px;background:#fff;color:var(--gris);font-size:.88rem;text-decoration:none;transition:background .2s,color .2s,border-color .2s}.progress a:hover{background:var(--azul-claro);color:var(--azul);border-color:var(--verde)}
 section{padding:80px 7%}.section-soft{background:var(--gris-claro)}
 .section-title{font-size:2.35rem;line-height:1.1;margin-bottom:14px}.section-intro{max-width:780px;color:var(--gris);margin-bottom:38px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
@@ -69,7 +69,15 @@ button:hover{opacity:.9}
 .challenge{border:2px solid var(--verde);border-radius:16px;padding:28px;background:linear-gradient(135deg,#fff,#F2F8F7);margin-top:22px}
 .footer{background:var(--azul-oscuro);color:#fff;padding:40px 7%;text-align:center}
 .footer a{color:#fff}.footer p{opacity:.82}
+
 .small{font-size:.92rem;color:var(--gris)}
+.page-actions{max-width:1100px;margin:0 auto;display:grid;gap:18px;padding:22px 7% 0}
+.page-button{display:block;background:var(--azul);color:#fff;text-decoration:none;border-radius:10px;padding:14px 22px;font-weight:700}
+.page-button:hover{opacity:.92}
+.page-button.secondary{background:var(--azul)}
+.source-note{margin-top:28px;padding:18px 20px;border-left:4px solid var(--verde);background:#fff;border:1px solid var(--borde);border-left-width:4px;border-radius:8px;color:var(--gris)}
+.final-actions{max-width:1100px;margin:0 auto;padding:20px 7% 70px;display:grid;gap:18px}
+
 @media(max-width:800px){
  nav{align-items:flex-start;gap:10px}.nav-links{display:none}
  .interactive{grid-template-columns:1fr} section{padding:60px 6%}.hero{padding:65px 6%}
@@ -90,8 +98,13 @@ button:hover{opacity:.9}
     <a href="#practica">Práctica</a>
   </div>
 </nav>
+<div class="page-actions top-actions">
+  <a class="page-button" href="index.html">← Volver al inicio</a>
+  <a class="page-button secondary" href="#comienzo">Volver al comienzo ↑</a>
+</div>
 
-<header class="hero">
+
+<header class="hero" id="comienzo">
   <div class="hero-inner">
     <span class="eyebrow">Módulo 02 · Funciones Complejas</span>
     <h1>Del plano \(z\) al plano \(w\)</h1>
@@ -101,10 +114,23 @@ button:hover{opacity:.9}
       estudiar secuencias y series, y trabajar con las funciones exponencial,
       trigonométricas, hiperbólicas y logaritmo.
     </p>
+    <div class="source-note">
+      <strong>Fuente base:</strong> contenido elaborado a partir de las
+      <em>Notas de Clase: Matemáticas Especiales II para Física</em>,
+      de <strong>William Herrera y Herbert Vinck Posada</strong>,
+      docentes del Departamento de Física de la Universidad Nacional de Colombia.
+    </div>
     <div class="progress">
-      <span>01 · Funciones</span><span>02 · Mapeos</span><span>03 · Secuencias</span>
-      <span>04 · Series</span><span>05 · Exponencial</span><span>06 · Trigonométricas</span>
-      <span>07 · Logaritmo</span><span>08 · Práctica</span>
+      <a href="#funciones">01 · Funciones</a>
+      <a href="#mapeos">02 · Mapeos</a>
+      <a href="#uiv">03 · Forma \(u+iv\)</a>
+      <a href="#secuencias">04 · Secuencias</a>
+      <a href="#series">05 · Series</a>
+      <a href="#exponencial">06 · Exponencial</a>
+      <a href="#trig">07 · Trigonométricas</a>
+      <a href="#log">08 · Logaritmo</a>
+      <a href="#practica">09 · Práctica</a>
+      <a href="#ejercicios">10 · Ejercicios varios</a>
     </div>
   </div>
 </header>
@@ -175,7 +201,7 @@ y observa cómo se mueve su imagen.
 </div>
 </section>
 
-<section>
+<section id="uiv">
 <div class="container">
 <h2 class="section-title">3. Escribir \(f(z)\) como \(u+iv\)</h2>
 <p class="section-intro">Para estudiar una función compleja en coordenadas reales, sustituye \(z=x+iy\) y separa parte real e imaginaria.</p>
@@ -231,7 +257,7 @@ z_n=\frac{i\sin(n\pi/4)}{n}
 </div>
 </section>
 
-<section>
+<section id="series">
 <div class="container">
 <h2 class="section-title">5. Series complejas</h2>
 <p class="section-intro">Las series complejas se estudian mediante sumas parciales y criterios de convergencia. La serie exponencial es especialmente importante porque converge para todo \(z\).</p>
@@ -499,16 +525,111 @@ Considera \(f(z)=(-1-i\sqrt3)z\). El factor puede escribirse como
 <button class="choice" onclick="checkChoice(this,'reto2',false)">\(e^{\pi}\)</button>
 </div><div id="reto2" class="feedback"></div>
 </div>
- <div class="footer-nav">
-      <a href="index.html">← Volver al inicio</a>
-      <a href="#conceptos">Volver al comienzo ↑</a>
-    </div>
 
 </div>
 </section>
 
-<footer>
-  <p>Matemáticas Especiales II · Módulo 2: Funciones Complejas</p>
+
+<section id="ejercicios" class="section-soft">
+  <div class="container">
+    <h2 class="section-title">10. Ejercicios varios</h2>
+    <p class="section-intro">
+      Una colección final de problemas mixtos para integrar los conceptos del módulo.
+      Esta sección puede ampliarse con ejercicios de parciales anteriores de la asignatura.
+    </p>
+
+    <div class="exercise">
+      <span class="tag">Ejercicio 1 · Evaluación</span>
+      <h3>Calcula \(f(1-i)\)</h3>
+      <p>Si \(f(z)=z^2+2z+1\), determina \(f(1-i)\).</p>
+      <div class="answer-row">
+        <input id="v1" type="text" placeholder="Escribe a+bi">
+        <button onclick="checkV1()">Comprobar</button>
+      </div>
+      <div id="vfb1" class="feedback"></div>
+    </div>
+
+    <div class="exercise">
+      <span class="tag">Ejercicio 2 · Mapeo</span>
+      <h3>Identifica la transformación</h3>
+      <p>¿Qué transformación representa \(w=-2z\)?</p>
+      <div class="choice-grid">
+        <button class="choice" onclick="checkChoice(this,'vfb2',false)">Traslación de 2 unidades</button>
+        <button class="choice" onclick="checkChoice(this,'vfb2',true)">Rotación de \(\pi\) y ampliación por 2</button>
+        <button class="choice" onclick="checkChoice(this,'vfb2',false)">Reflexión respecto al eje real</button>
+      </div>
+      <div id="vfb2" class="feedback"></div>
+    </div>
+
+    <div class="exercise">
+      <span class="tag">Ejercicio 3 · Convergencia</span>
+      <h3>Determina el límite</h3>
+      <p>Encuentra \(\displaystyle\lim_{n\to\infty}\frac{3-i}{n}\).</p>
+      <div class="answer-row">
+        <input id="v3" type="text" placeholder="Escribe el límite">
+        <button onclick="checkV3()">Comprobar</button>
+      </div>
+      <div id="vfb3" class="feedback"></div>
+    </div>
+
+    <div class="exercise">
+      <span class="tag">Ejercicio 4 · Series</span>
+      <h3>Radio de convergencia</h3>
+      <p>Para \(\displaystyle\sum_{n=1}^{\infty}\frac{z^n}{3^n}\), ¿cuál es el radio de convergencia?</p>
+      <div class="choice-grid">
+        <button class="choice" onclick="checkChoice(this,'vfb4',false)">\(R=1/3\)</button>
+        <button class="choice" onclick="checkChoice(this,'vfb4',true)">\(R=3\)</button>
+        <button class="choice" onclick="checkChoice(this,'vfb4',false)">\(R=9\)</button>
+      </div>
+      <div id="vfb4" class="feedback"></div>
+    </div>
+
+    <div class="exercise">
+      <span class="tag">Ejercicio 5 · Exponencial</span>
+      <h3>Calcula una exponencial compleja</h3>
+      <p>Determina \(e^{i\pi}\).</p>
+      <div class="choice-grid">
+        <button class="choice" onclick="checkChoice(this,'vfb5',false)">\(1\)</button>
+        <button class="choice" onclick="checkChoice(this,'vfb5',true)">\(-1\)</button>
+        <button class="choice" onclick="checkChoice(this,'vfb5',false)">\(i\)</button>
+      </div>
+      <div id="vfb5" class="feedback"></div>
+    </div>
+
+    <div class="exercise">
+      <span class="tag">Ejercicio 6 · Logaritmo</span>
+      <h3>Valor principal</h3>
+      <p>Determina \(\operatorname{Log}(1)\).</p>
+      <div class="choice-grid">
+        <button class="choice" onclick="checkChoice(this,'vfb6',true)">\(0\)</button>
+        <button class="choice" onclick="checkChoice(this,'vfb6',false)">\(2\pi i\)</button>
+        <button class="choice" onclick="checkChoice(this,'vfb6',false)">\(\pi i\)</button>
+      </div>
+      <div id="vfb6" class="feedback"></div>
+    </div>
+
+    <div class="challenge">
+      <span class="tag">Reto integrador</span>
+      <h3>Conecta varios conceptos</h3>
+      <p>
+        Escribe \(1+i\) en forma polar y utiliza esa representación para calcular
+        \((1+i)^4\). Explica qué ocurre con el módulo y el argumento.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<div class="final-actions">
+  <a class="page-button" href="index.html">← Volver al inicio</a>
+  <a class="page-button secondary" href="#comienzo">Volver al comienzo ↑</a>
+</div>
+
+<footer class="footer">
+<p><strong>Matemáticas Especiales II</strong></p>
+<p>Recurso interactivo de aprendizaje · Módulo 02 · Funciones Complejas</p>
+<p class="small" style="color:#fff;opacity:.72">Contenido basado en las Notas de Clase de William Herrera y Herbert Vinck Posada · Universidad Nacional de Colombia</p>
+<p><a href="index.html">← Volver a la ruta de aprendizaje</a></p>
 </footer>
 
 <script>
@@ -624,6 +745,22 @@ function checkChoice(btn,id,correct){
   const pair=explanations[id];
   box.innerHTML=correct?pair[0]:pair[1];
 }
+
+function checkV1(){
+  const raw=document.getElementById('v1').value.replace(/\s/g,'').replace('j','i');
+  const f=document.getElementById('vfb1');
+  const ok=raw==='3-4i' || raw==='3-4*i';
+  f.className='feedback '+(ok?'ok':'bad');
+  f.innerHTML=ok?'✓ Correcto. \(f(1-i)=(1-i)^2+2(1-i)+1=3-4i\).':'✗ Revisa: \((1-i)^2=-2i\); luego suma \(2-2i\) y finalmente \(1\).';
+}
+function checkV3(){
+  const raw=document.getElementById('v3').value.trim().replace(/\s/g,'');
+  const f=document.getElementById('vfb3');
+  const ok=['0','0+0i','0i'].includes(raw);
+  f.className='feedback '+(ok?'ok':'bad');
+  f.innerHTML=ok?'✓ Correcto. Cada parte real e imaginaria tiende a 0.':'✗ Divide por \(n\): tanto \(3/n\) como \(-1/n\) tienden a 0.';
+}
+
 actualizarMapeo();graficarSecuencia();actualizarExp();
 </script>
 </body>
