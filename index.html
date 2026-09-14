@@ -442,12 +442,42 @@
         footer p {
             opacity: 0.8;
         }
+        .footer-contenido {
+    max-width: 1150px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 30px;
+}
+
+.footer-gea {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-gea img {
+    width: 120px;
+    height: auto;
+    display: block;
+}
 
         /* =========================
            RESPONSIVE
         ========================= */
 
         @media (max-width: 800px) {
+            .footer-contenido {
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-gea {
+    flex-direction: column;
+}
 
             nav {
                 padding: 15px 5%;
@@ -884,13 +914,30 @@
          FOOTER
     ========================= -->
 
-    <footer>
+  <footer>
 
-        <p>
-            Matemáticas Especiales II · Recurso de aprendizaje
-        </p>
+    <div class="footer-contenido">
 
-    </footer>
+        <div>
+            <p>
+                Matemáticas Especiales II · Recurso de aprendizaje
+            </p>
+        </div>
+
+        <div class="footer-gea">
+
+            <span>Grupos de Estudio Autónomo</span>
+
+            <img 
+                src="logo-gea.png" 
+                alt="Logo Grupos de Estudio Autónomo"
+            >
+
+        </div>
+
+    </div>
+
+</footer>
 
 
 </body>
