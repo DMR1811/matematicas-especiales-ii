@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 2 · Funciones Complejas | Matemáticas Especiales II</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:wght@100;200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'], ['$', '$']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root{
+  --azul:#003B5C; --azul-oscuro:#00263A; --azul-claro:#EAF3F7;
+  --verde:#65A19B; --gris:#5F6B73; --gris-claro:#F5F7F8;
+  --blanco:#fff; --borde:#DDE6EA; --correcto:#2E7D62; --error:#A63D40;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Ancizar Sans",sans-serif;color:var(--azul-oscuro);background:#fff;line-height:1.65}
+nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--borde);
+backdrop-filter:blur(8px);padding:15px 7%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.2rem;font-weight:700;color:var(--azul);text-decoration:none}
+nav a{color:var(--gris);text-decoration:none}
+.nav-links{display:flex;gap:22px;font-weight:500;flex-wrap:wrap;justify-content:flex-end}
+.hero{padding:85px 7% 75px;background:linear-gradient(135deg,#F7FAFB 0%,#EAF3F7 100%)}
+.hero-inner,.container{max-width:1100px;margin:auto}
+.eyebrow{display:inline-block;color:var(--azul);background:rgba(101,161,155,.15);padding:6px 13px;border-radius:20px;font-size:.9rem;font-weight:600;margin-bottom:18px}
+h1{font-size:clamp(2.7rem,6vw,5rem);line-height:1;letter-spacing:-1.5px;margin-bottom:20px}
+.hero p{max-width:760px;color:var(--gris);font-size:1.2rem}
+.progress{margin-top:30px;display:flex;flex-wrap:wrap;gap:9px}
+.progress span{padding:6px 11px;border:1px solid var(--borde);border-radius:20px;background:#fff;color:var(--gris);font-size:.88rem}
+section{padding:80px 7%}.section-soft{background:var(--gris-claro)}
+.section-title{font-size:2.35rem;line-height:1.1;margin-bottom:14px}.section-intro{max-width:780px;color:var(--gris);margin-bottom:38px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.card{border:1px solid var(--borde);border-radius:14px;padding:25px;background:#fff}
+.card h3{color:var(--azul);font-size:1.35rem;margin-bottom:9px}
+.formula{background:var(--azul-claro);border-left:4px solid var(--verde);border-radius:8px;padding:18px 20px;margin:18px 0;overflow-x:auto}
+.note{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:15px 18px;margin-top:18px;color:var(--gris)}
+.interactive{display:grid;grid-template-columns:340px 1fr;gap:28px;align-items:start}
+.controls{border:1px solid var(--borde);border-radius:14px;padding:24px;background:#fff}
+.field{margin-bottom:15px}.field label{display:block;font-weight:600;margin-bottom:5px}
+input,select{width:100%;padding:10px 12px;border:1px solid #C9D5DA;border-radius:8px;font:inherit;background:#fff}
+button{border:0;border-radius:8px;background:var(--azul);color:#fff;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer}
+button:hover{opacity:.9}
+.results{margin-top:18px;display:grid;gap:9px}.result{background:var(--gris-claro);padding:9px 12px;border-radius:8px}
+.result strong{color:var(--azul)}
+.graph-wrap{border:1px solid var(--borde);border-radius:14px;padding:18px;background:#fff}
+#mappingPlane,#sequencePlot,#expPlane{width:100%;height:auto;display:block}
+.exercise{border:1px solid var(--borde);border-radius:14px;padding:24px;background:#fff;margin-bottom:18px}
+.exercise h3{margin-bottom:10px;color:var(--azul)}
+.exercise p{margin-bottom:13px}
+.exercise .answer-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.feedback{margin-top:13px;padding:12px 14px;border-radius:9px;display:none}
+.feedback.ok{display:block;background:#EDF7F2;color:var(--correcto);border:1px solid #CBE8D9}
+.feedback.bad{display:block;background:#FFF0F0;color:var(--error);border:1px solid #EBCBCD}
+.choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.choice{border:1px solid var(--borde);background:#fff;color:var(--azul-oscuro);text-align:left}
+.choice.selected{border-color:var(--verde);background:var(--azul-claro)}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--verde);margin-bottom:8px}
+.challenge{border:2px solid var(--verde);border-radius:16px;padding:28px;background:linear-gradient(135deg,#fff,#F2F8F7);margin-top:22px}
+.footer{background:var(--azul-oscuro);color:#fff;padding:40px 7%;text-align:center}
+.footer a{color:#fff}.footer p{opacity:.82}
+.small{font-size:.92rem;color:var(--gris)}
+@media(max-width:800px){
+ nav{align-items:flex-start;gap:10px}.nav-links{display:none}
+ .interactive{grid-template-columns:1fr} section{padding:60px 6%}.hero{padding:65px 6%}
+}
+</style>
+</head>
+
+<body>
+<nav>
+  <a href="index.html" class="logo">Especiales II</a>
+  <div class="nav-links">
+    <a href="#funciones">Funciones</a>
+    <a href="#mapeos">Mapeos</a>
+    <a href="#secuencias">Secuencias</a>
+    <a href="#exponencial">Exponencial</a>
+    <a href="#trig">Trigonométricas</a>
+    <a href="#log">Logaritmo</a>
+    <a href="#practica">Práctica</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Módulo 02 · Funciones Complejas</span>
+    <h1>Del plano \(z\) al plano \(w\)</h1>
+    <p>
+      Una función compleja transforma puntos del plano \(z\) en puntos del plano \(w\).
+      En este módulo aprenderás a evaluar funciones, interpretar transformaciones,
+      estudiar secuencias y series, y trabajar con las funciones exponencial,
+      trigonométricas, hiperbólicas y logaritmo.
+    </p>
+    <div class="progress">
+      <span>01 · Funciones</span><span>02 · Mapeos</span><span>03 · Secuencias</span>
+      <span>04 · Series</span><span>05 · Exponencial</span><span>06 · Trigonométricas</span>
+      <span>07 · Logaritmo</span><span>08 · Práctica</span>
+    </div>
+  </div>
+</header>
+
+<section id="funciones">
+<div class="container">
+<h2 class="section-title">1. Funciones de variable compleja</h2>
+<p class="section-intro">
+Una función compleja \(f\) asigna a cada \(z\) de su dominio un único valor \(w=f(z)\).
+Es útil pensar en dos planos: el plano \(z\), donde vive la entrada, y el plano \(w\),
+donde observamos la imagen.
+</p>
+
+<div class="grid">
+<article class="card">
+<span class="tag">Idea fundamental</span>
+<h3>Dominio e imagen</h3>
+<p>El <strong>dominio</strong> contiene los valores de \(z\) para los que la función está definida.
+La <strong>imagen</strong> contiene los valores \(w=f(z)\) que realmente toma.</p>
+<div class="formula">\[z=x+iy,\qquad w=f(z)=u+iv\]</div>
+</article>
+<article class="card">
+<span class="tag">Representación</span>
+<h3>Parte real e imaginaria</h3>
+<p>Toda función puede escribirse como dos funciones reales:</p>
+<div class="formula">\[f(z)=u(x,y)+iv(x,y)\]</div>
+<p class="small">Esto permite estudiar el mapeo mediante las coordenadas \(u\) y \(v\).</p>
+</article>
+<article class="card">
+<span class="tag">Ejemplo</span>
+<h3>Función lineal</h3>
+<p>Para \(f(z)=az+b\), el número \(a\) controla una dilatación/contracción y una rotación,
+mientras \(b\) produce una translación.</p>
+<div class="formula">\[f(z)=az+b\]</div>
+</article>
+</div>
+
+<div class="note"><strong>Clave:</strong> multiplicar por un complejo en forma polar cambia el módulo y suma un ángulo; sumar un complejo desplaza la figura.</div>
+</div>
+</section>
+
+<section id="mapeos" class="section-soft">
+<div class="container">
+<h2 class="section-title">2. Laboratorio de mapeos</h2>
+<p class="section-intro">
+Explora la transformación \(w=az+b\). Cambia el punto \(z\), el módulo y el ángulo de \(a\),
+y observa cómo se mueve su imagen.
+</p>
+<div class="interactive">
+<div class="controls">
+<div class="field"><label for="zx">Parte real de \(z\)</label><input id="zx" type="number" step=".1" value="2"></div>
+<div class="field"><label for="zy">Parte imaginaria de \(z\)</label><input id="zy" type="number" step=".1" value="1"></div>
+<div class="field"><label for="am">Módulo de \(a\)</label><input id="am" type="number" step=".1" value="1.5"></div>
+<div class="field"><label for="aa">Ángulo de \(a\) (grados)</label><input id="aa" type="number" step="1" value="45"></div>
+<div class="field"><label for="bx">Parte real de \(b\)</label><input id="bx" type="number" step=".1" value="1"></div>
+<div class="field"><label for="by">Parte imaginaria de \(b\)</label><input id="by" type="number" step=".1" value="-1"></div>
+<button onclick="actualizarMapeo()">Transformar</button>
+<div class="results">
+<div class="result"><strong>z:</strong> <span id="zmap"></span></div>
+<div class="result"><strong>a:</strong> <span id="amap"></span></div>
+<div class="result"><strong>b:</strong> <span id="bmap"></span></div>
+<div class="result"><strong>w=az+b:</strong> <span id="wmap"></span></div>
+<div class="result"><strong>Interpretación:</strong> <span id="imap"></span></div>
+</div>
+</div>
+<div class="graph-wrap"><svg id="mappingPlane" viewBox="0 0 600 500" aria-label="Mapeo complejo"></svg></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<h2 class="section-title">3. Escribir \(f(z)\) como \(u+iv\)</h2>
+<p class="section-intro">Para estudiar una función compleja en coordenadas reales, sustituye \(z=x+iy\) y separa parte real e imaginaria.</p>
+<div class="grid">
+<article class="card"><h3>Ejemplo 1</h3><div class="formula">\[
+f(z)=-4iz+5-3i
+\]</div><p>Con \(z=x+iy\):</p><div class="formula">\[
+f(z)=(4y+5)+i(-4x-3)
+\]</div><p>Por tanto \(u=4y+5\) y \(v=-4x-3\).</p></article>
+<article class="card"><h3>Transformación lineal</h3><div class="formula">\[
+f(z)=az+b
+\]</div><p>Si \(a=re^{i\theta}\), entonces \(a\) escala por \(r\) y rota por \(\theta\); después \(b\) traslada.</p></article>
+<article class="card"><h3>Inversión</h3><div class="formula">\[
+f(z)=\frac1z
+\]</div><p>Es un caso particular de transformación cociente. No es lineal y requiere \(z\neq0\).</p></article>
+</div>
+</div>
+</section>
+
+<section id="secuencias" class="section-soft">
+<div class="container">
+<h2 class="section-title">4. Secuencias de números complejos</h2>
+<p class="section-intro">
+Una secuencia compleja \(\{z_n\}\) converge a \(L\) cuando sus términos se acercan a \(L\)
+en el plano complejo. Podemos estudiar por separado sus partes real e imaginaria.
+</p>
+<div class="grid">
+<article class="card"><h3>Convergencia</h3><div class="formula">\[
+z_n=x_n+iy_n\to L=a+ib
+\]</div><p>Cuando \(x_n\to a\) y \(y_n\to b\).</p></article>
+<article class="card"><h3>Ejemplo</h3><div class="formula">\[
+z_n=\frac{i\sin(n\pi/4)}{n}
+\]</div><p>Como \(|\sin(n\pi/4)|\le1\), se tiene \(|z_n|\le1/n\to0\).</p></article>
+<article class="card"><h3>Serie geométrica</h3><div class="formula">\[
+\sum_{n=0}^{\infty}z^n=\frac1{1-z},\qquad |z|<1
+\]</div><p>Fuera del disco unitario, la serie geométrica no converge.</p></article>
+</div>
+
+<div class="interactive" style="margin-top:28px">
+<div class="controls">
+<div class="field"><label for="seqType">Secuencia</label>
+<select id="seqType" onchange="graficarSecuencia()">
+<option value="1">\(z_n=i/n\)</option>
+<option value="2">\(z_n=(1+i)/n\)</option>
+<option value="3">\(z_n=(-1)^n\)</option>
+<option value="4">\(z_n=e^{in\pi/4}/n\)</option>
+</select></div>
+<button onclick="graficarSecuencia()">Mostrar secuencia</button>
+<div class="results"><div class="result" id="seqText"></div></div>
+</div>
+<div class="graph-wrap"><svg id="sequencePlot" viewBox="0 0 600 500" aria-label="Secuencia en el plano complejo"></svg></div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<h2 class="section-title">5. Series complejas</h2>
+<p class="section-intro">Las series complejas se estudian mediante sumas parciales y criterios de convergencia. La serie exponencial es especialmente importante porque converge para todo \(z\).</p>
+<div class="grid">
+<article class="card"><h3>Serie exponencial</h3><div class="formula">\[
+e^z=\sum_{n=0}^{\infty}\frac{z^n}{n!}
+\]</div><p>La serie converge absolutamente para todo \(z\in\mathbb C\).</p></article>
+<article class="card"><h3>Criterio de la razón</h3><div class="formula">\[
+\rho=\lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right|
+\]</div><p>Si \(\rho<1\), la serie converge absolutamente; si \(\rho>1\), diverge.</p></article>
+<article class="card"><h3>Criterio de la raíz</h3><div class="formula">\[
+\rho=\lim_{n\to\infty}|a_n|^{1/n}
+\]</div><p>La misma regla de comparación con 1 determina convergencia absoluta o divergencia.</p></article>
+</div>
+</div>
+</section>
+
+<section id="exponencial" class="section-soft">
+<div class="container">
+<h2 class="section-title">6. Función exponencial compleja</h2>
+<p class="section-intro">La exponencial extiende la función real al plano complejo y conecta directamente con seno y coseno.</p>
+<div class="formula">\[
+e^{x+iy}=e^x(\cos y+i\sin y)
+\]</div>
+<div class="grid">
+<article class="card"><h3>Módulo</h3><div class="formula">\[
+|e^z|=e^{\operatorname{Re}(z)}
+\]</div></article>
+<article class="card"><h3>Periodicidad</h3><div class="formula">\[
+e^{z+2\pi i}=e^z
+\]</div></article>
+<article class="card"><h3>Euler</h3><div class="formula">\[
+e^{iy}=\cos y+i\sin y
+\]</div></article>
+</div>
+
+<div class="interactive" style="margin-top:28px">
+<div class="controls">
+<div class="field"><label for="ex">\(x\)</label><input id="ex" type="number" step=".1" value="0"></div>
+<div class="field"><label for="ey">\(y\)</label><input id="ey" type="number" step=".1" value="1.570796"></div>
+<button onclick="actualizarExp()">Evaluar \(e^{x+iy}\)</button>
+<div class="results">
+<div class="result"><strong>Entrada:</strong> <span id="ein"></span></div>
+<div class="result"><strong>Parte real:</strong> <span id="ere"></span></div>
+<div class="result"><strong>Parte imaginaria:</strong> <span id="eim"></span></div>
+<div class="result"><strong>Módulo:</strong> <span id="emod"></span></div>
+</div>
+</div>
+<div class="graph-wrap"><svg id="expPlane" viewBox="0 0 600 500" aria-label="Exponencial compleja"></svg></div>
+</div>
+</div>
+</section>
+
+<section id="trig">
+<div class="container">
+<h2 class="section-title">7. Funciones trigonométricas e hiperbólicas</h2>
+<p class="section-intro">Las funciones trigonométricas complejas se definen mediante la exponencial. A partir de ellas aparecen naturalmente las funciones hiperbólicas.</p>
+<div class="grid">
+<article class="card"><h3>Seno</h3><div class="formula">\[
+\sin z=\frac{e^{iz}-e^{-iz}}{2i}
+\]</div><div class="formula">\[
+\sin(x+iy)=\sin x\cosh y+i\cos x\sinh y
+\]</div></article>
+<article class="card"><h3>Coseno</h3><div class="formula">\[
+\cos z=\frac{e^{iz}+e^{-iz}}2
+\]</div><div class="formula">\[
+\cos(x+iy)=\cos x\cosh y-i\sin x\sinh y
+\]</div></article>
+<article class="card"><h3>Hiperbólicas</h3><div class="formula">\[
+\sinh z=\frac{e^z-e^{-z}}2,\qquad
+\cosh z=\frac{e^z+e^{-z}}2
+\]</div></article>
+</div>
+<div class="note"><strong>Observación:</strong> a diferencia de las funciones trigonométricas reales, \(\sin z\) y \(\cos z\) no son acotadas en todo \(\mathbb C\). Las notas lo muestran usando el crecimiento de \(\sinh y\) y \(\cosh y\).</div>
+</div>
+</section>
+
+<section id="log" class="section-soft">
+<div class="container">
+<h2 class="section-title">8. Función logaritmo</h2>
+<p class="section-intro">El logaritmo complejo es multivaluado porque el argumento puede cambiar en múltiplos de \(2\pi\). Elegir una rama permite trabajar con un valor determinado.</p>
+<div class="formula">\[
+\operatorname{Log}(z)=\ln|z|+i(\arg z+2\pi k),\qquad k\in\mathbb Z,\ z\neq0
+\]</div>
+<div class="grid">
+<article class="card"><h3>Valor principal</h3><div class="formula">\[
+\operatorname{Log}(z)=\ln|z|+i\operatorname{Arg}(z)
+\]</div><p>Se utiliza el argumento principal.</p></article>
+<article class="card"><h3>Rama de corte</h3><p>Una rama se determina fijando un intervalo de longitud \(2\pi\) para el argumento.</p><div class="formula">\[
+\alpha<\operatorname{Arg}_\alpha(z)\le\alpha+2\pi
+\]</div></article>
+<article class="card"><h3>Potencias complejas</h3><div class="formula">\[
+z^a=e^{a\operatorname{Log}(z)}
+\]</div><p>En general, la potencia también es multivaluada.</p></article>
+</div>
+<div class="note"><strong>Ejemplo:</strong> \(\operatorname{Log}(-i)=-i\pi/2\) para el valor principal. En otra rama, el argumento puede cambiar por \(2\pi\).</div>
+</div>
+</section>
+
+<section id="practica">
+<div class="container">
+<h2 class="section-title">9. Práctica interactiva</h2>
+<p class="section-intro">Resuelve primero sin mirar la explicación. Si fallas, recibirás una pista; si aciertas, aparecerá una justificación breve.</p>
+
+<div class="exercise">
+<span class="tag">Ejercicio 1 · Evaluación</span>
+<h3>Calcula \(f(1+i)\)</h3>
+<p>Sea \(f(z)=iz+2+i\). Escribe el resultado como \(a+ib\).</p>
+<div class="answer-row"><input id="e1a" type="number" placeholder="Parte real"><input id="e1b" type="number" placeholder="Parte imaginaria"><button onclick="checkE1()">Comprobar</button></div>
+<div id="fb1" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<span class="tag">Ejercicio 2 · Dominio</span>
+<h3>¿Dónde no está definida la función?</h3>
+<p>Para \(f(z)=\dfrac{1}{z^2-9}\), selecciona los puntos excluidos del dominio.</p>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'e2',false)">Solo \(z=0\)</button>
+<button class="choice" onclick="checkChoice(this,'e2',true)">\(z=3\) y \(z=-3\)</button>
+<button class="choice" onclick="checkChoice(this,'e2',false)">Todo el eje real</button>
+<button class="choice" onclick="checkChoice(this,'e2',false)">Ningún punto</button>
+</div><div id="e2" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<span class="tag">Ejercicio 3 · Partes real e imaginaria</span>
+<h3>Separa \(f(z)\)</h3>
+<p>Para \(f(z)=-4iz+5-3i\), con \(z=x+iy\), ¿cuál es \(u(x,y)\)?</p>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'e3',false)">\(4x+5\)</button>
+<button class="choice" onclick="checkChoice(this,'e3',true)">\(4y+5\)</button>
+<button class="choice" onclick="checkChoice(this,'e3',false)">\(-4y+5\)</button>
+<button class="choice" onclick="checkChoice(this,'e3',false)">\(-4x-3\)</button>
+</div><div id="e3" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<span class="tag">Ejercicio 4 · Mapeo</span>
+<h3>¿Qué hace \(f(z)=3z\)?</h3>
+<p>Selecciona la interpretación geométrica correcta.</p>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'e4',true)">Dilatación de factor 3 respecto al origen</button>
+<button class="choice" onclick="checkChoice(this,'e4',false)">Rotación de \(90^\circ\)</button>
+<button class="choice" onclick="checkChoice(this,'e4',false)">Translación por \(3i\)</button>
+<button class="choice" onclick="checkChoice(this,'e4',false)">Inversión respecto al círculo unidad</button>
+</div><div id="e4" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<span class="tag">Ejercicio 5 · Secuencias</span>
+<h3>Determina el límite</h3>
+<p>\[
+z_n=\frac{\cos(n\pi/2)+in}{n}
+\]
+¿Qué límite tiene cuando \(n\to\infty\)?</p>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'e5',false)">\(0\)</button>
+<button class="choice" onclick="checkChoice(this,'e5',true)">\(i\)</button>
+<button class="choice" onclick="checkChoice(this,'e5',false)">\(1+i\)</button>
+<button class="choice" onclick="checkChoice(this,'e5',false)">No converge</button>
+</div><div id="e5" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<span class="tag">Ejercicio 6 · Series</span>
+<h3>Radio de convergencia</h3>
+<p>Para la serie geométrica \(\sum_{n=0}^{\infty}z^n\), ¿en qué región converge?</p>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'e6',true)">\(|z|<1\)</button>
+<button class="choice" onclick="checkChoice(this,'e6',false)">\(|z|>1\)</button>
+<button class="choice" onclick="checkChoice(this,'e6',false)">Solo \(z=1\)</button>
+<button class="choice" onclick="checkChoice(this,'e6',false)">Todo \(\mathbb C\)</button>
+</div><div id="e6" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<span class="tag">Ejercicio 7 · Exponencial</span>
+<h3>Evalúa \(e^{i\pi/2}\)</h3>
+<p>Usa la fórmula de Euler.</p>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'e7',false)">\(1\)</button>
+<button class="choice" onclick="checkChoice(this,'e7',true)">\(i\)</button>
+<button class="choice" onclick="checkChoice(this,'e7',false)">\(-1\)</button>
+<button class="choice" onclick="checkChoice(this,'e7',false)">\(-i\)</button>
+</div><div id="e7" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<span class="tag">Ejercicio 8 · Exponencial</span>
+<h3>Evalúa \(e^{1+i\pi}\)</h3>
+<p>Escribe el resultado en forma \(a+ib\).</p>
+<div class="answer-row"><input id="e8a" type="number" placeholder="Parte real"><input id="e8b" type="number" placeholder="Parte imaginaria"><button onclick="checkE8()">Comprobar</button></div>
+<div id="fb8" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<span class="tag">Ejercicio 9 · Trigonométricas</span>
+<h3>Evalúa \(\sin(i)\)</h3>
+<p>Usa la relación entre seno e hiperbólica.</p>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'e9',false)">\(1\)</button>
+<button class="choice" onclick="checkChoice(this,'e9',false)">\(\cosh(1)\)</button>
+<button class="choice" onclick="checkChoice(this,'e9',true)">\(i\sinh(1)\)</button>
+<button class="choice" onclick="checkChoice(this,'e9',false)">\(-i\sinh(1)\)</button>
+</div><div id="e9" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<span class="tag">Ejercicio 10 · Identidades</span>
+<h3>Selecciona una identidad correcta</h3>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'e10',false)">\(\cos(-z)=-\cos z\)</button>
+<button class="choice" onclick="checkChoice(this,'e10',true)">\(\sin(-z)=-\sin z\)</button>
+<button class="choice" onclick="checkChoice(this,'e10',false)">\(\sin(z+2\pi)=-\sin z\)</button>
+<button class="choice" onclick="checkChoice(this,'e10',false)">\(\cos(z+2\pi)=-\cos z\)</button>
+</div><div id="e10" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<span class="tag">Ejercicio 11 · Logaritmo</span>
+<h3>Valor principal de \(\operatorname{Log}(-i)\)</h3>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'e11',false)">\(i\pi/2\)</button>
+<button class="choice" onclick="checkChoice(this,'e11',true)">\(-i\pi/2\)</button>
+<button class="choice" onclick="checkChoice(this,'e11',false)">\(i3\pi/2\)</button>
+<button class="choice" onclick="checkChoice(this,'e11',false)">\(0\)</button>
+</div><div id="e11" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<span class="tag">Ejercicio 12 · Ramas</span>
+<h3>Una rama distinta del logaritmo</h3>
+<p>Para la rama con \(\alpha=\pi/2\), ¿qué argumento se asigna a \(i\)?</p>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'e12',false)">\(\pi/2\)</button>
+<button class="choice" onclick="checkChoice(this,'e12',true)">\(5\pi/2\)</button>
+<button class="choice" onclick="checkChoice(this,'e12',false)">\(-\pi/2\)</button>
+<button class="choice" onclick="checkChoice(this,'e12',false)">\(3\pi/2\)</button>
+</div><div id="e12" class="feedback"></div>
+</div>
+
+<div class="challenge">
+<span class="tag">Reto · Mapeo de una región</span>
+<h3>¿Cómo cambia un cuadrado?</h3>
+<p>
+Considera \(f(z)=(-1-i\sqrt3)z\). El factor puede escribirse como
+\(2e^{-2\pi i/3}\). ¿Qué ocurre con una figura al aplicar la transformación?
+</p>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'reto1',true)">Se duplica y rota \(-120^\circ\) alrededor del origen</button>
+<button class="choice" onclick="checkChoice(this,'reto1',false)">Se contrae a la mitad y rota \(120^\circ\)</button>
+<button class="choice" onclick="checkChoice(this,'reto1',false)">Solo se traslada</button>
+<button class="choice" onclick="checkChoice(this,'reto1',false)">Se refleja respecto al eje real</button>
+</div><div id="reto1" class="feedback"></div>
+</div>
+
+<div class="challenge">
+<span class="tag">Reto · Potencia compleja</span>
+<h3>Valor principal</h3>
+<p>Usando \(z^a=e^{a\operatorname{Log}(z)}\), determina el valor principal de \((-1)^{1+i}\).</p>
+<div class="choice-grid">
+<button class="choice" onclick="checkChoice(this,'reto2',false)">\(ie^{\pi/2}\)</button>
+<button class="choice" onclick="checkChoice(this,'reto2',true)">\(-ie^{\pi/2}\)</button>
+<button class="choice" onclick="checkChoice(this,'reto2',false)">\(-ie^{-\pi/2}\)</button>
+<button class="choice" onclick="checkChoice(this,'reto2',false)">\(e^{\pi}\)</button>
+</div><div id="reto2" class="feedback"></div>
+</div>
+
+</div>
+</section>
+
+<footer class="footer">
+<p><strong>Matemáticas Especiales II</strong></p>
+<p>Recurso interactivo de aprendizaje · Módulo 02 · Funciones Complejas</p>
+<p><a href="index.html">← Volver a la ruta de aprendizaje</a></p>
+</footer>
+
+<script>
+function fmt(n){
+  if(Math.abs(n)<1e-9) n=0;
+  return Number(n.toFixed(5)).toString();
+}
+function complex(a,b){
+  if(Math.abs(b)<1e-9) return fmt(a);
+  if(Math.abs(a)<1e-9) return fmt(b)+'i';
+  return fmt(a)+(b>=0?' + ':' − ')+fmt(Math.abs(b))+'i';
+}
+function drawAxes(svgId, labelX='Re', labelY='Im'){
+  const svg=document.getElementById(svgId), W=600,H=500,cx=300,cy=250,s=55;
+  let out='<rect x="0" y="0" width="600" height="500" rx="10" fill="#fff"/>';
+  for(let i=-5;i<=5;i++){
+    let px=cx+i*s, py=cy-i*s;
+    out+=`<line x1="${px}" y1="20" x2="${px}" y2="480" stroke="#E6ECEF"/>`;
+    out+=`<line x1="20" y1="${py}" x2="580" y2="${py}" stroke="#E6ECEF"/>`;
+    if(i!==0){
+      out+=`<text x="${px-6}" y="${cy+18}" fill="#5F6B73" font-size="13">${i}</text>`;
+      out+=`<text x="${cx+7}" y="${py+4}" fill="#5F6B73" font-size="13">${i}</text>`;
+    }
+  }
+  out+=`<line x1="20" y1="${cy}" x2="580" y2="${cy}" stroke="#003B5C" stroke-width="2"/>`;
+  out+=`<line x1="${cx}" y1="20" x2="${cx}" y2="480" stroke="#003B5C" stroke-width="2"/>`;
+  out+=`<text x="560" y="${cy-10}" fill="#003B5C" font-size="17">${labelX}</text>`;
+  out+=`<text x="${cx+10}" y="35" fill="#003B5C" font-size="17">${labelY}</text>`;
+  return {out,cx,cy,s};
+}
+function actualizarMapeo(){
+  const x=parseFloat(document.getElementById('zx').value)||0, y=parseFloat(document.getElementById('zy').value)||0;
+  const am=parseFloat(document.getElementById('am').value)||0, deg=parseFloat(document.getElementById('aa').value)||0;
+  const bx=parseFloat(document.getElementById('bx').value)||0, by=parseFloat(document.getElementById('by').value)||0;
+  const th=deg*Math.PI/180, ar=am*Math.cos(th), ai=am*Math.sin(th);
+  const wr=ar*x-ai*y+bx, wi=ar*y+ai*x+by;
+  document.getElementById('zmap').textContent=complex(x,y);
+  document.getElementById('amap').textContent=complex(ar,ai);
+  document.getElementById('bmap').textContent=complex(bx,by);
+  document.getElementById('wmap').textContent=complex(wr,wi);
+  document.getElementById('imap').textContent=`escala ×${fmt(am)}, rotación ${fmt(deg)}° y translación ${complex(bx,by)}`;
+  const g=drawAxes('mappingPlane');
+  let out=g.out;
+  out+=`<line x1="${g.cx}" y1="${g.cy}" x2="${g.cx+x*g.s}" y2="${g.cy-y*g.s}" stroke="#65A19B" stroke-width="4"/>`;
+  out+=`<circle cx="${g.cx+x*g.s}" cy="${g.cy-y*g.s}" r="7" fill="#65A19B"/>`;
+  out+=`<text x="${g.cx+x*g.s+10}" y="${g.cy-y*g.s-10}" fill="#003B5C" font-size="17">z</text>`;
+  out+=`<line x1="${g.cx}" y1="${g.cy}" x2="${g.cx+wr*g.s}" y2="${g.cy-wi*g.s}" stroke="#003B5C" stroke-width="4"/>`;
+  out+=`<circle cx="${g.cx+wr*g.s}" cy="${g.cy-wi*g.s}" r="7" fill="#003B5C"/>`;
+  out+=`<text x="${g.cx+wr*g.s+10}" y="${g.cy-wi*g.s-10}" fill="#003B5C" font-size="17">w</text>`;
+  document.getElementById('mappingPlane').innerHTML=out;
+}
+function graficarSecuencia(){
+  const type=document.getElementById('seqType').value, g=drawAxes('sequencePlot');
+  let out=g.out, pts=[], text='';
+  for(let n=1;n<=18;n++){
+    let x=0,y=0;
+    if(type==='1'){x=0;y=1/n;text='Converge a 0.'}
+    if(type==='2'){x=1/n;y=1/n;text='Converge a 0.'}
+    if(type==='3'){x=(n%2===0)?1:-1;y=0;text='No converge: alterna entre 1 y −1.'}
+    if(type==='4'){x=Math.cos(n*Math.PI/4)/n;y=Math.sin(n*Math.PI/4)/n;text='Converge a 0.'}
+    pts.push([x,y]);
+  }
+  for(const [x,y] of pts){
+    out+=`<circle cx="${g.cx+x*g.s}" cy="${g.cy-y*g.s}" r="5" fill="#65A19B"/>`;
+  }
+  document.getElementById('sequencePlot').innerHTML=out;
+  document.getElementById('seqText').textContent=text;
+}
+function actualizarExp(){
+  const x=parseFloat(document.getElementById('ex').value)||0, y=parseFloat(document.getElementById('ey').value)||0;
+  const a=Math.exp(x)*Math.cos(y), b=Math.exp(x)*Math.sin(y), r=Math.exp(x);
+  document.getElementById('ein').textContent=complex(x,y);
+  document.getElementById('ere').textContent=fmt(a);
+  document.getElementById('eim').textContent=fmt(b);
+  document.getElementById('emod').textContent=fmt(r);
+  const g=drawAxes('expPlane'); let out=g.out;
+  out+=`<line x1="${g.cx}" y1="${g.cy}" x2="${g.cx+a*g.s}" y2="${g.cy-b*g.s}" stroke="#65A19B" stroke-width="4"/>`;
+  out+=`<circle cx="${g.cx+a*g.s}" cy="${g.cy-b*g.s}" r="7" fill="#65A19B"/>`;
+  out+=`<text x="${g.cx+a*g.s+10}" y="${g.cy-b*g.s-10}" fill="#003B5C" font-size="17">e^z</text>`;
+  document.getElementById('expPlane').innerHTML=out;
+}
+function checkE1(){
+  const a=parseFloat(document.getElementById('e1a').value), b=parseFloat(document.getElementById('e1b').value), f=document.getElementById('fb1');
+  const ok=Math.abs(a-1)<.01&&Math.abs(b-2)<.01;
+  f.className='feedback '+(ok?'ok':'bad');
+  f.innerHTML=ok?'✓ Correcto. \(i(1+i)+2+i=1+2i\).':'✗ Revisa: \(i(1+i)=-1+i\). Luego suma \(2+i\).';
+}
+function checkE8(){
+  const a=parseFloat(document.getElementById('e8a').value), b=parseFloat(document.getElementById('e8b').value), f=document.getElementById('fb8');
+  const ok=Math.abs(a+Math.E)<.02&&Math.abs(b)<.02;
+  f.className='feedback '+(ok?'ok':'bad');
+  f.innerHTML=ok?'✓ Correcto. \(e^{1+i\pi}=e(\cos\pi+i\sin\pi)=-e\).':'✗ Usa \(e^{x+iy}=e^x(\cos y+i\sin y)\). Aquí \(x=1\) y \(y=\pi\).';
+}
+const explanations={
+ e2:['✓ Correcto. El denominador se anula cuando \(z^2-9=0\), es decir, \(z=\pm3\).','✗ Busca los ceros del denominador: \(z^2-9=(z-3)(z+3)\).'],
+ e3:['✓ Correcto. \(-4iz=-4i(x+iy)=4y-4ix\), por lo que \(u=4y+5\).','✗ Sustituye \(z=x+iy\) y usa \(i^2=-1\).'],
+ e4:['✓ Correcto. Multiplicar por 3 aumenta todos los módulos por un factor 3 sin cambiar los argumentos.','✗ Un número real positivo como 3 solo cambia la escala.'],
+ e5:['✓ Correcto. \(\cos(n\pi/2)/n\to0\) y \(in/n=i\).','✗ Separa parte real e imaginaria antes de tomar el límite.'],
+ e6:['✓ Correcto. La serie geométrica converge cuando \(|z|<1\).','✗ Recuerda la condición de la serie geométrica compleja.'],
+ e7:['✓ Correcto. \(e^{i\pi/2}=\cos(\pi/2)+i\sin(\pi/2)=i\).','✗ Aplica directamente la fórmula de Euler.'],
+ e9:['✓ Correcto. \(\sin(iy)=i\sinh(y)\), por lo que \(\sin(i)=i\sinh(1)\).','✗ Sustituye \(x=0\), \(y=1\) en \(\sin(x+iy)\).'],
+ e10:['✓ Correcto. El seno es una función impar: \(\sin(-z)=-\sin z\).','✗ Revisa paridad y periodicidad de seno y coseno.'],
+ e11:['✓ Correcto. \(|-i|=1\) y \(\operatorname{Arg}(-i)=-\pi/2\).','✗ Para el valor principal usa \(\operatorname{Arg}(z)\in(-\pi,\pi]\).'],
+ e12:['✓ Correcto. En la rama \(\alpha=\pi/2\), el argumento de \(i\) se toma como \(5\pi/2\).','✗ La rama exige \(\pi/2<\operatorname{Arg}_\alpha(z)\le5\pi/2\).'],
+ reto1:['✓ Correcto. \(-1-i\sqrt3=2e^{-2\pi i/3}\): duplica módulos y rota \(-120^\circ\).','✗ Pasa primero el factor a forma polar.'],
+ reto2:['✓ Correcto. Con el logaritmo principal, \((-1)^{1+i}=e^{(1+i)(-i\pi/2)}=-ie^{\pi/2}\).','✗ Usa \(z^a=e^{a\operatorname{Log}(z)}\) y \(\operatorname{Log}(-1)=i\pi\).']
+};
+function checkChoice(btn,id,correct){
+  const box=document.getElementById(id);
+  btn.parentElement.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  box.className='feedback '+(correct?'ok':'bad');
+  const pair=explanations[id];
+  box.innerHTML=correct?pair[0]:pair[1];
+}
+actualizarMapeo();graficarSecuencia();actualizarExp();
+</script>
+</body>
+</html>
