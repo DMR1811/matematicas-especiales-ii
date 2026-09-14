@@ -116,11 +116,7 @@ button:hover{background:var(--azul-oscuro)}
   border:1px solid var(--borde);border-radius:14px;padding:18px;background:#fff
 }
 #complexPlane,
-#rootsPlane {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+#rootsPlane{width:100%;height:auto;display:block}
 .exercise{
   border:1px solid var(--borde);border-radius:14px;padding:24px;background:#fff;
   margin-bottom:18px
@@ -140,6 +136,18 @@ footer{
   background:var(--azul-oscuro);color:#fff;text-align:center;padding:35px 7%;
 }
 footer p{opacity:.8}
+
+.practice-progress{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 28px}
+.practice-progress span{padding:6px 11px;border:1px solid var(--borde);border-radius:20px;background:#fff;color:var(--gris);font-size:.88rem}
+.two-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:620px;margin-top:16px}
+.short-input{width:220px;margin:14px 10px 0 0}
+.answer-select{max-width:420px;margin:14px 10px 0 0}
+.exercise button{margin-top:14px}
+.challenge{border-left:5px solid var(--verde)}
+.challenge-title{margin-top:65px}
+.hint{margin-top:14px;padding:12px 14px;background:var(--gris-claro);border-radius:8px;color:var(--gris)}
+@media(max-width:600px){.two-fields{grid-template-columns:1fr}.short-input,.answer-select{width:100%;max-width:none}.exercise{padding:20px}}
+
 @media(max-width:800px){
   .nav-links{display:none}
   .interactive{grid-template-columns:1fr}
@@ -159,7 +167,7 @@ footer p{opacity:.8}
     <a href="#visualizacion">Visualización</a>
     <a href="#moivre">Moivre</a>
     <a href="#raices">Raíces</a>
-    <a href="#practica">Practica</a>
+    <a href="#practica">Práctica</a>
   </div>
 </nav>
 
@@ -451,50 +459,184 @@ footer p{opacity:.8}
 
 <section id="practica">
   <div class="container">
-    <h2 class="section-title">7. Comprueba lo que aprendiste</h2>
+    <h2 class="section-title">7. Practica: pon a prueba tus ideas</h2>
     <p class="section-intro">
-      Estos ejercicios retoman habilidades trabajadas en el primer capítulo:
-      módulo, argumento y forma trigonométrica.
+      Resuelve los ejercicios en orden. La práctica comienza con representaciones
+      básicas y avanza hacia operaciones, Moivre, raíces y regiones del plano complejo.
+      Cada respuesta incluye retroalimentación para que puedas identificar el paso que necesitas revisar.
     </p>
 
+    <div class="practice-progress">
+      <span>15 ejercicios</span>
+      <span>2 retos</span>
+      <span>Retroalimentación inmediata</span>
+    </div>
+
     <article class="exercise">
-      <h3>Ejercicio 1 · Módulo</h3>
-      <p>¿Cuál es el módulo de \(z=3+4i\)?</p>
-      <div class="field" style="max-width:300px;margin-top:14px">
-        <input id="q1" type="number" step="0.1" placeholder="Escribe tu respuesta">
+      <h3>Ejercicio 1 · Parte real e imaginaria</h3>
+      <p>Para \(z=-3+4i\), identifica la parte real y la parte imaginaria.</p>
+      <div class="two-fields">
+        <div class="field"><label for="q1a">\(\operatorname{Re}(z)\)</label><input id="q1a" type="number" step="0.1"></div>
+        <div class="field"><label for="q1b">\(\operatorname{Im}(z)\)</label><input id="q1b" type="number" step="0.1"></div>
       </div>
-      <button onclick="check(1)">Comprobar</button>
-      <div id="f1" class="feedback"></div>
+      <button onclick="check(1)">Comprobar</button><div id="f1" class="feedback"></div>
     </article>
 
     <article class="exercise">
-      <h3>Ejercicio 2 · Argumento</h3>
-      <p>
-        Para \(z=1+i\), ¿cuál es su argumento principal en radianes?
-      </p>
-      <div class="field" style="max-width:300px;margin-top:14px">
-        <select id="q2">
-          <option value="">Selecciona</option>
-          <option value="pi/6">π/6</option>
-          <option value="pi/4">π/4</option>
-          <option value="pi/2">π/2</option>
-          <option value="3pi/4">3π/4</option>
-        </select>
-      </div>
-      <button onclick="check(2)">Comprobar</button>
-      <div id="f2" class="feedback"></div>
+      <h3>Ejercicio 2 · Ubicación en el plano</h3>
+      <p>¿En qué cuadrante se encuentra \(z=-2+3i\)?</p>
+      <select id="q2" class="answer-select">
+        <option value="">Selecciona</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option>
+      </select>
+      <button onclick="check(2)">Comprobar</button><div id="f2" class="feedback"></div>
     </article>
 
     <article class="exercise">
-      <h3>Ejercicio 3 · Moivre</h3>
-      <p>
-        Si \(z=2e^{i\pi/3}\), ¿cuál es el módulo de \(z^3\)?
-      </p>
-      <div class="field" style="max-width:300px;margin-top:14px">
-        <input id="q3" type="number" step="0.1" placeholder="Escribe tu respuesta">
+      <h3>Ejercicio 3 · Módulo</h3>
+      <p>Calcula el módulo de \(z=-5+12i\).</p>
+      <input id="q3" class="short-input" type="number" step="0.1" placeholder="Respuesta">
+      <button onclick="check(3)">Comprobar</button><div id="f3" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 4 · Conjugado</h3>
+      <p>Si \(z=3-5i\), ¿cuál es su conjugado?</p>
+      <div class="two-fields">
+        <div class="field"><label for="q4a">Parte real</label><input id="q4a" type="number" step="0.1"></div>
+        <div class="field"><label for="q4b">Parte imaginaria</label><input id="q4b" type="number" step="0.1"></div>
       </div>
-      <button onclick="check(3)">Comprobar</button>
-      <div id="f3" class="feedback"></div>
+      <button onclick="check(4)">Comprobar</button><div id="f4" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 5 · Multiplicación</h3>
+      <p>Calcula \((2+3i)(1-2i)\). Introduce la parte real y la parte imaginaria del resultado.</p>
+      <div class="two-fields">
+        <div class="field"><label for="q5a">Parte real</label><input id="q5a" type="number" step="0.1"></div>
+        <div class="field"><label for="q5b">Parte imaginaria</label><input id="q5b" type="number" step="0.1"></div>
+      </div>
+      <button onclick="check(5)">Comprobar</button><div id="f5" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 6 · División</h3>
+      <p>Calcula \(\dfrac{3+2i}{1-i}\). Escribe el resultado como \(a+bi\).</p>
+      <div class="two-fields">
+        <div class="field"><label for="q6a">\(a\)</label><input id="q6a" type="number" step="0.1"></div>
+        <div class="field"><label for="q6b">\(b\)</label><input id="q6b" type="number" step="0.1"></div>
+      </div>
+      <button onclick="check(6)">Comprobar</button><div id="f6" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 7 · Argumento principal</h3>
+      <p>Determina el argumento principal de \(z=-1+i\sqrt{3}\).</p>
+      <select id="q7" class="answer-select">
+        <option value="">Selecciona</option><option value="pi/6">\(\pi/6\)</option><option value="pi/3">\(\pi/3\)</option><option value="2pi/3">\(2\pi/3\)</option><option value="-2pi/3">\(-2\pi/3\)</option>
+      </select>
+      <button onclick="check(7)">Comprobar</button><div id="f7" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 8 · Forma polar</h3>
+      <p>Expresa \(z=1+i\) en forma trigonométrica \(r(\cos\theta+i\sin\theta)\).</p>
+      <div class="two-fields">
+        <div class="field"><label for="q8a">Módulo \(r\)</label><input id="q8a" type="number" step="0.01" placeholder="Ej. 1.41"></div>
+        <div class="field"><label for="q8b">Ángulo</label><select id="q8b"><option value="">Selecciona</option><option value="pi/6">\(\pi/6\)</option><option value="pi/4">\(\pi/4\)</option><option value="pi/2">\(\pi/2\)</option><option value="3pi/4">\(3\pi/4\)</option></select></div>
+      </div>
+      <button onclick="check(8)">Comprobar</button><div id="f8" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 9 · Forma exponencial</h3>
+      <p>Expresa \(z=-1-i\sqrt{3}\) como \(re^{i\theta}\).</p>
+      <div class="two-fields">
+        <div class="field"><label for="q9a">Módulo \(r\)</label><input id="q9a" type="number" step="0.01"></div>
+        <div class="field"><label for="q9b">\(\theta\)</label><select id="q9b"><option value="">Selecciona</option><option value="pi/3">\(\pi/3\)</option><option value="2pi/3">\(2\pi/3\)</option><option value="-2pi/3">\(-2\pi/3\)</option><option value="-pi/3">\(-\pi/3\)</option></select></div>
+      </div>
+      <button onclick="check(9)">Comprobar</button><div id="f9" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 10 · Potencias de \(i\)</h3>
+      <p>Calcula \(i^{287}\).</p>
+      <select id="q10" class="answer-select">
+        <option value="">Selecciona</option><option value="1">1</option><option value="i">i</option><option value="-1">−1</option><option value="-i">−i</option>
+      </select>
+      <button onclick="check(10)">Comprobar</button><div id="f10" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 11 · Moivre</h3>
+      <p>Si \(z=2e^{i\pi/3}\), ¿cuál es el módulo de \(z^3\)?</p>
+      <input id="q11" class="short-input" type="number" step="0.1" placeholder="Respuesta">
+      <button onclick="check(11)">Comprobar</button><div id="f11" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 12 · Giro y cambio de módulo</h3>
+      <p>El vector \(z=3+4i\) gira \(60^\circ\) y su módulo se duplica. ¿Cuál será el módulo del nuevo complejo?</p>
+      <input id="q12" class="short-input" type="number" step="0.1" placeholder="Respuesta">
+      <button onclick="check(12)">Comprobar</button><div id="f12" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 13 · Raíces cúbicas</h3>
+      <p>Las raíces cúbicas de \(8\) tienen módulo \(2\). ¿Qué ángulo separa dos raíces consecutivas?</p>
+      <select id="q13" class="answer-select">
+        <option value="">Selecciona</option><option value="pi/6">\(\pi/6\)</option><option value="pi/3">\(\pi/3\)</option><option value="2pi/3">\(2\pi/3\)</option><option value="pi">\(\pi\)</option>
+      </select>
+      <button onclick="check(13)">Comprobar</button><div id="f13" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 14 · Propiedad del módulo</h3>
+      <p>Para \(z_1=2+i\) y \(z_2=-1+3i\), verifica la propiedad \(|z_1z_2|=|z_1||z_2|\). ¿Qué afirmación es correcta?</p>
+      <select id="q14" class="answer-select">
+        <option value="">Selecciona</option><option value="falsa">La igualdad no se cumple.</option><option value="verdadera">La igualdad se cumple.</option><option value="solo-real">Solo se cumple si los números son reales.</option>
+      </select>
+      <button onclick="check(14)">Comprobar</button><div id="f14" class="feedback"></div>
+    </article>
+
+    <article class="exercise">
+      <h3>Ejercicio 15 · Región del plano complejo</h3>
+      <p>La condición \(|z|\geq2\) representa:</p>
+      <select id="q15" class="answer-select">
+        <option value="">Selecciona</option><option value="interior">El interior del círculo de radio 2.</option><option value="exterior">El exterior del círculo de radio 2, incluyendo la frontera.</option><option value="frontera">Solo la circunferencia de radio 2.</option><option value="origen">Solo el origen.</option>
+      </select>
+      <button onclick="check(15)">Comprobar</button><div id="f15" class="feedback"></div>
+    </article>
+
+    <h2 class="section-title challenge-title">Retos</h2>
+
+    <article class="exercise challenge">
+      <h3>Reto 1 · El cuadrado complejo</h3>
+      <p>
+        El centro de un cuadrado está en \(z_0=1+i\) y uno de sus vértices en
+        \(z_1=1-i\). Encuentra los otros tres vértices.
+      </p>
+      <div class="two-fields">
+        <div class="field"><label for="r1a">Vértice 2 · parte real</label><input id="r1a" type="number" step="0.1"></div>
+        <div class="field"><label for="r1b">Vértice 2 · parte imaginaria</label><input id="r1b" type="number" step="0.1"></div>
+        <div class="field"><label for="r1c">Vértice 3 · parte real</label><input id="r1c" type="number" step="0.1"></div>
+        <div class="field"><label for="r1d">Vértice 3 · parte imaginaria</label><input id="r1d" type="number" step="0.1"></div>
+        <div class="field"><label for="r1e">Vértice 4 · parte real</label><input id="r1e" type="number" step="0.1"></div>
+        <div class="field"><label for="r1f">Vértice 4 · parte imaginaria</label><input id="r1f" type="number" step="0.1"></div>
+      </div>
+      <button onclick="check(16)">Comprobar</button><div id="f16" class="feedback"></div>
+      <div class="hint">Pista: respecto al centro, gira el vector \(z_1-z_0\) en \(90^\circ\) y en \(-90^\circ\), y conserva también el vértice opuesto.</div>
+    </article>
+
+    <article class="exercise challenge">
+      <h3>Reto 2 · Suma de raíces</h3>
+      <p>
+        Las raíces de \(z^n-1=0\), con \(n&gt;1\), forman un polígono regular alrededor del origen.
+        ¿Cuál es la suma de todas las raíces?
+      </p>
+      <select id="q17" class="answer-select">
+        <option value="">Selecciona</option><option value="n">\(n\)</option><option value="1">1</option><option value="0">0</option><option value="-1">−1</option>
+      </select>
+      <button onclick="check(17)">Comprobar</button><div id="f17" class="feedback"></div>
     </article>
 
     <div class="footer-nav">
@@ -570,27 +712,87 @@ function actualizarRaices(){
   document.getElementById('rootsResults').innerHTML=html;
   drawPlane('rootsPlane',0,0,points);
 }
-function check(n){
-  let correct=false, msg='';
-  if(n===1){
-    const v=parseFloat(document.getElementById('q1').value);
-    correct=Math.abs(v-5)<0.01;
-    msg=correct?'Correcto: |3+4i|=5.':'Revisa: |z|=√(x²+y²).';
-  }
-  if(n===2){
-    const v=document.getElementById('q2').value;
-    correct=v==='pi/4';
-    msg=correct?'Correcto: Arg(1+i)=π/4.':'Observa el punto (1,1) en el primer cuadrante.';
-  }
-  if(n===3){
-    const v=parseFloat(document.getElementById('q3').value);
-    correct=Math.abs(v-8)<0.01;
-    msg=correct?'Correcto: el módulo se eleva a la potencia 3, 2³=8.':'Recuerda: |z^n|=|z|^n.';
-  }
+function num(id){return parseFloat(document.getElementById(id).value)}
+function close(a,b,tol=0.02){return Math.abs(a-b)<tol}
+function both(a,b,c,d,tol=0.02){return close(a,c,tol)&&close(b,d,tol)}
+function feedback(n,correct,msg){
   const el=document.getElementById('f'+n);
   el.textContent=msg;
   el.className='feedback '+(correct?'correct':'incorrect');
 }
+function check(n){
+  let correct=false,msg='';
+  if(n===1){
+    correct=close(num('q1a'),-3)&&close(num('q1b'),4);
+    msg=correct?'Correcto: la parte real es −3 y la parte imaginaria es 4.':'Recuerda que en z=x+iy, x es la parte real y y la parte imaginaria.';
+  }
+  if(n===2){
+    correct=document.getElementById('q2').value==='II';
+    msg=correct?'Correcto: x<0 e y>0, por lo tanto está en el segundo cuadrante.':'Mira los signos de x e y: x es negativo y y es positivo.';
+  }
+  if(n===3){
+    correct=close(num('q3'),13);
+    msg=correct?'Correcto: |z|=√(25+144)=13.':'Usa |z|=√(x²+y²).';
+  }
+  if(n===4){
+    correct=close(num('q4a'),3)&&close(num('q4b'),5);
+    msg=correct?'Correcto: el conjugado es 3+5i.':'El conjugado conserva la parte real y cambia el signo de la parte imaginaria.';
+  }
+  if(n===5){
+    correct=both(num('q5a'),num('q5b'),8,-1);
+    msg=correct?'Correcto: (2+3i)(1−2i)=8−i.':'Distribuye los términos y usa i²=−1.';
+  }
+  if(n===6){
+    correct=both(num('q6a'),num('q6b'),0.5,2.5);
+    msg=correct?'Correcto: el resultado es 1/2+(5/2)i.':'Multiplica numerador y denominador por el conjugado 1+i.';
+  }
+  if(n===7){
+    correct=document.getElementById('q7').value==='2pi/3';
+    msg=correct?'Correcto: el punto está en el segundo cuadrante y Arg(z)=2π/3.':'El punto está en el segundo cuadrante. No olvides ajustar el ángulo al intervalo (−π,π].';
+  }
+  if(n===8){
+    correct=close(num('q8a'),Math.sqrt(2),0.03)&&document.getElementById('q8b').value==='pi/4';
+    msg=correct?'Correcto: r=√2 y θ=π/4.':'Calcula r=√(1²+1²) y determina el ángulo en el primer cuadrante.';
+  }
+  if(n===9){
+    correct=close(num('q9a'),2,0.03)&&document.getElementById('q9b').value==='-2pi/3';
+    msg=correct?'Correcto: z=2e^(−2πi/3).':'El módulo es 2 y el punto está en el tercer cuadrante; el argumento principal puede expresarse como −2π/3.';
+  }
+  if(n===10){
+    correct=document.getElementById('q10').value==='-i';
+    msg=correct?'Correcto: 287 mod 4 = 3, así que i^287=i³=−i.':'Las potencias de i se repiten cada 4 exponentes. Calcula 287 mod 4.';
+  }
+  if(n===11){
+    correct=close(num('q11'),8);
+    msg=correct?'Correcto: |z³|=|z|³=2³=8.':'Usa la propiedad |z^n|=|z|^n.';
+  }
+  if(n===12){
+    correct=close(num('q12'),10);
+    msg=correct?'Correcto: |3+4i|=5 y al duplicarlo el módulo pasa a 10.':'Primero calcula |3+4i| y luego duplica ese valor. El giro no cambia el módulo.';
+  }
+  if(n===13){
+    correct=document.getElementById('q13').value==='2pi/3';
+    msg=correct?'Correcto: las tres raíces se distribuyen uniformemente, separadas por 2π/3.':'Divide una vuelta completa, 2π, entre el número de raíces: 3.';
+  }
+  if(n===14){
+    correct=document.getElementById('q14').value==='verdadera';
+    msg=correct?'Correcto: |z₁z₂|=|z₁||z₂| es una propiedad del módulo.':'La igualdad es una propiedad general del módulo de números complejos.';
+  }
+  if(n===15){
+    correct=document.getElementById('q15').value==='exterior';
+    msg=correct?'Correcto: |z|≥2 contiene los puntos cuya distancia al origen es al menos 2, incluida la frontera.':'|z| mide la distancia al origen. ≥2 significa distancia mayor o igual que 2.';
+  }
+  if(n===16){
+    correct=both(num('r1a'),num('r1b'),3,1)&&both(num('r1c'),num('r1d'),1,3)&&both(num('r1e'),num('r1f'),-1,1);
+    msg=correct?'Correcto: los otros vértices son 3+i, 1+3i y −1+i.':'Respecto al centro 1+i, el vértice dado tiene vector −2i. Gíralo ±90° y toma también el opuesto.';
+  }
+  if(n===17){
+    correct=document.getElementById('q17').value==='0';
+    msg=correct?'Correcto: la simetría de las raíces alrededor del origen hace que su suma sea 0.':'Las raíces forman un polígono regular centrado en el origen; los vectores se cancelan por simetría.';
+  }
+  feedback(n,correct,msg);
+}
+
 actualizarComplejo();
 actualizarRaices();
 </script>
