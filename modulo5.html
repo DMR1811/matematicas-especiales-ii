@@ -56,4 +56,11 @@ function makeQuestions(){let p=[['¿Cuál de estas funciones es armónica?',['x�
 function checkQ(s,o,k,ok,h){let v=document.getElementById(s).value;fb(o,v===k,ok,h)}
 function makeExercises(){let d=[['¿En qué dominio es ln|z| armónica?',['ℂ\{0\}','ℂ','{0}'],'a','ln|z| es armónica en ℂ\{0}.','Recuerda dónde está definida y qué ocurre en z=0.'],['Si u=eˣcos y, un conjugado armónico es:',['eˣsin y+C','eˣcos y+C','e⁻ˣsin y+C'],'a','eˣsin y+C es la parte imaginaria de eᶻ.','Escribe eᶻ en términos de x e y.'],['Para u=x²−y² y v=2xy, ∇u·∇v vale:',['0','4xy','4x²+4y²'],'a','Los gradientes son ortogonales y el producto punto es cero.','Calcula los dos gradientes.'],['En una región sin fuentes, el potencial electrostático satisface:',['∇²u=0','∇²u=1','∇u=0 siempre'],'a','La ausencia de fuentes conduce a la ecuación de Laplace.','Relaciona el potencial con la ecuación de Laplace.'],['Para Φ=A Log z con A>0 se modela:',['Una fuente','Un sumidero','Un flujo uniforme'],'a','A>0 representa una fuente puntual.','Revisa el papel del signo de A.'],['Para Φ=A Log z, las líneas de flujo son:',['θ=cte','r=cte','x=cte'],'a','Como ψ=Aθ, sus curvas de nivel son θ=cte.','Distingue las curvas de φ=A ln r de las de ψ=Aθ.']];let q=document.getElementById('exercises');d.forEach((d,i)=>{q.insertAdjacentHTML('beforeend',`<article class="exercise"><h3>Ejercicio ${i+1}</h3><p>${d[0]}</p><select id="ee${i}" class="answer-select"><option value="">Selecciona</option>${d[1].map((a,j)=>`<option value="${String.fromCharCode(97+j)}">${a}</option>`).join('')}</select><br><button onclick="checkQ('ee${i}','ef${i}','${d[2]}','${d[3]}','${d[4]}')">Comprobar</button><div id="ef${i}" class="feedback"></div></article>`)})}
 drawOrth();drawFlow();source();makeQuestions();makeExercises();
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+});
+</script>
 </script></body></html>
