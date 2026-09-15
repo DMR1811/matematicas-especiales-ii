@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 04 · Teorema de Cauchy | Matemáticas Especiales II</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:wght@100;200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)'],['$','$']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+:root{--azul:#003B5C;--oscuro:#00263A;--claro:#EAF3F7;--verde:#65A19B;--gris:#5F6B73;--grisclaro:#F5F7F8;--borde:#DDE6EA}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:"Ancizar Sans",sans-serif;color:var(--oscuro);line-height:1.65;background:#fff}
+.site-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--borde);backdrop-filter:blur(8px);padding:15px 7%;display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:1.2rem;font-weight:700;color:var(--azul);text-decoration:none}.explore{color:#fff;background:var(--azul);text-decoration:none;border-radius:8px;padding:9px 16px;font-weight:700}
+.hero{padding:85px 7% 75px;background:linear-gradient(135deg,#F7FAFB 0%,#EAF3F7 100%)}.container,.hero-inner{max-width:1100px;margin:auto}
+.badge{display:inline-block;color:var(--azul);background:rgba(101,161,155,.15);padding:6px 13px;border-radius:20px;font-size:.9rem;font-weight:600;margin-bottom:18px}
+h1{font-size:clamp(2.8rem,6vw,5rem);line-height:1;letter-spacing:-1.5px;margin-bottom:20px}.hero p{max-width:780px;color:var(--gris);font-size:1.2rem}
+.progress{margin-top:30px;display:flex;flex-wrap:wrap;gap:9px}.progress a{padding:6px 11px;border:1px solid var(--borde);border-radius:20px;background:#fff;color:var(--gris);font-size:.88rem;text-decoration:none}
+section{padding:80px 7%}.soft{background:var(--grisclaro)}.section-title{font-size:2.4rem;line-height:1.1;margin-bottom:14px}.intro{max-width:780px;color:var(--gris);margin-bottom:38px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card,.exercise{border:1px solid var(--borde);border-radius:14px;padding:25px;background:#fff}.card h3,.exercise h3{color:var(--azul);font-size:1.35rem;margin-bottom:10px}
+.formula{background:var(--claro);border-left:4px solid var(--verde);border-radius:8px;padding:18px 20px;margin:18px 0;overflow-x:auto;text-align:center}
+.note{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:15px 18px;margin-top:18px;color:var(--gris)}
+.warning{background:#FFF8E8;border-left:4px solid #D2A84B;border-radius:8px;padding:15px 18px;margin-top:20px}
+.lab{border:1px solid var(--borde);border-radius:14px;background:#fff;overflow:hidden;margin-top:30px}.lab-head{background:var(--claro);padding:18px 25px;font-weight:700}.lab-body{padding:25px}
+.controls{display:grid;gap:14px}.field label{display:block;font-weight:600;margin-bottom:6px}input,select{width:100%;padding:10px 12px;border:1px solid #C9D6DB;border-radius:8px;font:inherit;background:#fff}
+button{border:0;border-radius:8px;padding:11px 17px;background:var(--azul);color:#fff;font:inherit;font-weight:600;cursor:pointer;width:max-content}button:hover{background:var(--oscuro)}
+.output{margin-top:18px;padding:14px 16px;background:var(--grisclaro);border-radius:9px;min-height:24px}
+.exercise{margin-bottom:18px}.answer{max-width:560px;margin-top:10px}.feedback{margin-top:12px;font-weight:600;min-height:26px}.correct{color:#26705F}.incorrect{color:#A33A3A}
+.hint{margin-top:12px;padding:11px 14px;background:var(--grisclaro);border-radius:8px;color:var(--gris)}
+.final{max-width:1100px;margin:40px auto 70px;padding:0 7%;display:flex;justify-content:space-between;gap:20px}.page-button{display:inline-block;background:var(--azul);color:#fff;text-decoration:none;border-radius:10px;padding:14px 22px;font-weight:700}
+footer{background:var(--oscuro);color:#fff;text-align:center;padding:35px 7%}.source{margin:12px auto 0;max-width:850px;font-size:.9rem;line-height:1.6;opacity:.78}
+@media(max-width:800px){.grid2,.grid3{grid-template-columns:1fr}.final{flex-direction:column}.page-button{text-align:center}}
+</style>
+</head>
+<body>
+<nav class="site-header"><a class="brand" href="index.html">Especiales II</a><a class="explore" href="#cauchy">Explorar módulo ↓</a></nav>
+
+<header class="hero" id="comienzo"><div class="hero-inner">
+<span class="badge">Módulo 04 · Teorema de Cauchy y fórmula integral de Cauchy</span>
+<h1>De la integral cerrada a la fórmula de Cauchy</h1>
+<p>Comprende el teorema de Cauchy, Cauchy-Goursat, las regiones simplemente conexas y multiconexas, el número de winding y la fórmula integral de Cauchy, junto con algunas de sus consecuencias.</p>
+<div class="progress">
+<a href="#cauchy">01 · Cauchy</a><a href="#green">02 · Green</a><a href="#goursat">03 · Cauchy-Goursat</a><a href="#regiones">04 · Regiones</a><a href="#antiderivada">05 · Antiderivada</a><a href="#winding">06 · Winding</a><a href="#formula">07 · Fórmula integral</a><a href="#derivadas">08 · Derivadas</a><a href="#generalizada">09 · Generalizada</a><a href="#morera">10 · Morera</a><a href="#liouville">11 · Liouville</a><a href="#algebra">12 · Álgebra</a><a href="#practica">13 · Práctica</a><a href="#ejercicios">14 · Ejercicios varios</a>
+</div></div></header>
+
+<section id="cauchy"><div class="container">
+<h2 class="section-title">1. Teorema de Cauchy</h2><p class="intro">Si una función es analítica en la región relevante, la integral cerrada sobre un camino apropiado se anula.</p>
+<div class="formula">\[\oint_\Gamma f(z)\,dz=0\]</div>
+<div class="grid2"><article class="card"><h3>Condición esencial</h3><p>El dominio donde \(f\) es analítica debe contener el interior de \(\Gamma\). Una singularidad dentro del camino impide aplicar directamente el resultado.</p></article>
+<article class="card"><h3>Ejemplo fundamental</h3><p>Para \(f(z)=1/z\), el resultado depende de si el origen queda dentro del contorno.</p><div class="formula">\[\oint_{\Gamma_R(0)}\frac{dz}{z}=2\pi i\]</div></article></div>
+<div class="note"><strong>Idea clave:</strong> antes de usar Cauchy, localiza las singularidades y verifica las hipótesis sobre el dominio.</div>
+</div></section>
+
+<section id="green" class="soft"><div class="container">
+<h2 class="section-title">2. Forma compleja del teorema de Green</h2><p class="intro">Escribiendo \(f(z)=u+iv\) y \(dz=dx+i\,dy\), la integral compleja se separa en dos integrales reales. Las ecuaciones de Cauchy-Riemann hacen que los términos resultantes se anulen.</p>
+<div class="formula">\[\oint_\Gamma f(z)\,dz=\oint_\Gamma(u\,dx-v\,dy)+i\oint_\Gamma(u\,dy+v\,dx)\]</div>
+<div class="formula">\[u_x=v_y,\qquad u_y=-v_x\quad\Longrightarrow\quad\oint_\Gamma f(z)\,dz=0\]</div>
+</div></section>
+
+<section id="goursat"><div class="container">
+<h2 class="section-title">3. Teorema de Cauchy-Goursat</h2><p class="intro">Cauchy-Goursat permite obtener el resultado sin asumir continuidad de las derivadas de \(u\) y \(v\). El texto comienza con un triángulo y extiende el resultado a caminos poligonales, quebrados y suaves.</p>
+<div class="formula">\[\oint_{\triangle}f(z)\,dz=0\]</div>
+<div class="card"><h3>Resultado extendido</h3><p>Cuando \(f\) es analítica en el interior de un camino cerrado \(\Gamma\):</p><div class="formula">\[\oint_\Gamma f(z)\,dz=0\]</div></div>
+<div class="lab"><div class="lab-head">Laboratorio · ¿Se puede aplicar Cauchy?</div><div class="lab-body"><p>Selecciona el caso en el que la integral cerrada puede anularse directamente por analiticidad.</p>
+<select id="c1" class="answer"><option value="">Selecciona</option><option value="yes">\(f(z)=z^2\), analítica en todo el plano</option><option value="no">\(f(z)=1/z\), y \(\Gamma\) encierra \(0\)</option></select>
+<button onclick="cauchyLab()">Comprobar</button><div id="c1o" class="feedback"></div></div></div>
+</div></section>
+
+<section id="regiones" class="soft"><div class="container">
+<h2 class="section-title">4. Regiones simplemente conexas y multiconexas</h2><p class="intro">La topología del dominio determina qué deformaciones de caminos son posibles y qué regiones pueden quedar encerradas por un contorno.</p>
+<div class="grid2"><article class="card"><h3>Simplemente conexa</h3><p>El texto la caracteriza mediante la homotopía de caminos con extremos comunes. En una región adecuada, dos caminos homótopos dan la misma integral:</p><div class="formula">\[\int_{\gamma_0}f(z)\,dz=\int_{\gamma_1}f(z)\,dz\]</div></article>
+<article class="card"><h3>Multiconexa</h3><p>Una región multiconexa posee huecos. El teorema de Cauchy se extiende teniendo en cuenta esos huecos y la orientación de los contornos.</p></article></div>
+<div class="warning"><strong>Atención:</strong> que una función sea analítica en parte de una región no basta si existe una singularidad en el interior del contorno.</div>
+</div></section>
+
+<section id="antiderivada"><div class="container">
+<h2 class="section-title">5. Antiderivada e independencia del camino</h2><p class="intro">La igualdad de integrales por caminos homótopos conduce a la independencia del camino y se relaciona con la existencia de una antiderivada.</p>
+<div class="grid2"><article class="card"><h3>Independencia del camino</h3><p>En las condiciones apropiadas, una integral de una función analítica depende solamente de los extremos.</p></article><article class="card"><h3>Antiderivada</h3><p>Si \(F'(z)=f(z)\), entonces:</p><div class="formula">\[\int_a^b f(z)\,dz=F(b)-F(a)\]</div></article></div>
+</div></section>
+
+<section id="winding" class="soft"><div class="container">
+<h2 class="section-title">6. Caminos no simples y número de winding</h2><p class="intro">El número de winding \(
+u(\Gamma,z_0)\) cuenta, con signo, cuántas veces el camino rodea al punto \(z_0\).</p>
+<div class="formula">\[\oint_\Gamma\frac{dz}{z-z_0}=2\pi i\,\nu(\Gamma,z_0)\]</div>
+<div class="lab"><div class="lab-head">Visualización · Número de vueltas</div><div class="lab-body">
+<div class="field"><label for="turns">Número de vueltas</label><input id="turns" type="number" min="-3" max="3" value="1"></div><button onclick="winding()">Actualizar</button>
+<canvas id="cv" width="900" height="430" style="width:100%;margin-top:20px;border:1px solid var(--borde);border-radius:12px"></canvas><div id="wo" class="output"></div>
+</div></div></div></section>
+
+<section id="formula"><div class="container">
+<h2 class="section-title">7. Fórmula integral de Cauchy</h2><p class="intro">Si \(f\) es analítica en el interior de \(\Gamma\) y \(a\) está dentro del camino, el valor \(f(a)\) se obtiene a partir de los valores de \(f\) en el contorno.</p>
+<div class="formula">\[f(a)=\frac{1}{2\pi i}\oint_\Gamma\frac{f(z)}{z-a}\,dz\]</div>
+<div class="note"><strong>Interpretación:</strong> conocer la función sobre la frontera permite determinar su valor en cualquier punto interior.</div>
+<div class="lab"><div class="lab-head">Laboratorio · Evalúa con Cauchy</div><div class="lab-body"><p>Calcula \(\frac{1}{2\pi i}\oint_{|z|=2}\frac{e^z}{z-1}\,dz\).</p><select id="fv" class="answer"><option value="">Selecciona</option><option value="e">\(e\)</option><option value="1">\(1\)</option><option value="0">\(0\)</option></select><button onclick="formulaLab()">Comprobar</button><div id="fvo" class="feedback"></div></div></div>
+</div></section>
+
+<section id="derivadas" class="soft"><div class="container">
+<h2 class="section-title">8. Derivadas de funciones analíticas</h2><p class="intro">La fórmula integral de Cauchy permite representar las derivadas de una función analítica mediante integrales sobre el contorno.</p>
+<div class="formula">\[f'(z)=\frac{1}{2\pi i}\oint_\Gamma\frac{f(z')}{(z'-z)^2}\,dz'\]</div>
+<div class="note">Una consecuencia destacada del texto es que las derivadas de una función analítica son también analíticas.</div>
+</div></section>
+
+<section id="generalizada"><div class="container">
+<h2 class="section-title">9. Fórmula integral de Cauchy generalizada</h2><p class="intro">Para la derivada de orden \(n\), el resultado se generaliza mediante un factor \(n!\) y una potencia \(n+1\) en el denominador.</p>
+<div class="formula">\[f^{(n)}(z)=\frac{n!}{2\pi i}\oint_\Gamma\frac{f(z')}{(z'-z)^{n+1}}\,dz'\]</div>
+<div class="formula">\[|f^{(n)}(z_0)|\leq\frac{n!M}{R^n}\]</div>
+</div></section>
+
+<section id="morera" class="soft"><div class="container">
+<h2 class="section-title">10. Teorema de Morera</h2><p class="intro">Morera es complementario a Cauchy: bajo continuidad, la anulación de las integrales cerradas permite concluir analiticidad.</p>
+<div class="formula">\[f\text{ continua},\qquad\oint_\Gamma f(z)\,dz=0\quad\Longrightarrow\quad f\text{ es analítica}\]</div>
+</div></section>
+
+<section id="liouville"><div class="container">
+<h2 class="section-title">11. Teorema de Liouville</h2><p class="intro">Una función entera y acotada es constante. El texto obtiene esta conclusión a partir de la cota de Cauchy para las derivadas haciendo \(R\to\infty\).</p>
+<div class="formula">\[|f(z)|\leq M\text{ en }\mathbb C\quad\Longrightarrow\quad f(z)=\text{constante}\]</div>
+</div></section>
+
+<section id="algebra" class="soft"><div class="container">
+<h2 class="section-title">12. Teorema fundamental del álgebra</h2><p class="intro">Un polinomio de grado \(n\geq1\) tiene al menos un cero y, por factorización sucesiva, tiene \(n\) ceros contando multiplicidades.</p>
+<div class="formula">\[P(z)=a_n\prod_{k=1}^{n}(z-z_k)\]</div>
+<div class="card"><h3>Conexión con Liouville</h3><p>Si un polinomio de grado positivo no tuviera ceros, \(1/P(z)\) sería una función entera y acotada bajo el argumento del texto, contradiciendo Liouville.</p></div>
+</div></section>
+
+<section id="practica"><div class="container">
+<h2 class="section-title">13. Práctica guiada</h2><p class="intro">Selecciona una respuesta. Si fallas, recibe una pista; si aciertas, una frase que refuerza la solución.</p>
+<article class="exercise"><h3>Práctica 1 · Cauchy</h3><p>Si \(f\) es analítica en el interior de \(\Gamma\), entonces:</p><select id="p1" class="answer"><option value="">Selecciona</option><option value="0">La integral cerrada es \(0\)</option><option value="2pi">La integral cerrada es \(2\pi i\)</option><option value="f">La integral es \(f(z)\)</option></select><button onclick="practice(1)">Comprobar</button><div id="pf1" class="feedback"></div></article>
+<article class="exercise"><h3>Práctica 2 · Fórmula de Cauchy</h3><p>Para \(f(z)=z^2+1\) y \(a=2\), la integral normalizada por \(1/(2\pi i)\) vale:</p><select id="p2" class="answer"><option value="">Selecciona</option><option value="5">\(5\)</option><option value="4">\(4\)</option><option value="2">\(2\)</option></select><button onclick="practice(2)">Comprobar</button><div id="pf2" class="feedback"></div></article>
+<article class="exercise"><h3>Práctica 3 · Winding</h3><p>Si \(
+u(\Gamma,a)=2\), entonces \(\oint_\Gamma dz/(z-a)\) es:</p><select id="p3" class="answer"><option value="">Selecciona</option><option value="4pi">\(4\pi i\)</option><option value="2pi">\(2\pi i\)</option><option value="0">\(0\)</option></select><button onclick="practice(3)">Comprobar</button><div id="pf3" class="feedback"></div></article>
+<article class="exercise"><h3>Práctica 4 · Liouville</h3><p>Una función entera y acotada es:</p><select id="p4" class="answer"><option value="">Selecciona</option><option value="constant">Constante</option><option value="linear">Lineal no constante</option><option value="zero">Siempre cero</option></select><button onclick="practice(4)">Comprobar</button><div id="pf4" class="feedback"></div></article>
+</div></section>
+
+<section id="ejercicios" class="soft"><div class="container">
+<h2 class="section-title">14. Ejercicios varios</h2><p class="intro">Resuelve los ejercicios para integrar los resultados del módulo.</p>
+<div id="exerciseList"></div>
+</div></section>
+
+<div class="final"><a class="page-button" href="index.html">← Volver al inicio</a><a class="page-button" href="#comienzo">Volver al comienzo ↑</a></div>
+<footer><p><strong>Matemáticas Especiales II · Módulo 04 · Teorema de Cauchy</strong></p><p class="source">Contenido basado en las <em>Notas de Clase: Matemáticas Especiales II para Física</em>, de <strong>William Herrera y Herbert Vinck Posada</strong>, docentes del Departamento de Física de la Universidad Nacional de Colombia.</p></footer>
+
+<script>
+function fb(id,ok,msg){const e=document.getElementById(id);e.textContent=msg;e.className='feedback '+(ok?'correct':'incorrect')}
+function cauchyLab(){let v=document.getElementById('c1').value;if(v==='yes')fb('c1o',true,'✓ Correcto. Al ser analítica en todo el plano, la función cumple la condición necesaria para Cauchy.');else if(v)fb('c1o',false,'✗ Pista: localiza la singularidad de 1/z y verifica si está dentro del contorno.');else fb('c1o',false,'Selecciona una opción.')}
+function formulaLab(){let v=document.getElementById('fv').value;if(v==='e')fb('fvo',true,'✓ Correcto. La fórmula integral de Cauchy devuelve f(1)=e.');else if(v)fb('fvo',false,'✗ Pista: identifica a=1 y evalúa la función f(z)=e^z en ese punto.');else fb('fvo',false,'Selecciona una opción.')}
+function practice(n){const d={1:['p1','pf1','0','✓ Correcto. El teorema de Cauchy da integral cerrada nula bajo sus hipótesis.','✗ Pista: recuerda el resultado de Cauchy para una función analítica en el interior.'],2:['p2','pf2','5','✓ Correcto. La fórmula integral evalúa f(2)=2²+1=5.','✗ Pista: la integral tiene la forma de Cauchy con a=2.'],3:['p3','pf3','4pi','✓ Correcto. El winding 2 multiplica 2πi por 2.','✗ Pista: usa ∮dz/(z−a)=2πiν(Γ,a).'],4:['p4','pf4','constant','✓ Correcto. Liouville establece que una función entera acotada es constante.','✗ Pista: recuerda la conclusión de Liouville.']};let [s,o,k,ok,h]=d[n],v=document.getElementById(s).value;fb(o,v===k,v===k?ok:(v?h:'Selecciona una opción.'))}
+function winding(){const c=document.getElementById('cv'),x=c.getContext('2d'),W=c.width,H=c.height,n=parseInt(document.getElementById('turns').value)||0,cx=W/2,cy=H/2,r=130;x.clearRect(0,0,W,H);x.strokeStyle='#DDE6EA';x.lineWidth=2;x.beginPath();x.arc(cx,cy,r,0,2*Math.PI);x.stroke();x.strokeStyle='#003B5C';x.beginPath();x.moveTo(50,cy);x.lineTo(W-50,cy);x.moveTo(cx,40);x.lineTo(cx,H-40);x.stroke();if(n){x.strokeStyle='#65A19B';x.lineWidth=5;x.beginPath();for(let i=0;i<=400;i++){let t=2*Math.PI*n*i/400,px=cx+r*Math.cos(t),py=cy+r*Math.sin(t);i?x.lineTo(px,py):x.moveTo(px,py)}x.stroke()}x.fillStyle='#003B5C';x.beginPath();x.arc(cx,cy,7,0,2*Math.PI);x.fill();document.getElementById('wo').textContent='Número de winding: ν(Γ,z₀) = '+n+'. Entonces ∮Γ dz/(z−z₀) = '+(2*n)+'πi.'}
+const ex=[['1','Aplicación de Cauchy','Sea f(z)=z³+2z, analítica en todo el plano. ¿Cuánto vale ∮Γ f(z) dz?',['0','2πi','Depende del radio'],'0','Como f es analítica en todo el plano, Cauchy da integral cerrada nula.','Verifica si hay alguna singularidad en el interior.'],['2','Singularidad interior','Para Γ:|z|=2, ¿cuánto vale ∮Γ dz/z?',['0','2πi','4πi'],'2πi','El origen está dentro del contorno y el número de winding es 1.','1/z tiene una singularidad en z=0; revisa si queda encerrada.'],['3','Fórmula integral','Calcula (1/2πi)∮|z|=3 (z²+1)/(z−2) dz.',['5','4','2'],'5','Cauchy evalúa f(2)=2²+1=5.','Identifica el punto a del denominador z−a.'],['4','Derivada','Si f(z)=e^z, ¿cuánto vale la derivada en z=0?',['0','1','e'],'1','La derivada de e^z es e^z y e^0=1.','Deriva primero y después evalúa en z=0.'],['5','Derivada de orden 2','Para f(z)=z⁴, ¿cuánto vale la segunda derivada?',['12z²','4z³','12z'],'12z²','Dos derivaciones producen 4z³ y luego 12z².','Deriva dos veces y baja el exponente en cada paso.'],['6','Morera','Si f es continua y su integral sobre todo camino cerrado es cero, entonces:',['Es analítica','Es necesariamente constante','Es necesariamente cero'],'Es analítica','Esta es la conclusión del teorema de Morera.','Relaciona integral cerrada nula con la conclusión de analiticidad.'],['7','Liouville','Una función definida y analítica en todo ℂ puede concluirse constante por Liouville si además es:',['Periódica','Acotada','Real-valuada'],'Acotada','Liouville exige que la función entera sea acotada.','Recuerda las dos palabras clave: entera y acotada.'],['8','Álgebra fundamental','Un polinomio de grado n≥1 tiene, contando multiplicidades:',['n ceros','un cero','ningún cero'],'n ceros','El teorema fundamental del álgebra da n ceros contando multiplicidades.','Recuerda la conclusión de la factorización sucesiva del texto.']];
+let wrap=document.getElementById('exerciseList');ex.forEach((q,i)=>{let a=q[3].map((t,j)=>'<option value="'+j+'">'+t+'</option>').join('');wrap.innerHTML+='<article class="exercise"><h3>Ejercicio '+q[0]+' · '+q[1]+'</h3><p>'+q[2]+'</p><select id="e'+q[0]+'" class="answer"><option value="">Selecciona</option>'+a+'</select><button onclick="checkEx('+i+')">Comprobar</button><div id="ef'+q[0]+'" class="feedback"></div></article>'});
+function checkEx(i){let q=ex[i],v=document.getElementById('e'+q[0]).value;if(v==='')fb('ef'+q[0],false,'Selecciona una opción.');else if(q[3][v]===q[4])fb('ef'+q[0],true,'✓ Correcto. '+q[5]);else fb('ef'+q[0],false,'✗ Pista: '+q[6])}
+winding();
+</script>
+</body></html>
