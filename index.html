@@ -14,7 +14,31 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:wght@100;200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
-    
+    .eje-x-label {
+    position: absolute;
+
+    right: -35px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: var(--azul);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.eje-y-label {
+    position: absolute;
+
+    left: 50%;
+    top: -30px;
+
+    transform: translateX(-50%);
+
+    color: var(--azul);
+    font-size: 1rem;
+    font-weight: 600;
+}
     <style>
 
         /* =========================
@@ -230,36 +254,89 @@
             background: var(--azul);
         }
 
-        .vector {
-            position: absolute;
+  .vector {
+    position: absolute;
 
-            left: 50%;
-            top: 50%;
+    left: 50%;
+    top: 50%;
 
-            width: 145px;
-            height: 2px;
+    width: 145px;
+    height: 3px;
 
-            background: var(--verde);
+    background: var(--verde);
 
-            transform-origin: left center;
+    transform-origin: left center;
+    transform: rotate(-35deg) scaleX(0);
 
-            transform: rotate(-35deg);
-        }
+    animation: dibujarVector 1.6s ease-out forwards;
 
-        .punto {
-            position: absolute;
+    border-radius: 10px;
+}
 
-            width: 14px;
-            height: 14px;
+/* Punta de flecha */
+.vector::after {
+    content: "";
 
-            border-radius: 50%;
+    position: absolute;
+    right: -1px;
+    top: 50%;
 
-            background: var(--verde);
+    width: 0;
+    height: 0;
 
-            left: 73%;
-            top: 34%;
-        }
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 12px solid var(--verde);
 
+    transform: translateY(-50%);
+}
+
+
+/* El vector crece desde el origen */
+@keyframes dibujarVector {
+
+    from {
+        transform: rotate(-35deg) scaleX(0);
+    }
+
+    to {
+        transform: rotate(-35deg) scaleX(1);
+    }
+
+}
+
+     
+.punto {
+    position: absolute;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background: var(--verde);
+
+    left: 73%;
+    top: 34%;
+
+    opacity: 0;
+
+    animation: aparecerPunto 0.5s ease-out 1.5s forwards;
+}
+
+@keyframes aparecerPunto {
+
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
         .z-label {
             position: absolute;
 
@@ -271,8 +348,23 @@
             font-size: 1.4rem;
 
             font-weight: 600;
-        }
+             opacity: 0;
 
+    animation: aparecerZ 0.5s ease-out 1.7s forwards;
+        }
+@keyframes aparecerZ {
+
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
         /* =========================
            SECCIONES
         ========================= */
@@ -642,21 +734,29 @@
 
         <!-- PLANO COMPLEJO -->
 
-        <div class="plano">
+<div class="plano">
 
-            <div class="eje-x"></div>
+    <div class="eje-x"></div>
 
-            <div class="eje-y"></div>
+    <div class="eje-y"></div>
 
-            <div class="vector"></div>
+    <div class="vector"></div>
 
-            <div class="punto"></div>
+    <div class="punto"></div>
 
-            <div class="z-label">
-                z
-            </div>
+    <div class="z-label">
+        z
+    </div>
 
-        </div>
+    <div class="eje-x-label">
+        Re(z)
+    </div>
+
+    <div class="eje-y-label">
+        Im(z)
+    </div>
+
+</div>
 
     </header>
 
