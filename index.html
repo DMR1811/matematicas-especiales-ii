@@ -14,10 +14,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:wght@100;200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
-    .eje-x-label {
+  .eje-x-label {
     position: absolute;
 
-    right: -35px;
+    right: -5px;
     top: 50%;
 
     transform: translateY(-50%);
@@ -31,7 +31,7 @@
     position: absolute;
 
     left: 50%;
-    top: -30px;
+    top: -5px;
 
     transform: translateX(-50%);
 
@@ -338,20 +338,20 @@
 
 }
         .z-label {
-            position: absolute;
+    position: absolute;
 
-            left: 76%;
-            top: 27%;
+    left: 75%;
+    top: 23%;
 
-            color: var(--azul);
+    color: var(--azul);
 
-            font-size: 1.4rem;
+    font-size: 1.4rem;
+    font-weight: 600;
 
-            font-weight: 600;
-             opacity: 0;
+    opacity: 0;
 
     animation: aparecerZ 0.5s ease-out 1.7s forwards;
-        }
+}
 @keyframes aparecerZ {
 
     from {
@@ -736,17 +736,11 @@
 
 <div class="plano">
 
+<div class="plano">
+
     <div class="eje-x"></div>
 
     <div class="eje-y"></div>
-
-    <div class="vector"></div>
-
-    <div class="punto"></div>
-
-    <div class="z-label">
-        z
-    </div>
 
     <div class="eje-x-label">
         Re(z)
@@ -756,6 +750,13 @@
         Im(z)
     </div>
 
+    <div class="vector"></div>
+
+    <div class="punto"></div>
+
+    <div class="z-label">
+        z
+    </div>
 </div>
 
     </header>
