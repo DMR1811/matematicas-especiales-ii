@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 07 · Teorema del Residuo y Aplicaciones</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:wght@100;200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --azul:#003B5C;
+  --azul-oscuro:#00263A;
+  --azul-claro:#EAF3F7;
+  --verde:#65A19B;
+  --gris:#5F6B73;
+  --gris-claro:#F5F7F8;
+  --blanco:#FFFFFF;
+  --borde:#DCE5E9;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Ancizar Sans",sans-serif;
+  color:var(--azul-oscuro);
+  background:var(--gris-claro);
+  line-height:1.65;
+}
+a{color:inherit}
+header{
+  background:var(--blanco);
+  border-bottom:1px solid var(--borde);
+  position:sticky;top:0;z-index:20;
+}
+.nav{
+  max-width:1150px;margin:auto;padding:18px 6%;
+  display:flex;justify-content:space-between;align-items:center;gap:20px;
+}
+.marca{font-weight:700;color:var(--azul);font-size:1.1rem}
+.nav a{text-decoration:none;color:var(--gris);font-weight:600}
+.hero{
+  background:linear-gradient(135deg,#f7fbfc 0%,#eaf3f7 100%);
+  padding:70px 7% 60px;
+}
+.hero-inner{max-width:1100px;margin:auto}
+.eyebrow{
+  display:inline-block;padding:8px 15px;border-radius:999px;
+  background:#dcecef;color:var(--azul);font-weight:700;
+}
+h1{
+  font-size:clamp(2.35rem,6vw,4.6rem);
+  line-height:1;margin:22px 0 18px;color:var(--azul);
+}
+h1 span{color:var(--verde)}
+.hero p{max-width:800px;font-size:1.2rem;color:var(--gris)}
+.progress{
+  display:flex;flex-wrap:wrap;gap:9px;max-width:1100px;margin:25px auto 0;
+}
+.progress a{
+  text-decoration:none;background:var(--blanco);border:1px solid var(--borde);
+  border-radius:999px;padding:8px 13px;color:var(--azul);font-weight:600;
+}
+main{padding:55px 4%}
+.section{max-width:1100px;margin:0 auto 55px;scroll-margin-top:90px}
+.section-title{font-size:2.25rem;color:var(--azul);margin:0 0 10px}
+.section-intro{color:var(--gris);font-size:1.12rem;margin-bottom:25px}
+.card,.exercise{
+  background:var(--blanco);border:1px solid var(--borde);border-radius:16px;
+  padding:30px;margin:20px 0;box-shadow:0 4px 16px rgba(0,38,58,.035);
+}
+.card h3{font-size:1.45rem;margin-top:0;color:var(--azul)}
+.note{
+  background:var(--azul-claro);border-left:5px solid var(--verde);
+  padding:20px 24px;border-radius:10px;margin:22px 0;
+}
+.warning{
+  background:#fbf6eb;border-left:5px solid #c08b3e;
+  padding:18px 22px;border-radius:10px;margin:20px 0;
+}
+.formula{
+  background:var(--azul-oscuro);color:white;border-radius:12px;
+  padding:22px;margin:22px 0;overflow-x:auto;text-align:center;
+}
+.formula .math{font-size:1.25rem}
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;
+}
+.lab{
+  background:#fff;border:1px solid var(--borde);border-radius:14px;
+  overflow:hidden;margin:25px 0;
+}
+.lab-head{background:var(--azul-claro);padding:16px 20px;font-weight:700;color:var(--azul)}
+.lab-body{padding:22px}
+label{display:block;font-weight:600;color:var(--gris);margin-bottom:6px}
+input,select{
+  width:100%;padding:12px 14px;border:1px solid #C8D6DC;border-radius:9px;
+  font:inherit;background:white;
+}
+button,.page-button{
+  display:inline-block;border:0;background:var(--azul);color:white;
+  padding:12px 19px;border-radius:9px;font:inherit;font-weight:700;
+  cursor:pointer;text-decoration:none;margin-top:14px;
+}
+button:hover,.page-button:hover{background:var(--azul-oscuro)}
+.output{
+  margin-top:18px;padding:14px 17px;border-radius:9px;
+  background:var(--gris-claro);min-height:30px;
+}
+.success{border-left:4px solid var(--verde)}
+.hint{border-left:4px solid #c08b3e}
+canvas{
+  width:100%;height:auto;display:block;background:white;
+  border:1px solid var(--borde);border-radius:12px;
+}
+.exercise{padding:22px}
+.choice{
+  display:block;padding:9px 12px;border:1px solid var(--borde);
+  border-radius:8px;margin:8px 0;cursor:pointer;
+}
+.choice input{width:auto;margin-right:8px}
+details{
+  border:1px solid var(--borde);border-radius:10px;padding:13px 16px;
+  background:white;margin:12px 0;
+}
+summary{font-weight:700;cursor:pointer;color:var(--azul)}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:600px;background:white}
+th,td{border:1px solid var(--borde);padding:11px;text-align:left}
+th{background:var(--azul-claro);color:var(--azul)}
+.footer-actions{
+  max-width:1100px;margin:20px auto 70px;padding:0 4%;
+  display:flex;justify-content:space-between;gap:20px;
+}
+footer{background:var(--azul-oscuro);color:white;padding:35px 7%}
+.footer-inner{max-width:1100px;margin:auto}
+footer p{margin:6px 0;color:#e8f0f3}
+.small{font-size:.94rem;color:var(--gris)}
+@media(max-width:700px){
+  .nav{padding:14px 5%}.hero{padding:50px 6%}main{padding:40px 5%}
+  .card{padding:22px}.footer-actions{flex-direction:column}
+  .page-button{text-align:center}
+}
+</style>
+</head>
+
+<body id="comienzo">
+
+<header>
+<nav class="nav">
+  <a class="marca" href="index.html">Especiales II</a>
+  <a href="index.html">Inicio</a>
+</nav>
+</header>
+
+<section class="hero">
+<div class="hero-inner">
+  <span class="eyebrow">Módulo 07 · Análisis complejo</span>
+  <h1>Teorema del <span>Residuo</span> y Aplicaciones</h1>
+  <p>
+    Aprende a identificar residuos, calcular integrales de contorno mediante el
+    teorema del residuo y transformar integrales reales y trigonométricas en
+    problemas de variable compleja.
+  </p>
+  <div class="progress">
+    <a href="#residuo">01 · Residuo</a>
+    <a href="#varios">02 · Varios polos</a>
+    <a href="#calculo">03 · Cálculo del residuo</a>
+    <a href="#integrales">04 · Integrales definidas</a>
+    <a href="#trigonometricas">05 · Trigonométricas</a>
+    <a href="#reales">06 · Eje real</a>
+    <a href="#jordan">07 · Lema de Jordan</a>
+    <a href="#fourier">08 · Fourier</a>
+    <a href="#laboratorios">09 · Laboratorios</a>
+    <a href="#practica">10 · Práctica</a>
+    <a href="#ejercicios">11 · Ejercicios</a>
+  </div>
+</div>
+</section>
+
+<main>
+
+<section class="section" id="residuo">
+<h2 class="section-title">1. Teorema del residuo</h2>
+<p class="section-intro">
+  El residuo conecta la serie de Laurent de una función con su integral alrededor
+  de una singularidad aislada.
+</p>
+
+<div class="card">
+<h3>Residuo como coeficiente de Laurent</h3>
+<p>
+  Si alrededor de z<sub>0</sub> una función tiene el desarrollo
+  de Laurent, el coeficiente de la potencia (z−z<sub>0</sub>)<sup>−1</sup>
+  se denomina <strong>residuo</strong> de f en z<sub>0</sub>.
+</p>
+<div class="formula">
+<div class="math">
+f(z) = Σ<sub>n=−∞</sub><sup>∞</sup> a<sub>n</sub>(z−z<sub>0</sub>)<sup>n</sup>,
+&nbsp;&nbsp;
+Res(f,z<sub>0</sub>) = a<sub>−1</sub>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Teorema del residuo</h3>
+<p>
+  Si Γ es un contorno cerrado que encierra singularidades aisladas,
+  la integral se obtiene sumando los residuos interiores:
+</p>
+<div class="formula">
+<div class="math">
+∮<sub>Γ</sub> f(z) dz = 2πi Σ Res(f,z<sub>k</sub>)
+</div>
+</div>
+<div class="note">
+<strong>Idea clave:</strong> para una integral de contorno no necesitas reconstruir
+toda la función; basta identificar las singularidades interiores y calcular
+sus residuos.
+</div>
+</div>
+
+<div class="card">
+<h3>¿Por qué aparece el −1?</h3>
+<p>
+  En una serie de Laurent, los términos analíticos y las potencias negativas
+  distintas de −1 no contribuyen a la integral alrededor de un contorno cerrado.
+  El término que sobrevive es:
+</p>
+<div class="formula">
+<div class="math">
+a<sub>−1</sub>/(z−z<sub>0</sub>)
+</div>
+</div>
+<p>
+  porque su integral alrededor de un contorno que encierra z<sub>0</sub> es
+  2πi a<sub>−1</sub>.
+</p>
+</div>
+</section>
+
+<section class="section" id="varios">
+<h2 class="section-title">2. Varios polos dentro del contorno</h2>
+<p class="section-intro">
+  Cuando Γ contiene varios polos, cada uno aporta su residuo.
+</p>
+
+<div class="card">
+<h3>Regla de suma</h3>
+<div class="formula">
+<div class="math">
+∮<sub>Γ</sub> f(z) dz =
+2πi [Res(f,z<sub>1</sub>) + Res(f,z<sub>2</sub>) + ··· + Res(f,z<sub>N</sub>)]
+</div>
+</div>
+<p>
+  La primera tarea es siempre geométrica: determinar qué singularidades
+  están realmente dentro de Γ.
+</p>
+</div>
+
+<div class="lab">
+<div class="lab-head">Laboratorio · ¿Qué polos están dentro?</div>
+<div class="lab-body">
+<canvas id="poleCanvas" width="900" height="500"></canvas>
+<p>
+  El contorno es un círculo centrado en el origen. Cambia el radio y observa
+  cuántas singularidades quedan encerradas.
+</p>
+<label>Radio del contorno</label>
+<input id="poleR" type="range" min="0.5" max="3.5" step="0.1" value="1.8">
+<div id="poleOut" class="output"></div>
+</div>
+</div>
+</section>
+
+<section class="section" id="calculo">
+<h2 class="section-title">3. Cómo calcular un residuo</h2>
+<p class="section-intro">
+  La estrategia depende del tipo de polo y de la forma de la función.
+</p>
+
+<div class="grid">
+<div class="card">
+<h3>Polo simple</h3>
+<p>
+  Si z<sub>0</sub> es un polo de orden 1:
+</p>
+<div class="formula"><div class="math">
+Res(f,z<sub>0</sub>) = lim<sub>z→z₀</sub>(z−z<sub>0</sub>)f(z)
+</div></div>
+</div>
+
+<div class="card">
+<h3>Polo de orden m</h3>
+<p>
+  Para un polo de orden m:
+</p>
+<div class="formula"><div class="math">
+Res(f,z<sub>0</sub>) =
+1/(m−1)! · lim<sub>z→z₀</sub>
+[d<sup>m−1</sup>/dz<sup>m−1</sup>]
+[(z−z<sub>0</sub>)<sup>m</sup>f(z)]
+</div></div>
+</div>
+
+<div class="card">
+<h3>Cociente p/q</h3>
+<p>
+  Si f(z)=p(z)/q(z) tiene un polo simple y q'(z<sub>0</sub>) ≠ 0:
+</p>
+<div class="formula"><div class="math">
+Res(f,z<sub>0</sub>) = p(z<sub>0</sub>)/q'(z<sub>0</sub>)
+</div></div>
+</div>
+</div>
+
+<div class="card">
+<h3>Ejemplo: dos polos simples</h3>
+<p>
+  Para la función:
+  f(z)=z/[(z−1)(z+i)],
+  los polos simples son z=1 y z=−i.
+</p>
+<div class="formula">
+<div class="math">
+∮ f(z)dz =
+2πi [ 1/(1+i) + i/(1+i) ] = 4πi
+</div>
+</div>
+<div class="note">
+<strong>Procedimiento:</strong> localizar polos → verificar cuáles están dentro →
+calcular cada residuo → sumar → multiplicar por 2πi.
+</div>
+</div>
+
+<div class="card">
+<h3>Polo múltiple: ejemplo</h3>
+<p>
+  Para e<sup>2z</sup>/z<sup>4</sup> en z=0, el polo es de orden 4.
+  El método de derivadas da:
+</p>
+<div class="formula">
+<div class="math">
+Res(f,0) = 1/3! · [d³/dz³ (e<sup>2z</sup>)]<sub>z=0</sub> = 4/3
+</div>
+</div>
+<p>
+  Por tanto, sobre el círculo unitario:
+  ∮e<sup>2z</sup>/z<sup>4</sup> dz = 8πi/3.
+</p>
+</div>
+
+<div class="warning">
+<strong>Atención:</strong> antes de aplicar la fórmula de un polo de orden m,
+comprueba que el orden de la singularidad realmente sea m. Una singularidad
+removible puede hacer que la expresión original parezca tener un polo de mayor orden.
+</div>
+</section>
+
+<section class="section" id="integrales">
+<h2 class="section-title">4. Aplicación al cálculo de integrales definidas</h2>
+<p class="section-intro">
+  El capítulo utiliza residuos para convertir integrales reales y trigonométricas
+  en integrales de contorno.
+</p>
+
+<div class="card">
+<h3>La idea general</h3>
+<div class="grid">
+  <div class="note"><strong>1.</strong> Transformar la integral a variable compleja.</div>
+  <div class="note"><strong>2.</strong> Elegir un contorno adecuado.</div>
+  <div class="note"><strong>3.</strong> Localizar los polos interiores.</div>
+  <div class="note"><strong>4.</strong> Sumar los residuos.</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Mapa de estrategia</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Tipo de integral</th><th>Transformación / contorno</th><th>Herramienta</th></tr></thead>
+<tbody>
+<tr><td>Trigonométrica en 0 ≤ θ ≤ 2π</td><td>z=e<sup>iθ</sup>, círculo |z|=1</td><td>Residuos</td></tr>
+<tr><td>Integral sobre (−∞,∞)</td><td>Semicírculo superior o inferior</td><td>Residuos + estimación del arco</td></tr>
+<tr><td>Integral con e<sup>iαx</sup></td><td>Semiplano según el signo de α</td><td>Lema de Jordan + residuos</td></tr>
+<tr><td>Transformada de Fourier</td><td>Integral compleja con exponencial</td><td>Residuos</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section class="section" id="trigonometricas">
+<h2 class="section-title">5. Integrales trigonométricas</h2>
+<p class="section-intro">
+  Para integrales de 0 a 2π se utiliza z=e<sup>iθ</sup>, de modo que la trayectoria
+  corresponde al círculo unitario.
+</p>
+
+<div class="card">
+<h3>Sustituciones fundamentales</h3>
+<div class="formula">
+<div class="math">
+z=e<sup>iθ</sup>, &nbsp;
+dz=iz\,dθ, &nbsp;
+dθ=−i dz/z
+</div>
+</div>
+<div class="formula">
+<div class="math">
+cos θ=(z+z<sup>−1</sup>)/2
+&nbsp;&nbsp;&nbsp;
+sin θ=(z−z<sup>−1</sup>)/(2i)
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Ejemplo: ∫₀²π dθ/(2+cos θ)</h3>
+<p>
+  Después de la sustitución se obtiene una integral sobre |z|=1.
+  Los ceros relevantes del denominador son:
+</p>
+<div class="formula"><div class="math">
+z<sub>±</sub>=−2±√3
+</div></div>
+<p>
+  Solo z<sub>+</sub>=−2+√3 está dentro del círculo unitario.
+  El residuo conduce a:
+</p>
+<div class="formula"><div class="math">
+∫₀²π dθ/(2+cos θ)=2π/√3
+</div></div>
+</div>
+
+<div class="lab">
+<div class="lab-head">Laboratorio · Sustitución trigonométrica</div>
+<div class="lab-body">
+<label>Ángulo θ (grados)</label>
+<input id="theta" type="number" value="60" step="1">
+<button onclick="trigLab()">Convertir a z=e^(iθ)</button>
+<div id="trigOut" class="output"></div>
+</div>
+</div>
+</section>
+
+<section class="section" id="reales">
+<h2 class="section-title">6. Integrales reales sobre el eje real</h2>
+<p class="section-intro">
+  Una integral sobre toda la recta puede relacionarse con un contorno cerrado
+  formado por el eje real y un semicírculo.
+</p>
+
+<div class="card">
+<h3>Ejemplo fundamental</h3>
+<p>
+  Consideremos:
+</p>
+<div class="formula"><div class="math">
+I=∫<sub>−∞</sub><sup>∞</sup> dx/(x²+a²)
+</div></div>
+<p>
+  Se cierra el contorno por el semiplano superior. El polo interior es z=ia.
+  La contribución del semiarco desaparece cuando R→∞ y queda:
+</p>
+<div class="formula"><div class="math">
+∫<sub>−∞</sub><sup>∞</sup> dx/(x²+a²)=π/a
+</div></div>
+</div>
+
+<div class="card">
+<h3>¿Por qué desaparece el arco?</h3>
+<p>
+  Si sobre el semiarco de radio R se cumple
+  |f(z)|≤M/R<sup>k</sup>, con k&gt;1, entonces:
+</p>
+<div class="formula"><div class="math">
+|∫<sub>Γ<sub>S</sub></sub> f(z)dz|
+≤ Mπ/R<sup>k−1</sup> → 0
+</div></div>
+<div class="note">
+La longitud del arco crece como R, pero el integrando decrece suficientemente
+rápido para que el producto tienda a cero.
+</div>
+</div>
+</section>
+
+<section class="section" id="jordan">
+<h2 class="section-title">7. Lema de Jordan</h2>
+<p class="section-intro">
+  El factor exponencial e<sup>iαz</sup> permite controlar el comportamiento del
+  integrando sobre grandes semicírculos.
+</p>
+
+<div class="card">
+<h3>Elección del semiplano</h3>
+<div class="grid">
+<div class="note">
+<strong>α &gt; 0</strong><br>
+Se utiliza el semiplano superior.
+</div>
+<div class="note">
+<strong>α &lt; 0</strong><br>
+Se utiliza el semiplano inferior y cambia la orientación del contorno.
+</div>
+</div>
+</div>
+
+<div class="formula">
+<div class="math">
+∫<sub>−∞</sub><sup>∞</sup> f(x)e<sup>iαx</sup>dx
+=
+2πi Σ<sub>Im(zₖ)&gt;0</sub> Res[f(z)e<sup>iαz</sup>],
+&nbsp; α&gt;0
+</div>
+</div>
+
+<div class="card">
+<h3>Ejemplo del capítulo</h3>
+<p>
+  Para α&gt;0:
+</p>
+<div class="formula">
+<div class="math">
+∫<sub>−∞</sub><sup>∞</sup>
+x sin(αx)/(x²+4) dx
+=
+πe<sup>−2α</sup>
+</div>
+</div>
+<p>
+  Se trabaja primero con la exponencial compleja y al final se toma la parte imaginaria.
+</p>
+</div>
+</section>
+
+<section class="section" id="fourier">
+<h2 class="section-title">8. Transformadas de Fourier</h2>
+<p class="section-intro">
+  Los mismos argumentos de contorno permiten evaluar transformadas de Fourier
+  de funciones que satisfacen las condiciones necesarias para controlar el arco.
+</p>
+
+<div class="card">
+<h3>Ejemplo</h3>
+<p>
+  Para f(x)=1/(x²+a²), el capítulo considera:
+</p>
+<div class="formula">
+<div class="math">
+F(k)=1/(2π) ∫<sub>−∞</sub><sup>∞</sup>
+e<sup>ikx</sup>/(x²+a²) dx
+</div>
+</div>
+<p>
+  Para k&gt;0 se cierra por el semiplano superior y se toma el polo z=ia.
+  El resultado mostrado en las notas es:
+</p>
+<div class="formula">
+<div class="math">
+F(k)=e<sup>−ka</sup>/(2a)
+</div>
+</div>
+</div>
+
+<div class="note">
+<strong>Conexión:</strong> el teorema del residuo no solo permite calcular integrales
+de contorno; también proporciona una técnica para integrales reales, integrales
+trigonométricas y transformadas de Fourier.
+</div>
+</section>
+
+<section class="section" id="laboratorios">
+<h2 class="section-title">9. Laboratorios interactivos</h2>
+
+<div class="lab">
+<div class="lab-head">Laboratorio 1 · Residuo de un polo simple</div>
+<div class="lab-body">
+<p>
+Para f(z)=p(z)/q(z), con un polo simple z₀ y q'(z₀)≠0:
+Res=p(z₀)/q'(z₀).
+</p>
+<div class="grid">
+<div><label>p(z₀)</label><input id="p0" type="number" step="0.1" value="2"></div>
+<div><label>q'(z₀)</label><input id="qp0" type="number" step="0.1" value="4"></div>
+</div>
+<button onclick="simpleResidue()">Calcular residuo</button>
+<div id="resOut" class="output"></div>
+</div>
+</div>
+
+<div class="lab">
+<div class="lab-head">Laboratorio 2 · Residuo de un polo de orden m</div>
+<div class="lab-body">
+<label>Orden m</label>
+<input id="orderM" type="number" min="1" max="6" value="3">
+<label>Valor de la derivada de orden m−1 en z₀</label>
+<input id="derivVal" type="number" step="0.1" value="8">
+<button onclick="higherResidue()">Calcular</button>
+<div id="higherOut" class="output"></div>
+</div>
+</div>
+
+<div class="lab">
+<div class="lab-head">Laboratorio 3 · Integral mediante residuos</div>
+<div class="lab-body">
+<p>
+Supón que el contorno encierra los residuos indicados. Explora cómo cambia la integral
+al sumar diferentes residuos.
+</p>
+<div class="grid">
+<div><label>Residuo 1</label><input id="r1" type="number" step="0.1" value="1"></div>
+<div><label>Residuo 2</label><input id="r2" type="number" step="0.1" value="-0.5"></div>
+<div><label>Residuo 3</label><input id="r3" type="number" step="0.1" value="0"></div>
+</div>
+<button onclick="integralResidues()">Calcular ∮f(z)dz</button>
+<div id="intOut" class="output"></div>
+</div>
+</div>
+</section>
+
+<section class="section" id="practica">
+<h2 class="section-title">10. Práctica guiada</h2>
+<p class="section-intro">
+  Responde y recibe una pista si necesitas revisar el procedimiento.
+</p>
+
+<div class="exercise">
+<p><strong>1.</strong> ¿Qué coeficiente de la serie de Laurent corresponde al residuo?</p>
+<label class="choice"><input type="radio" name="q1" value="a"> a₀</label>
+<label class="choice"><input type="radio" name="q1" value="b"> a₋₁</label>
+<label class="choice"><input type="radio" name="q1" value="c"> a₁</label>
+<button onclick="checkQ1()">Comprobar</button>
+<div id="q1out" class="output"></div>
+</div>
+
+<div class="exercise">
+<p><strong>2.</strong> Si un contorno encierra tres polos, ¿qué se hace con sus residuos?</p>
+<select id="q2">
+<option value="">Selecciona</option>
+<option value="sum">Se suman</option>
+<option value="multiply">Se multiplican</option>
+<option value="ignore">Se ignoran</option>
+</select>
+<button onclick="checkQ2()">Comprobar</button>
+<div id="q2out" class="output"></div>
+</div>
+
+<div class="exercise">
+<p><strong>3.</strong> Para α&gt;0 en una integral con e<sup>iαz</sup>, ¿qué semiplano se utiliza?</p>
+<select id="q3">
+<option value="">Selecciona</option>
+<option value="upper">Superior</option>
+<option value="lower">Inferior</option>
+</select>
+<button onclick="checkQ3()">Comprobar</button>
+<div id="q3out" class="output"></div>
+</div>
+
+<div class="exercise">
+<p><strong>4.</strong> ¿Cuál es el residuo de 1/(z−2) en z=2?</p>
+<input id="q4" type="text" placeholder="Escribe el valor">
+<button onclick="checkQ4()">Comprobar</button>
+<div id="q4out" class="output"></div>
+</div>
+</section>
+
+<section class="section" id="ejercicios">
+<h2 class="section-title">11. Ejercicios varios</h2>
+<p class="section-intro">
+  Estos ejercicios reúnen las técnicas principales del módulo.
+</p>
+
+<div class="exercise">
+<p><strong>Ejercicio 1.</strong> Calcula el residuo de
+f(z)=z/[(z−1)(z+i)] en cada polo simple.</p>
+<details><summary>Ver orientación</summary>
+<p>
+Usa Res(f,z₀)=lim<sub>z→z₀</sub>(z−z₀)f(z) por separado en z=1 y z=−i.
+</p></details>
+</div>
+
+<div class="exercise">
+<p><strong>Ejercicio 2.</strong> Calcula
+∮<sub>|z|=1</sub> e<sup>2z</sup>/z<sup>4</sup> dz.</p>
+<details><summary>Ver orientación</summary>
+<p>
+Identifica el polo en z=0, determina su orden y aplica la fórmula del residuo
+para un polo múltiple.
+</p></details>
+</div>
+
+<div class="exercise">
+<p><strong>Ejercicio 3.</strong> Evalúa
+∫₀²π dθ/(2+cos θ).</p>
+<details><summary>Ver orientación</summary>
+<p>
+Usa z=e<sup>iθ</sup>, convierte cos θ y dθ, encuentra los polos y toma solo
+los que estén dentro de |z|=1.
+</p></details>
+</div>
+
+<div class="exercise">
+<p><strong>Ejercicio 4.</strong> Calcula
+∫<sub>−∞</sub><sup>∞</sup> dx/(x²+a²), con a&gt;0.</p>
+<details><summary>Ver orientación</summary>
+<p>
+Cierra el contorno por el semiplano superior, toma el polo z=ia y demuestra
+que la contribución del arco tiende a cero.
+</p></details>
+</div>
+
+<div class="exercise">
+<p><strong>Ejercicio 5.</strong> Para α&gt;0, calcula
+∫<sub>−∞</sub><sup>∞</sup> x sin(αx)/(x²+4) dx.</p>
+<details><summary>Ver orientación</summary>
+<p>
+Escribe la integral como la parte imaginaria de la integral con
+xe<sup>iαx</sup>/(x²+4), usa el semiplano superior y el lema de Jordan.
+</p></details>
+</div>
+
+<div class="exercise">
+<p><strong>Ejercicio 6.</strong> Explica por qué una singularidad removible no aporta
+un residuo a la integral si la función se redefine analíticamente.</p>
+<details><summary>Ver orientación</summary>
+<p>
+Relaciona la ausencia de términos negativos en la expansión de Laurent con
+la ausencia del coeficiente a₋₁.
+</p></details>
+</div>
+
+<div class="note">
+<strong>Problemas del capítulo:</strong> las notas continúan con ejercicios de
+integrales de contorno, residuos en polos simples y múltiples, desarrollos de Laurent,
+singularidades removibles e integrales definidas mediante contornos.
+</div>
+</section>
+
+</main>
+
+<div class="footer-actions">
+<a class="page-button" href="index.html">← Volver al inicio</a>
+<a class="page-button" href="#comienzo">Volver al comienzo ↑</a>
+</div>
+
+<footer>
+<div class="footer-inner">
+<p><strong>Matemáticas Especiales II · Módulo 07 · Teorema del Residuo y Aplicaciones</strong></p>
+<p>
+Contenido basado en las <em>Notas de Clase: Matemáticas Especiales II para Física</em>,
+de <strong>William Herrera y Herbert Vinck Posada</strong>,
+docentes del Departamento de Física de la Universidad Nacional de Colombia.
+</p>
+</div>
+</footer>
+
+<script>
+const AZUL="#003B5C", VERDE="#65A19B", BORDE="#DCE5E9", GRIS="#5F6B73";
+
+function drawPoleCanvas(){
+  const c=document.getElementById("poleCanvas"),ctx=c.getContext("2d");
+  const R=parseFloat(document.getElementById("poleR").value);
+  const cx=450,cy=250,scale=75;
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.fillStyle="#FFFFFF";ctx.fillRect(0,0,c.width,c.height);
+
+  ctx.strokeStyle=BORDE;ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(50,cy);ctx.lineTo(850,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,40);ctx.lineTo(cx,460);ctx.stroke();
+
+  ctx.strokeStyle=AZUL;ctx.lineWidth=3;
+  ctx.beginPath();ctx.arc(cx,cy,R*scale,0,2*Math.PI);ctx.stroke();
+
+  const poles=[
+    {x:1,y:0,name:"z=1"},
+    {x:-1,y:0,name:"z=-1"},
+    {x:0,y:1.6,name:"z=1.6i"},
+    {x:0,y:-1.6,name:"z=-1.6i"},
+    {x:2.5,y:0,name:"z=2.5"}
+  ];
+  let inside=0;
+  ctx.font='16px "Ancizar Sans",sans-serif';
+  poles.forEach(p=>{
+    const px=cx+p.x*scale,py=cy-p.y*scale;
+    const d=Math.hypot(p.x,p.y);
+    const ok=d<R;
+    if(ok)inside++;
+    ctx.fillStyle=ok?VERDE:GRIS;
+    ctx.beginPath();ctx.arc(px,py,7,0,2*Math.PI);ctx.fill();
+    ctx.fillStyle=AZUL;ctx.fillText(p.name,px+10,py-8);
+  });
+  ctx.fillStyle=AZUL;ctx.fillText("Re(z)",805,cy-12);
+  ctx.fillText("Im(z)",cx+10,55);
+  document.getElementById("poleOut").innerHTML=
+    `Radio R = ${R.toFixed(1)}. Hay <strong>${inside}</strong> singularidades dentro del contorno.`;
+}
+document.getElementById("poleR").addEventListener("input",drawPoleCanvas);
+
+function trigLab(){
+  const deg=parseFloat(document.getElementById("theta").value);
+  const rad=deg*Math.PI/180;
+  const re=Math.cos(rad),im=Math.sin(rad);
+  document.getElementById("trigOut").innerHTML=
+    `θ = ${deg}° = ${rad.toFixed(5)} rad. Entonces z=e^(iθ)=
+     ${re.toFixed(5)} ${im>=0?"+":"−"} ${Math.abs(im).toFixed(5)}i y |z|=1.`;
+}
+
+function simpleResidue(){
+  const p=parseFloat(document.getElementById("p0").value);
+  const q=parseFloat(document.getElementById("qp0").value);
+  const out=document.getElementById("resOut");
+  if(q===0){
+    out.className="output hint";out.innerHTML="q'(z₀) no puede ser 0 en esta fórmula.";
+    return;
+  }
+  out.className="output success";
+  out.innerHTML=`Res(f,z₀) = p(z₀)/q'(z₀) = ${p/q}.`;
+}
+
+function factorial(n){let f=1;for(let i=2;i<=n;i++)f*=i;return f}
+function higherResidue(){
+  const m=parseInt(document.getElementById("orderM").value);
+  const d=parseFloat(document.getElementById("derivVal").value);
+  const res=d/factorial(m-1);
+  document.getElementById("higherOut").innerHTML=
+    `Res = ${d}/(${m-1})! = <strong>${res}</strong>.`;
+}
+function integralResidues(){
+  const s=parseFloat(document.getElementById("r1").value)+
+          parseFloat(document.getElementById("r2").value)+
+          parseFloat(document.getElementById("r3").value);
+  document.getElementById("intOut").innerHTML=
+    `Σ residuos = ${s.toFixed(5)}. Por tanto, ∮f(z)dz = 2πi(${s.toFixed(5)}).`;
+}
+
+function checkQ1(){
+  const v=document.querySelector('input[name="q1"]:checked');
+  const out=document.getElementById("q1out");
+  if(v&&v.value==="b"){
+    out.className="output success";out.innerHTML="Correcto: el residuo es el coeficiente a₋₁.";
+  }else{
+    out.className="output hint";out.innerHTML="Pista: busca la potencia (z−z₀)⁻¹ en la serie de Laurent.";
+  }
+}
+function checkQ2(){
+  const out=document.getElementById("q2out");
+  if(document.getElementById("q2").value==="sum"){
+    out.className="output success";out.innerHTML="Correcto: se suman los residuos de todos los polos interiores.";
+  }else{
+    out.className="output hint";out.innerHTML="Pista: el teorema del residuo contiene una suma sobre las singularidades interiores.";
+  }
+}
+function checkQ3(){
+  const out=document.getElementById("q3out");
+  if(document.getElementById("q3").value==="upper"){
+    out.className="output success";out.innerHTML="Correcto: para α&gt;0 se utiliza el semiplano superior.";
+  }else{
+    out.className="output hint";out.innerHTML="Pista: e^(iαz) decae en el semiplano superior cuando α&gt;0.";
+  }
+}
+function checkQ4(){
+  const v=document.getElementById("q4").value.trim().replace(",",".");
+  const out=document.getElementById("q4out");
+  if(v==="1"||v==="1.0"){
+    out.className="output success";out.innerHTML="Correcto: el coeficiente de 1/(z−2) es 1.";
+  }else{
+    out.className="output hint";out.innerHTML="Pista: multiplica por (z−2) y toma el límite cuando z→2.";
+  }
+}
+
+window.addEventListener("DOMContentLoaded",drawPoleCanvas);
+</script>
+</body>
+</html>
