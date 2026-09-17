@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 06 · Series de Potencias</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:wght@100;200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --azul:#003B5C;
+  --azul-oscuro:#00263A;
+  --azul-claro:#EAF3F7;
+  --verde:#65A19B;
+  --gris:#5F6B73;
+  --gris-claro:#F5F7F8;
+  --blanco:#FFFFFF;
+  --borde:#DCE5E9;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Ancizar Sans",sans-serif;
+  color:var(--azul-oscuro);
+  background:var(--gris-claro);
+  line-height:1.65;
+}
+a{color:inherit}
+header{
+  background:var(--blanco);
+  border-bottom:1px solid var(--borde);
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+.nav{
+  max-width:1150px;
+  margin:auto;
+  padding:18px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+.marca{font-weight:700;color:var(--azul);font-size:1.1rem}
+.nav a{text-decoration:none;color:var(--gris);font-weight:600}
+.hero{
+  background:linear-gradient(135deg,#f7fbfc 0%,#eaf3f7 100%);
+  padding:70px 7% 60px;
+}
+.hero-inner{max-width:1100px;margin:auto}
+.eyebrow{
+  display:inline-block;
+  padding:8px 15px;
+  border-radius:999px;
+  background:#dcecef;
+  color:var(--azul);
+  font-weight:700;
+}
+h1{
+  font-size:clamp(2.5rem,6vw,4.8rem);
+  line-height:1;
+  margin:22px 0 18px;
+  color:var(--azul);
+}
+h1 span{color:var(--verde)}
+.hero p{max-width:760px;font-size:1.2rem;color:var(--gris)}
+.progress{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  max-width:1100px;
+  margin:25px auto 0;
+}
+.progress a{
+  text-decoration:none;
+  background:var(--blanco);
+  border:1px solid var(--borde);
+  border-radius:999px;
+  padding:8px 13px;
+  color:var(--azul);
+  font-weight:600;
+}
+main{padding:55px 4%}
+.section{
+  max-width:1100px;
+  margin:0 auto 55px;
+  scroll-margin-top:90px;
+}
+.section-title{
+  font-size:2.25rem;
+  color:var(--azul);
+  margin:0 0 10px;
+}
+.section-intro{
+  color:var(--gris);
+  font-size:1.12rem;
+  margin-bottom:25px;
+}
+.card{
+  background:var(--blanco);
+  border:1px solid var(--borde);
+  border-radius:16px;
+  padding:30px;
+  margin:20px 0;
+  box-shadow:0 4px 16px rgba(0,38,58,.035);
+}
+.card h3{font-size:1.45rem;margin-top:0;color:var(--azul)}
+.note{
+  background:var(--azul-claro);
+  border-left:5px solid var(--verde);
+  padding:20px 24px;
+  border-radius:10px;
+  margin:22px 0;
+}
+.formula{
+  background:var(--azul-oscuro);
+  color:white;
+  border-radius:12px;
+  padding:22px;
+  margin:22px 0;
+  overflow-x:auto;
+  text-align:center;
+}
+.formula math{font-size:1.35rem}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+}
+.lab{
+  background:#fff;
+  border:1px solid var(--borde);
+  border-radius:14px;
+  overflow:hidden;
+  margin:25px 0;
+}
+.lab-head{
+  background:var(--azul-claro);
+  padding:16px 20px;
+  font-weight:700;
+  color:var(--azul);
+}
+.lab-body{padding:22px}
+label{display:block;font-weight:600;color:var(--gris);margin-bottom:6px}
+input,select{
+  width:100%;
+  padding:12px 14px;
+  border:1px solid #C8D6DC;
+  border-radius:9px;
+  font:inherit;
+  background:white;
+}
+button,.page-button{
+  display:inline-block;
+  border:0;
+  background:var(--azul);
+  color:white;
+  padding:12px 19px;
+  border-radius:9px;
+  font:inherit;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+  margin-top:14px;
+}
+button:hover,.page-button:hover{background:var(--azul-oscuro)}
+.output{
+  margin-top:18px;
+  padding:14px 17px;
+  border-radius:9px;
+  background:var(--gris-claro);
+  min-height:30px;
+}
+.success{border-left:4px solid var(--verde)}
+.hint{border-left:4px solid #d39b45}
+canvas{
+  width:100%;
+  height:auto;
+  display:block;
+  background:white;
+  border:1px solid var(--borde);
+  border-radius:12px;
+}
+.exercise{
+  border:1px solid var(--borde);
+  border-radius:13px;
+  padding:20px;
+  margin:17px 0;
+  background:white;
+}
+.exercise p{margin-top:0}
+.choice{
+  display:block;
+  padding:9px 12px;
+  border:1px solid var(--borde);
+  border-radius:8px;
+  margin:8px 0;
+  cursor:pointer;
+}
+.choice input{width:auto;margin-right:8px}
+details{
+  border:1px solid var(--borde);
+  border-radius:10px;
+  padding:13px 16px;
+  background:white;
+  margin:12px 0;
+}
+summary{font-weight:700;cursor:pointer;color:var(--azul)}
+.footer-actions{
+  max-width:1100px;
+  margin:20px auto 70px;
+  padding:0 4%;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+footer{
+  background:var(--azul-oscuro);
+  color:white;
+  padding:35px 7%;
+}
+.footer-inner{max-width:1100px;margin:auto}
+footer p{margin:6px 0;color:#e8f0f3}
+.small{font-size:.94rem;color:var(--gris)}
+@media(max-width:700px){
+  .nav{padding:14px 5%}
+  .hero{padding:50px 6%}
+  main{padding:40px 5%}
+  .card{padding:22px}
+  .footer-actions{flex-direction:column}
+  .page-button{text-align:center}
+}
+</style>
+</head>
+
+<body id="comienzo">
+
+<header>
+  <nav class="nav">
+    <a class="marca" href="index.html">Especiales II</a>
+    <a href="index.html">Inicio</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Módulo 06 · Análisis complejo</span>
+    <h1>Series de <span>Potencias</span></h1>
+    <p>
+      Aprende a representar funciones complejas mediante series de potencias,
+      Taylor y Laurent, y utiliza estas expansiones para reconocer regiones
+      de convergencia y clasificar singularidades.
+    </p>
+    <div class="progress">
+      <a href="#preliminares">01 · Preliminares</a>
+      <a href="#taylor">02 · Taylor</a>
+      <a href="#convergencia">03 · Convergencia</a>
+      <a href="#laurent">04 · Laurent</a>
+      <a href="#ejemplos-laurent">05 · Ejemplos</a>
+      <a href="#singularidades">06 · Singularidades</a>
+      <a href="#polos">07 · Polos</a>
+      <a href="#laboratorios">08 · Laboratorios</a>
+      <a href="#practica">09 · Práctica</a>
+      <a href="#ejercicios">10 · Ejercicios</a>
+    </div>
+  </div>
+</section>
+
+<main>
+
+<section class="section" id="preliminares">
+  <h2 class="section-title">1. Preliminares</h2>
+  <p class="section-intro">
+    El capítulo comienza con la convergencia uniforme de sucesiones y series de funciones.
+  </p>
+
+  <div class="card">
+    <h3>Convergencia uniforme</h3>
+    <p>
+      Una sucesión de funciones <i>f</i><sub>n</sub>(z) converge uniformemente a
+      <i>f</i>(z) en una región <i>U</i> si, para cada ε &gt; 0, existe N tal que
+      para todo n &gt; N y todo z ∈ U se cumple |f<sub>n</sub>(z) − f(z)| &lt; ε.
+    </p>
+
+    <div class="formula">
+      <math display="block">
+        <mrow>
+          <msub><mi>f</mi><mi>n</mi></msub>
+          <mo>→</mo><mi>f</mi>
+          <mo>uniformemente</mo>
+          <mo>⇔</mo>
+          <msub><mi>M</mi><mi>n</mi></msub>
+          <mo>→</mo><mn>0</mn>
+        </mrow>
+      </math>
+    </div>
+
+    <p>
+      Para una serie de funciones, la convergencia uniforme de las sumas parciales
+      permite justificar operaciones como integrar término a término.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Prueba de Weierstrass</h3>
+    <p>
+      Si |u<sub>n</sub>(z)| ≤ M<sub>n</sub> para todo z en U y la serie numérica
+      ΣM<sub>n</sub> converge, entonces la serie de funciones Σu<sub>n</sub>(z)
+      converge uniformemente.
+    </p>
+    <div class="note">
+      <strong>Idea clave:</strong> se controla cada término de la serie de funciones
+      mediante una serie numérica convergente.
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">Laboratorio · Suma parcial de la serie geométrica</div>
+    <div class="lab-body">
+      <p>
+        Explora cómo cambia la suma parcial de Σz<sup>n</sup> al aumentar el número
+        de términos. La serie converge cuando |z| &lt; 1.
+      </p>
+      <div class="grid">
+        <div>
+          <label>Parte real de z</label>
+          <input id="geoX" type="number" step="0.1" value="0.4">
+        </div>
+        <div>
+          <label>Parte imaginaria de z</label>
+          <input id="geoY" type="number" step="0.1" value="0.2">
+        </div>
+        <div>
+          <label>Número de términos</label>
+          <input id="geoN" type="number" min="1" max="100" value="10">
+        </div>
+      </div>
+      <button onclick="geometricLab()">Calcular suma</button>
+      <div id="geoOut" class="output"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="taylor">
+  <h2 class="section-title">2. Series de Taylor</h2>
+  <p class="section-intro">
+    Una función analítica puede representarse localmente mediante una serie de potencias
+    centrada en un punto z<sub>0</sub>.
+  </p>
+
+  <div class="card">
+    <h3>Definición</h3>
+    <p>
+      Si <i>f</i> es analítica alrededor de z<sub>0</sub>, su serie de Taylor es:
+    </p>
+    <div class="formula">
+      <math display="block">
+        <mrow>
+          <mi>f</mi><mo>(</mo><mi>z</mi><mo>)</mo>
+          <mo>=</mo>
+          <munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><mo>∞</mo></munderover>
+          <mfrac>
+            <mrow><msup><mi>f</mi><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></msup><mo>(</mo><msub><mi>z</mi><mn>0</mn></msub><mo>)</mo></mrow>
+            <mrow><mi>n</mi><mo>!</mo></mrow>
+          </mfrac>
+          <msup>
+            <mrow><mo>(</mo><mi>z</mi><mo>−</mo><msub><mi>z</mi><mn>0</mn></msub><mo>)</mo></mrow>
+            <mi>n</mi>
+          </msup>
+        </mrow>
+      </math>
+    </div>
+    <p>
+      El desarrollo es único dentro de su radio de convergencia.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Series fundamentales</h3>
+    <div class="grid">
+      <div class="note">
+        <strong>Exponencial</strong><br>
+        e<sup>z</sup> = 1 + z + z<sup>2</sup>/2! + z<sup>3</sup>/3! + ···
+      </div>
+      <div class="note">
+        <strong>Coseno</strong><br>
+        cos z = 1 − z<sup>2</sup>/2! + z<sup>4</sup>/4! − ···
+      </div>
+      <div class="note">
+        <strong>Seno</strong><br>
+        sin z = z − z<sup>3</sup>/3! + z<sup>5</sup>/5! − ···
+      </div>
+    </div>
+    <p class="small">
+      Estas expansiones convergen para todo z en el plano complejo, tal como se presenta
+      en las notas.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="convergencia">
+  <h2 class="section-title">3. Radio y región de convergencia</h2>
+  <p class="section-intro">
+    El radio de convergencia determina el disco alrededor del centro en el que la serie
+    de Taylor representa la función.
+  </p>
+
+  <div class="card">
+    <h3>Ejemplo: 1/(1 − z) alrededor de z = i</h3>
+    <p>
+      Se puede escribir la función en términos de z − i y aplicar la serie geométrica.
+      El resultado converge cuando:
+    </p>
+    <div class="formula">
+      <math display="block">
+        <mrow>
+          <mfrac><mn>1</mn><mrow><mn>1</mn><mo>−</mo><mi>z</mi></mrow></mfrac>
+          <mo>=</mo>
+          <munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><mo>∞</mo></munderover>
+          <mfrac>
+            <msup><mrow><mo>(</mo><mi>z</mi><mo>−</mo><mi>i</mi><mo>)</mo></mrow><mi>n</mi></msup>
+            <msup><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>i</mi><mo>)</mo></mrow><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup>
+          </mfrac>
+          <mo>,</mo>
+          <mspace width="0.5em"/>
+          <mo>|</mo><mi>z</mi><mo>−</mo><mi>i</mi><mo>|</mo>
+          <mo>&lt;</mo><msqrt><mn>2</mn></msqrt>
+        </mrow>
+      </math>
+    </div>
+    <div class="note">
+      <strong>Lectura geométrica:</strong> el radio es la distancia desde el centro
+      z = i hasta la singularidad z = 1.
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">Visualización · Disco de convergencia</div>
+    <div class="lab-body">
+      <canvas id="convCanvas" width="900" height="520"></canvas>
+      <div class="output" id="convOut"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="laurent">
+  <h2 class="section-title">4. Series de Laurent</h2>
+  <p class="section-intro">
+    Cuando la región de analiticidad es un anillo alrededor de z<sub>0</sub>, la expansión
+    puede contener potencias positivas y negativas.
+  </p>
+
+  <div class="card">
+    <h3>Teorema de Laurent</h3>
+    <p>
+      Si f es analítica en el anillo R<sub>1</sub> &lt; |z − z<sub>0</sub>| &lt; R<sub>2</sub>,
+      entonces admite un desarrollo único:
+    </p>
+    <div class="formula">
+      <math display="block">
+        <mrow>
+          <mi>f</mi><mo>(</mo><mi>z</mi><mo>)</mo>
+          <mo>=</mo>
+          <munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mo>−</mo><mi>∞</mi></mrow><mo>∞</mo></munderover>
+          <msub><mi>a</mi><mi>n</mi></msub>
+          <msup>
+            <mrow><mo>(</mo><mi>z</mi><mo>−</mo><msub><mi>z</mi><mn>0</mn></msub><mo>)</mo></mrow><mi>n</mi>
+          </msup>
+        </mrow>
+      </math>
+    </div>
+    <p>
+      El anillo de convergencia depende de las singularidades de la función y de la
+      expansión elegida.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Ejemplo: 1/(1 − z) para |z| &gt; 1</h3>
+    <p>
+      Usando la forma de la serie geométrica para |w| &gt; 1:
+    </p>
+    <div class="formula">
+      <math display="block">
+        <mrow>
+          <mfrac><mn>1</mn><mrow><mn>1</mn><mo>−</mo><mi>z</mi></mrow></mfrac>
+          <mo>=</mo>
+          <mo>−</mo>
+          <munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mo>∞</mo></munderover>
+          <mfrac><mn>1</mn><msup><mi>z</mi><mi>n</mi></msup></mfrac>
+          <mo>,</mo>
+          <mspace width="0.5em"/>
+          <mo>|</mo><mi>z</mi><mo>|</mo><mo>&gt;</mo><mn>1</mn>
+        </mrow>
+      </math>
+    </div>
+    <p>
+      Aquí aparecen potencias negativas de z, característica de una serie de Laurent.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="ejemplos-laurent">
+  <h2 class="section-title">5. Ejemplos de Laurent</h2>
+
+  <div class="card">
+    <h3>Expansión alrededor de z = −4</h3>
+    <p>
+      Para f(z) = 1/(z + 2), el desarrollo de Taylor alrededor de −4 converge en
+      |z + 4| &lt; 2, mientras que el desarrollo de Laurent converge en |z + 4| &gt; 2.
+    </p>
+    <div class="grid">
+      <div class="note">
+        <strong>Taylor</strong><br>
+        Disco: |z + 4| &lt; 2
+      </div>
+      <div class="note">
+        <strong>Laurent</strong><br>
+        Anillo: |z + 4| &gt; 2
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Elegir la expansión según el dominio</h3>
+    <p>
+      Para una misma función pueden existir distintas expresiones en diferentes regiones.
+      El dominio indicado determina qué forma geométrica de la serie geométrica debe usarse.
+    </p>
+    <div class="lab">
+      <div class="lab-head">Laboratorio · Selección de región</div>
+      <div class="lab-body">
+        <label>Dominio solicitado</label>
+        <select id="laurentRegion">
+          <option value="inside">|z| &lt; 1</option>
+          <option value="outside">|z| &gt; 1</option>
+          <option value="annulus">1 &lt; |z| &lt; 3</option>
+          <option value="far">|z| &gt; 3</option>
+        </select>
+        <button onclick="checkLaurentRegion()">Comprobar</button>
+        <div id="laurentOut" class="output"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="singularidades">
+  <h2 class="section-title">6. Singularidades aisladas</h2>
+  <p class="section-intro">
+    Una singularidad aislada aparece cuando una función es analítica en una vecindad
+    de z<sub>0</sub>, excepto posiblemente en z<sub>0</sub>.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Removible</h3>
+      <p>
+        z<sub>0</sub> es removible si la función puede redefinirse en z<sub>0</sub>
+        para hacerla analítica allí.
+      </p>
+      <div class="note">Ejemplo de las notas: sin(z)/z en z = 0.</div>
+    </div>
+
+    <div class="card">
+      <h3>Polo</h3>
+      <p>
+        z<sub>0</sub> es un polo si:
+        |f(z)| → ∞ cuando z → z<sub>0</sub>.
+      </p>
+      <div class="note">Ejemplo: z/(z − i) en z = i.</div>
+    </div>
+
+    <div class="card">
+      <h3>Esencial</h3>
+      <p>
+        z<sub>0</sub> es esencial si no es ni removible ni un polo.
+      </p>
+      <div class="note">Ejemplo: e<sup>1/z</sup> en z = 0.</div>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">Laboratorio · Clasificación de singularidades</div>
+    <div class="lab-body">
+      <label>Función</label>
+      <select id="singFunction">
+        <option value="sinz">sin(z)/z en z = 0</option>
+        <option value="pole">z/(z − i) en z = i</option>
+        <option value="essential">e^(1/z) en z = 0</option>
+      </select>
+      <button onclick="classifySingularity()">Clasificar</button>
+      <div id="singOut" class="output"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="polos">
+  <h2 class="section-title">7. Polos y parte principal</h2>
+
+  <div class="card">
+    <h3>Orden de un polo</h3>
+    <p>
+      Si f tiene un polo de orden m en z<sub>0</sub>, entonces puede escribirse en la forma
+      h(z)/(z − z<sub>0</sub>)<sup>m</sup>, con h analítica y h(z<sub>0</sub>) ≠ 0.
+    </p>
+    <div class="formula">
+      <math display="block">
+        <mrow>
+          <mi>f</mi><mo>(</mo><mi>z</mi><mo>)</mo>
+          <mo>=</mo>
+          <mfrac>
+            <mi>h</mi><mo>(</mo><mi>z</mi><mo>)</mo>
+            <msup><mrow><mo>(</mo><mi>z</mi><mo>−</mo><msub><mi>z</mi><mn>0</mn></msub><mo>)</mo></mrow><mi>m</mi></msup>
+          </mfrac>
+        </mrow>
+      </math>
+    </div>
+    <p>
+      La serie de Laurent separa la <strong>parte principal</strong> (potencias negativas)
+      de la <strong>parte regular</strong> o analítica (potencias no negativas).
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Ejemplo: sin(z)/z</h3>
+    <p>
+      Aunque la expresión original no está definida en z = 0, su serie muestra que:
+    </p>
+    <div class="formula">
+      <math display="block">
+        <mrow>
+          <mfrac><mrow><mi>sin</mi><mo>(</mo><mi>z</mi><mo>)</mo></mrow><mi>z</mi></mfrac>
+          <mo>=</mo>
+          <mn>1</mn>
+          <mo>−</mo><mfrac><msup><mi>z</mi><mn>2</mn></msup><mn>3</mn><mo>!</mo></mfrac>
+          <mo>+</mo><mfrac><msup><mi>z</mi><mn>4</mn></msup><mn>5</mn><mo>!</mo></mfrac>
+          <mo>−</mo><mo>⋯</mo>
+        </mrow>
+      </math>
+    </div>
+    <p>
+      No aparecen potencias negativas; por ello se puede redefinir f(0) = 1.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="laboratorios">
+  <h2 class="section-title">8. Laboratorios interactivos</h2>
+
+  <div class="lab">
+    <div class="lab-head">Visualización · Términos de una serie de Taylor para e<sup>z</sup></div>
+    <div class="lab-body">
+      <div class="grid">
+        <div>
+          <label>z real</label>
+          <input id="expX" type="number" step="0.1" value="1">
+        </div>
+        <div>
+          <label>z imaginario</label>
+          <input id="expY" type="number" step="0.1" value="0.5">
+        </div>
+        <div>
+          <label>Términos N</label>
+          <input id="expN" type="number" min="1" max="30" value="8">
+        </div>
+      </div>
+      <button onclick="expTaylorLab()">Calcular aproximación</button>
+      <div id="expOut" class="output"></div>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">Visualización · Clasificación por comportamiento</div>
+    <div class="lab-body">
+      <p>
+        Observa la idea de clasificación: si la singularidad puede eliminarse,
+        es removible; si el módulo crece sin límite, es un polo; si no cumple ninguna
+        de las dos condiciones, es esencial.
+      </p>
+      <canvas id="singCanvas" width="900" height="430"></canvas>
+      <button onclick="drawSingularityChart()">Actualizar visualización</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="practica">
+  <h2 class="section-title">9. Práctica guiada</h2>
+  <p class="section-intro">
+    Si te equivocas recibirás una pista; si aciertas, una frase breve que refuerza el concepto.
+  </p>
+
+  <div class="exercise">
+    <p><strong>1.</strong> ¿Qué serie representa a 1/(1 − z) cuando |z| &lt; 1?</p>
+    <label class="choice"><input type="radio" name="p1" value="a"> Σ z<sup>n</sup></label>
+    <label class="choice"><input type="radio" name="p1" value="b"> −Σ z<sup>−n</sup></label>
+    <label class="choice"><input type="radio" name="p1" value="c"> Σ (−1)<sup>n</sup>z<sup>n</sup></label>
+    <button onclick="checkPractice1()">Comprobar</button>
+    <div id="p1out" class="output"></div>
+  </div>
+
+  <div class="exercise">
+    <p><strong>2.</strong> Si una función tiene un polo de orden 3 en z<sub>0</sub>, ¿qué potencia negativa aparece como término más singular?</p>
+    <input id="p2" type="text" placeholder="Ejemplo: (z-z0)^-3">
+    <button onclick="checkPractice2()">Comprobar</button>
+    <div id="p2out" class="output"></div>
+  </div>
+
+  <div class="exercise">
+    <p><strong>3.</strong> Para 1/(1 − z), ¿qué región corresponde a la expansión de Laurent con potencias negativas?</p>
+    <select id="p3">
+      <option value="">Selecciona</option>
+      <option value="inside">|z| &lt; 1</option>
+      <option value="outside">|z| &gt; 1</option>
+    </select>
+    <button onclick="checkPractice3()">Comprobar</button>
+    <div id="p3out" class="output"></div>
+  </div>
+</section>
+
+<section class="section" id="ejercicios">
+  <h2 class="section-title">10. Ejercicios varios</h2>
+  <p class="section-intro">
+    Retoma Taylor, Laurent, regiones de convergencia y singularidades.
+  </p>
+
+  <div class="exercise">
+    <p><strong>Ejercicio 1.</strong> Encuentra la serie de Taylor de e<sup>z</sup> alrededor de z = 0.</p>
+    <details>
+      <summary>Ver orientación</summary>
+      <p>Usa las derivadas de e<sup>z</sup>, que vuelven a ser e<sup>z</sup>, y evalúalas en z = 0.</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Ejercicio 2.</strong> Encuentra la serie de Laurent de 1/(1 − z) para |z| &gt; 1.</p>
+    <details>
+      <summary>Ver orientación</summary>
+      <p>Factoriza −z en el denominador y utiliza la expansión geométrica en potencias de 1/z.</p>
+    </details>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Ejercicio 3.</strong> Clasifica la singularidad de sin(z)/z en z = 0.</p>
+    <select id="e3">
+      <option value="">Selecciona</option>
+      <option value="rem">Removible</option>
+      <option value="pole">Polo</option>
+      <option value="ess">Esencial</option>
+    </select>
+    <button onclick="checkE3()">Comprobar</button>
+    <div id="e3out" class="output"></div>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Ejercicio 4.</strong> Según las notas, clasifica e<sup>1/z</sup> en z = 0.</p>
+    <select id="e4">
+      <option value="">Selecciona</option>
+      <option value="rem">Removible</option>
+      <option value="pole">Polo</option>
+      <option value="ess">Esencial</option>
+    </select>
+    <button onclick="checkE4()">Comprobar</button>
+    <div id="e4out" class="output"></div>
+  </div>
+
+  <div class="exercise">
+    <p><strong>Ejercicio 5.</strong> Para 1/(z + 2), centrada en z = −4, ¿cuál es la región de convergencia de Taylor?</p>
+    <select id="e5">
+      <option value="">Selecciona</option>
+      <option value="a">|z + 4| &lt; 2</option>
+      <option value="b">|z + 4| &gt; 2</option>
+      <option value="c">|z + 4| = 2</option>
+    </select>
+    <button onclick="checkE5()">Comprobar</button>
+    <div id="e5out" class="output"></div>
+  </div>
+
+  <div class="note">
+    <strong>Problemas de las notas:</strong> el capítulo propone ejercicios de Taylor,
+    derivadas a partir de Taylor, desarrollos de Laurent en anillos designados y
+    clasificación de singularidades, incluyendo el orden de los polos y la redefinición
+    de singularidades removibles.
+  </div>
+</section>
+
+</main>
+
+<div class="footer-actions">
+  <a class="page-button" href="index.html">← Volver al inicio</a>
+  <a class="page-button" href="#comienzo">Volver al comienzo ↑</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p><strong>Matemáticas Especiales II · Módulo 06 · Series de Potencias</strong></p>
+    <p>
+      Contenido basado en las <em>Notas de Clase: Matemáticas Especiales II para Física</em>,
+      de <strong>William Herrera y Herbert Vinck Posada</strong>,
+      docentes del Departamento de Física de la Universidad Nacional de Colombia.
+    </p>
+  </div>
+</footer>
+
+<script>
+function complexPow(a,b,n){
+  let r=Math.hypot(a,b), th=Math.atan2(b,a);
+  return {
+    re:Math.pow(r,n)*Math.cos(n*th),
+    im:Math.pow(r,n)*Math.sin(n*th)
+  };
+}
+function add(a,b){return {re:a.re+b.re,im:a.im+b.im}}
+
+function geometricLab(){
+  const x=parseFloat(document.getElementById("geoX").value);
+  const y=parseFloat(document.getElementById("geoY").value);
+  const N=Math.max(1,parseInt(document.getElementById("geoN").value));
+  let s={re:0,im:0};
+  for(let n=0;n<N;n++) s=add(s,complexPow(x,y,n));
+  const mod=Math.hypot(x,y);
+  const out=document.getElementById("geoOut");
+  if(mod<1){
+    out.className="output success";
+    out.innerHTML=`|z| = ${mod.toFixed(4)} &lt; 1. La suma parcial con ${N} términos es
+      ${s.re.toFixed(5)} ${s.im>=0?"+":"−"} ${Math.abs(s.im).toFixed(5)}i.`;
+  }else{
+    out.className="output hint";
+    out.innerHTML=`|z| = ${mod.toFixed(4)} ≥ 1. Pista: la condición de convergencia de la
+      serie geométrica es |z| &lt; 1.`;
+  }
+}
+
+function drawConvergence(){
+  const c=document.getElementById("convCanvas"),ctx=c.getContext("2d");
+  ctx.clearRect(0,0,c.width,c.height);
+  const cx=450,cy=260,scale=110,R=Math.sqrt(2)*scale;
+  ctx.fillStyle="#FFFFFF";ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle="#003B5C";ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(50,cy);ctx.lineTo(850,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,40);ctx.lineTo(cx,480);ctx.stroke();
+  ctx.strokeStyle="#65A19B";ctx.lineWidth=3;
+  ctx.beginPath();ctx.arc(cx,cy,R,0,2*Math.PI);ctx.stroke();
+  ctx.fillStyle="#003B5C";ctx.font='18px "Ancizar Sans", sans-serif';
+  ctx.fillText("Re(z)",800,cy-12);ctx.fillText("Im(z)",cx+12,55);
+  ctx.fillText("z = i",cx+12,cy-12);
+  ctx.fillText("z = 1",cx+R+8,cy+5);
+  ctx.fillStyle="#65A19B";ctx.font='17px "Ancizar Sans", sans-serif';
+  ctx.fillText("R = √2",cx+R-35,cy-R-12);
+  document.getElementById("convOut").innerHTML=
+    "La frontera del disco pasa por la singularidad z = 1; por eso el radio de convergencia es R = √2.";
+}
+
+function checkLaurentRegion(){
+  const v=document.getElementById("laurentRegion").value;
+  const out=document.getElementById("laurentOut");
+  if(v==="inside"){
+    out.className="output success";
+    out.innerHTML="Correcto: para |z| &lt; 1 se usa la serie geométrica con potencias no negativas.";
+  }else if(v==="outside"){
+    out.className="output success";
+    out.innerHTML="Correcto: para |z| &gt; 1 se usa la expansión con potencias negativas de z.";
+  }else{
+    out.className="output hint";
+    out.innerHTML="Pista: en un anillo, identifica qué singularidades quedan dentro y qué forma de la serie geométrica respeta el dominio.";
+  }
+}
+
+function classifySingularity(){
+  const v=document.getElementById("singFunction").value;
+  const out=document.getElementById("singOut");
+  const data={
+    sinz:["Removible","La serie de sin(z)/z no tiene potencias negativas y permite redefinir f(0)=1."],
+    pole:["Polo","En z=i, |z/(z−i)| tiende a infinito."],
+    essential:["Esencial","e^(1/z) no es removible ni presenta un límite de módulo infinito al acercarse por todas las direcciones."]
+  };
+  out.className="output success";
+  out.innerHTML=`<strong>${data[v][0]}</strong>. ${data[v][1]}`;
+}
+
+function expTaylorLab(){
+  const x=parseFloat(document.getElementById("expX").value);
+  const y=parseFloat(document.getElementById("expY").value);
+  const N=Math.max(1,parseInt(document.getElementById("expN").value));
+  let s={re:0,im:0}, term={re:1,im:0};
+  for(let n=0;n<N;n++){
+    if(n===0) term={re:1,im:0};
+    else{
+      const nr=term.re*x-term.im*y;
+      const ni=term.re*y+term.im*x;
+      term={re:nr/n,im:ni/n};
+    }
+    s=add(s,term);
+  }
+  document.getElementById("expOut").innerHTML=
+    `Aproximación con ${N} términos: ${s.re.toFixed(6)} ${s.im>=0?"+":"−"} ${Math.abs(s.im).toFixed(6)}i.`;
+}
+
+function drawSingularityChart(){
+  const c=document.getElementById("singCanvas"),ctx=c.getContext("2d");
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.fillStyle="#FFFFFF";ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle="#DCE5E9";ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(70,350);ctx.lineTo(840,350);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(70,70);ctx.lineTo(70,350);ctx.stroke();
+  ctx.fillStyle="#003B5C";ctx.font='17px "Ancizar Sans", sans-serif';
+  ctx.fillText("distancia a z₀",720,382);ctx.fillText("|f(z)|",35,85);
+  ctx.strokeStyle="#65A19B";ctx.lineWidth=3;
+  ctx.beginPath();
+  for(let i=0;i<=700;i++){
+    const x=70+i;
+    const t=i/700;
+    const y=350-250*(1-Math.exp(-5*t));
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  ctx.fillStyle="#003B5C";
+  ctx.fillText("comportamiento acotado → posible removible",95,115);
+  ctx.strokeStyle="#003B5C";
+  ctx.beginPath();
+  for(let i=0;i<=700;i++){
+    const x=70+i;
+    const t=(i+1)/701;
+    const y=350-35/t;
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  ctx.fillStyle="#003B5C";
+  ctx.fillText("módulo creciente → polo",95,145);
+  ctx.fillStyle="#5F6B73";
+  ctx.fillText("La clasificación exacta requiere analizar la expansión de Laurent.",95,185);
+}
+
+function checkPractice1(){
+  const v=document.querySelector('input[name="p1"]:checked');
+  const out=document.getElementById("p1out");
+  if(v && v.value==="a"){
+    out.className="output success";
+    out.innerHTML="Correcto: la serie geométrica 1/(1−z)=Σzⁿ converge para |z|&lt;1.";
+  }else{
+    out.className="output hint";
+    out.innerHTML="Pista: piensa en la identidad geométrica 1/(1−w)=Σwⁿ cuando |w|&lt;1.";
+  }
+}
+function checkPractice2(){
+  const v=document.getElementById("p2").value.replace(/\s/g,"");
+  const out=document.getElementById("p2out");
+  if(v.includes("-3") || v.includes("^-3")){
+    out.className="output success";
+    out.innerHTML="Correcto: un polo de orden 3 tiene como término más singular una potencia proporcional a (z−z₀)⁻³.";
+  }else{
+    out.className="output hint";
+    out.innerHTML="Pista: el orden m del polo determina la potencia negativa más extrema, (z−z₀)⁻ᵐ.";
+  }
+}
+function checkPractice3(){
+  const v=document.getElementById("p3").value,out=document.getElementById("p3out");
+  if(v==="outside"){
+    out.className="output success";
+    out.innerHTML="Correcto: para |z|&gt;1 la expansión contiene potencias negativas de z.";
+  }else{
+    out.className="output hint";
+    out.innerHTML="Pista: las potencias negativas aparecen al reescribir la serie geométrica en términos de 1/z.";
+  }
+}
+function checkE3(){
+  const out=document.getElementById("e3out");
+  if(document.getElementById("e3").value==="rem"){
+    out.className="output success";
+    out.innerHTML="Correcto: sin(z)/z es removible en z=0 porque puede redefinirse con f(0)=1.";
+  }else{
+    out.className="output hint";
+    out.innerHTML="Pista: observa la serie de sin(z)/z: ¿aparecen potencias negativas?";
+  }
+}
+function checkE4(){
+  const out=document.getElementById("e4out");
+  if(document.getElementById("e4").value==="ess"){
+    out.className="output success";
+    out.innerHTML="Correcto: e^(1/z) tiene una singularidad esencial en z=0.";
+  }else{
+    out.className="output hint";
+    out.innerHTML="Pista: por la derecha sobre el eje real el módulo tiende a infinito, pero por la izquierda tiende a 0; no es un polo.";
+  }
+}
+function checkE5(){
+  const out=document.getElementById("e5out");
+  if(document.getElementById("e5").value==="a"){
+    out.className="output success";
+    out.innerHTML="Correcto: la singularidad z=−2 está a distancia 2 del centro z=−4, así que el disco de Taylor es |z+4|&lt;2.";
+  }else{
+    out.className="output hint";
+    out.innerHTML="Pista: el radio de Taylor llega hasta la singularidad más cercana al centro.";
+  }
+}
+
+window.addEventListener("DOMContentLoaded",function(){
+  drawConvergence();
+  drawSingularityChart();
+});
+</script>
+
+</body>
+</html>
