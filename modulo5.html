@@ -2,65 +2,600 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Módulo 05 · Funciones Armónicas | Matemáticas Especiales II</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Módulo 05 · Funciones armónicas y aplicaciones | Matemáticas Especiales II</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:wght@100;200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
-<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]'],['$$','$$']]},svg:{fontCache:'global'}};</script>
+
+<!-- MathJax: las ecuaciones display se escriben con \(\displaystyle ...\) para aprovechar el mismo delimitador que ya funciona para las ecuaciones inline. -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-<script>window.addEventListener('load', function(){ if(window.MathJax && MathJax.typesetPromise){ MathJax.typesetPromise(); } });</script>
+
 <style>
-:root{--azul:#003B5C;--azul-oscuro:#00263A;--azul-claro:#EAF3F7;--verde:#65A19B;--gris:#5F6B73;--gris-claro:#F5F7F8;--borde:#DDE6EA}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"Ancizar Sans",sans-serif;color:var(--azul-oscuro);line-height:1.65}.site-header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--borde);padding:15px 7%;display:flex;justify-content:space-between;align-items:center}.brand{color:var(--azul);font-weight:700;font-size:1.2rem;text-decoration:none}.explore-button,.page-button{background:var(--azul);color:#fff;text-decoration:none;border-radius:9px;padding:10px 17px;font-weight:700}.hero{padding:80px 7% 65px;background:linear-gradient(135deg,#F7FAFB,#EAF3F7)}.container,.hero-inner{max-width:1100px;margin:auto}.badge{display:inline-block;background:#dfeeed;color:var(--azul);padding:6px 13px;border-radius:20px;font-weight:600}.hero h1{font-size:clamp(2.8rem,6vw,4.8rem);line-height:1.02;margin:18px 0}.hero p,.section-intro{max-width:800px;color:var(--gris);font-size:1.12rem}.progress{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}.progress a{padding:6px 11px;border:1px solid var(--borde);border-radius:20px;background:#fff;color:var(--gris);text-decoration:none;font-size:.88rem}section{padding:75px 7%}.soft{background:var(--gris-claro)}.section-title{font-size:2.3rem;line-height:1.1;margin-bottom:12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.card,.exercise,.lab{border:1px solid var(--borde);border-radius:14px;background:#fff;padding:24px}.card h3,.exercise h3{color:var(--azul);margin:0 0 10px;font-size:1.35rem}.formula{background:var(--azul-claro);border-left:4px solid var(--verde);border-radius:9px;padding:17px;margin:18px 0;text-align:center;overflow-x:auto}.note{background:#fff;border:1px solid var(--borde);border-radius:9px;padding:15px;margin-top:18px;color:var(--gris)}.lab{padding:0;overflow:hidden;margin-top:28px}.lab-head{background:var(--azul-claro);padding:17px 23px;font-weight:700}.lab-body{padding:23px}.answer-select,input{font:inherit;border:1px solid #c9d6db;border-radius:8px;padding:10px 12px;background:#fff;width:100%;max-width:650px}button{font:inherit;font-weight:700;border:0;border-radius:8px;background:var(--azul);color:#fff;padding:11px 17px;cursor:pointer;margin-top:10px}button:hover{background:var(--azul-oscuro)}.output{margin-top:14px;padding:13px 15px;background:var(--gris-claro);border-radius:8px;min-height:24px}.feedback{margin-top:12px;font-weight:600;min-height:25px}.correct{color:#26705F}.incorrect{color:#A33A3A}.canvas-wrap{margin-top:18px;border:1px solid var(--borde);border-radius:10px;overflow:hidden}canvas{display:block;width:100%;height:auto}.final-actions{max-width:1100px;margin:40px auto 70px;padding:0 7%;display:flex;justify-content:space-between;gap:20px}footer{background:var(--azul-oscuro);color:#fff;text-align:center;padding:35px 7%}.source{max-width:850px;margin:10px auto 0;opacity:.78;font-size:.9rem}@media(max-width:800px){.grid{grid-template-columns:1fr}section{padding:60px 6%}.hero{padding:60px 6%}.final-actions{flex-direction:column}.page-button{text-align:center}}
-</style></head>
+:root{
+  --azul:#003B5C;
+  --azul-oscuro:#00263A;
+  --azul-claro:#EAF3F7;
+  --verde:#65A19B;
+  --gris:#5F6B73;
+  --gris-claro:#F5F7F8;
+  --borde:#DDE6EA;
+  --blanco:#FFFFFF;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Ancizar Sans",sans-serif;color:var(--azul-oscuro);line-height:1.65;background:#fff}
+a{color:inherit}
+.site-header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--borde);padding:15px 7%;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{color:var(--azul);font-weight:700;font-size:1.2rem;text-decoration:none}
+.explore-button,.page-button,button{background:var(--azul);color:#fff;text-decoration:none;border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:700;cursor:pointer}
+.explore-button:hover,.page-button:hover,button:hover{background:var(--azul-oscuro)}
+.hero{padding:72px 7% 55px;background:linear-gradient(135deg,#F7FAFB,#EAF3F7)}
+.container,.hero-inner{max-width:1100px;margin:auto}
+.badge{display:inline-block;background:#dfeeed;color:var(--azul);padding:6px 13px;border-radius:20px;font-weight:600}
+.hero h1{font-size:clamp(2.8rem,6vw,4.7rem);line-height:1.02;margin:18px 0 14px}
+.hero p,.section-intro{max-width:850px;color:var(--gris);font-size:1.1rem}
+.progress{display:flex;flex-wrap:wrap;gap:9px;margin-top:25px}
+.progress a{padding:6px 11px;border:1px solid var(--borde);border-radius:20px;background:#fff;color:var(--gris);text-decoration:none;font-size:.9rem}
+.progress a:hover{border-color:var(--verde);color:var(--azul)}
+section{padding:72px 7%}
+.soft{background:var(--gris-claro)}
+.section-title{font-size:2.25rem;line-height:1.12;margin:0 0 12px;color:var(--azul-oscuro)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card,.exercise,.lab{border:1px solid var(--borde);border-radius:14px;background:#fff;padding:24px}
+.card h3,.exercise h3{color:var(--azul);margin:0 0 10px;font-size:1.35rem}
+.formula{background:var(--azul-claro);border-left:4px solid var(--verde);border-radius:9px;padding:20px;margin:20px 0;text-align:center;overflow-x:auto;font-size:1.15rem}
+.formula mjx-container{margin:0 auto!important}
+.note{background:#fff;border:1px solid var(--borde);border-radius:9px;padding:15px;margin-top:18px;color:var(--gris)}
+.lab{padding:0;overflow:hidden;margin-top:28px}
+.lab-head{background:var(--azul-claro);padding:17px 23px;font-weight:700;color:var(--azul-oscuro)}
+.lab-body{padding:23px}
+.answer-select,input{font:inherit;border:1px solid #c9d6db;border-radius:8px;padding:10px 12px;background:#fff;width:100%;max-width:650px}
+button{margin-top:10px}
+.output{margin-top:14px;padding:13px 15px;background:var(--gris-claro);border-radius:8px;min-height:24px}
+.feedback{margin-top:12px;padding:10px 12px;border-radius:8px;font-weight:600;min-height:25px}
+.feedback.correct{background:#e9f5f1;color:#26705F}
+.feedback.incorrect{background:#fff0f0;color:#A33A3A}
+.canvas-wrap{margin-top:18px;border:1px solid var(--borde);border-radius:10px;overflow:hidden;background:#fff}
+.canvas-wrap canvas{display:block;width:100%;height:auto}
+.canvas-caption{font-size:.92rem;color:var(--gris);margin-top:10px}
+.exercise{margin-bottom:16px}
+.exercise p{margin-bottom:12px}
+.final-actions{max-width:1100px;margin:40px auto 70px;padding:0 7%;display:flex;justify-content:space-between;align-items:center;gap:20px}
+footer{background:var(--azul-oscuro);color:#fff;text-align:center;padding:35px 7%}
+.source{max-width:850px;margin:10px auto 0;opacity:.8;font-size:.9rem}
+.small{font-size:.94rem;color:var(--gris)}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.site-header{padding:13px 6%}.explore-button{display:none}section{padding:58px 6%}.hero{padding:58px 6%}.final-actions{flex-direction:column}.page-button{width:100%;text-align:center}}
+</style>
+</head>
 <body>
-<nav class="site-header"><a class="brand" href="index.html">Especiales II</a><a class="explore-button" href="#armonica">Explorar módulo ↓</a></nav>
-<header class="hero" id="comienzo"><div class="hero-inner"><span class="badge">Módulo 05 · Funciones armónicas y aplicaciones</span><h1>Funciones armónicas</h1><p>Relaciona las funciones analíticas con la ecuación de Laplace, encuentra conjugados armónicos y comprende aplicaciones a la electrostática y a los fluidos bidimensionales.</p><div class="progress"><a href="#armonica">01 · Armónicas</a><a href="#ejemplos">02 · Ejemplos</a><a href="#conjugado">03 · Conjugado</a><a href="#ortogonalidad">04 · Ortogonalidad</a><a href="#valor-medio">05 · Valor medio</a><a href="#electrostatica">06 · Electrostática</a><a href="#poisson">07 · Poisson</a><a href="#fluidos">08 · Fluidos</a><a href="#fuentes">09 · Fuentes</a><a href="#practica">10 · Práctica</a><a href="#ejercicios">11 · Ejercicios varios</a></div></div></header>
-<section id="armonica"><div class="container"><h2 class="section-title">1. Funciones armónicas</h2><p class="section-intro">Si una función analítica se escribe como \(f(z)=u(x,y)+iv(x,y)\), las ecuaciones de Cauchy-Riemann implican que sus partes real e imaginaria satisfacen la ecuación de Laplace.</p><div class="formula">\[\nabla^2u=u_{xx}+u_{yy}=0,\qquad \nabla^2v=v_{xx}+v_{yy}=0.\]</div><div class="grid"><article class="card"><h3>Definición</h3><p>Una función real \(u(x,y)\) es armónica en un dominio si satisface \(\nabla^2u=0\) en ese dominio.</p></article><article class="card"><h3>Relación con analiticidad</h3><p>Si \(f=u+iv\) es analítica, entonces \(u\) y \(v\) son armónicas. La construcción de un conjugado requiere las condiciones apropiadas.</p></article></div><div class="lab"><div class="lab-head">Laboratorio · Verificar la ecuación de Laplace</div><div class="lab-body"><p>Selecciona una función y comprueba si su laplaciano es cero.</p><select id="harm" class="answer-select"><option value="">Selecciona</option><option value="a">u(x,y)=x²−y²</option><option value="b">u(x,y)=eˣ cos(y)</option><option value="c">u(x,y)=x²+y²</option><option value="d">u(x,y)=ln|z|, z≠0</option></select><br><button onclick="harmonic()">Comprobar</button><div id="harmOut" class="output"></div></div></div></div></section>
-<section id="ejemplos" class="soft"><div class="container"><h2 class="section-title">2. Ejemplos de funciones armónicas</h2><p class="section-intro">Las notas presentan ejemplos obtenidos como partes real e imaginaria de funciones analíticas.</p><div class="grid"><article class="card"><h3>\(z^2\)</h3><div class="formula">\[z^2=(x^2-y^2)+i(2xy)\]</div><p>Por tanto, \(u=x^2-y^2\) y \(v=2xy\) son armónicas en \(\mathbb C\).</p></article><article class="card"><h3>\(e^z\)</h3><div class="formula">\[e^z=e^x(\cos y+i\sin y)\]</div><p>Así, \(e^x\cos y\) y \(e^x\sin y\) son armónicas en \(\mathbb C\).</p></article><article class="card"><h3>Argumento</h3><div class="formula">\[\arg(z)=\tan^{-1}\left(\frac yx\right)\]</div><p>La rama principal es armónica en el dominio asociado a la rama principal del logaritmo.</p></article><article class="card"><h3>Logaritmo del módulo</h3><div class="formula">\[\ln|z|=\frac12\ln(x^2+y^2)\]</div><p>Es armónica en \(\mathbb C\setminus\{0\}\).</p></article></div></div></section>
-<section id="conjugado"><div class="container"><h2 class="section-title">3. Conjugado armónico</h2><p class="section-intro">Si \(u\) es la parte real de una función analítica \(f=u+iv\), la función \(v\) se denomina conjugado armónico de \(u\).</p><div class="formula">\[u_x=v_y,\qquad u_y=-v_x.\]</div><div class="card"><h3>Ejemplo: \(u=x^2-y^2\)</h3><p>Como \(u_x=2x\) y \(u_y=-2y\), las ecuaciones de Cauchy-Riemann producen</p><div class="formula">\[v_y=2x,\qquad v_x=2y.\]</div><p>Integrando, \(v=2xy+C\).</p></div><div class="lab"><div class="lab-head">Laboratorio · Encontrar el conjugado</div><div class="lab-body"><p>Selecciona un conjugado armónico de \(x^2-y^2\).</p><select id="conj" class="answer-select"><option value="">Selecciona</option><option value="a">v=2xy+C</option><option value="b">v=x²+y²</option><option value="c">v=xy+C</option></select><br><button onclick="conjugate()">Comprobar</button><div id="conjOut" class="output"></div></div></div></div></section>
-<section id="ortogonalidad" class="soft"><div class="container"><h2 class="section-title">4. Ortogonalidad de las funciones conjugadas</h2><p class="section-intro">Las curvas de nivel \(u=c_1\) y \(v=c_2\) son ortogonales. Una forma de verlo es mediante sus gradientes.</p><div class="formula">\[\nabla u\cdot\nabla v=u_xv_x+u_yv_y=0.\]</div><div class="formula">\[m_1m_2=-1.\]</div><div class="lab"><div class="lab-head">Visualización · \(u=x^2-y^2\) y \(v=2xy\)</div><div class="lab-body"><p>Las dos familias de curvas se cruzan perpendicularmente.</p><div class="canvas-wrap"><canvas id="orth" width="900" height="540"></canvas></div><div class="output">Las curvas de nivel de las funciones conjugadas forman familias ortogonales.</div></div></div></div></section>
-<section id="valor-medio"><div class="container"><h2 class="section-title">5. Teorema del valor medio</h2><p class="section-intro">Una función armónica toma en el centro de un círculo el promedio de sus valores sobre la circunferencia.</p><div class="formula">\[u(z)=\frac1{2\pi}\int_0^{2\pi}u\left(z+Re^{i\theta}\right)d\theta.\]</div><div class="lab"><div class="lab-head">Laboratorio · Promedio sobre una circunferencia</div><div class="lab-body"><p>Para \(u=x^2-y^2\), el promedio sobre cualquier círculo centrado en el origen debe coincidir con \(u(0,0)=0\).</p><label>Radio R</label><input id="meanR" type="number" min="0.1" step="0.1" value="2"><br><button onclick="mean()">Calcular promedio</button><div id="meanOut" class="output"></div></div></div></div></section>
-<section id="electrostatica" class="soft"><div class="container"><h2 class="section-title">6. Aplicación a la electrostática</h2><p class="section-intro">En electrostática, el potencial puede modelarse mediante una función armónica. Las notas definen el campo eléctrico en forma compleja a partir del potencial.</p><div class="formula">\[E=E_x+iE_y=-(u_x+iu_y)=-\left(\frac{df}{dz}\right)^*.\]</div><div class="grid"><article class="card"><h3>Campo complejo</h3><p>\(E_x=\operatorname{Re}(E)\), \(E_y=\operatorname{Im}(E)\) y \(|E|=\sqrt{E_x^2+E_y^2}\).</p></article><article class="card"><h3>Simetría cilíndrica</h3><div class="formula">\[u=a\ln r+b\]</div><p>La dependencia logarítmica aparece al resolver el problema con simetría cilíndrica.</p></article></div></div></section>
-<section id="poisson"><div class="container"><h2 class="section-title">7. Fórmula integral de Poisson</h2><p class="section-intro">La fórmula de Poisson proporciona una solución de la ecuación de Laplace en el interior de un círculo a partir de valores sobre su frontera.</p>
-<div class="formula">
-    <div class="math-display">
-        u(re^{i\phi}) =
-        \frac{1}{2\pi}
-        \int_{0}^{2\pi}
-        \frac{R^{2}-r^{2}}
-        {R^{2}-2Rr\cos(\theta-\phi)+r^{2}}
-        u(Re^{i\theta})\,d\theta,
-        \qquad 0\leq r<R
+
+<nav class="site-header">
+  <a class="brand" href="index.html">Especiales II</a>
+  <a class="explore-button" href="#armonica">Explorar módulo ↓</a>
+</nav>
+
+<header class="hero" id="comienzo">
+  <div class="hero-inner">
+    <span class="badge">Módulo 05 · Funciones armónicas y aplicaciones</span>
+    <h1>Funciones armónicas</h1>
+    <p>Relaciona las funciones analíticas con la ecuación de Laplace, encuentra conjugados armónicos y comprende aplicaciones a la electrostática y a los fluidos bidimensionales.</p>
+    <div class="progress">
+      <a href="#armonica">01 · Armónicas</a>
+      <a href="#ejemplos">02 · Ejemplos</a>
+      <a href="#conjugado">03 · Conjugado</a>
+      <a href="#ortogonalidad">04 · Ortogonalidad</a>
+      <a href="#valor-medio">05 · Valor medio</a>
+      <a href="#electrostatica">06 · Electrostática</a>
+      <a href="#poisson">07 · Poisson</a>
+      <a href="#fluidos">08 · Fluidos</a>
+      <a href="#fuentes">09 · Fuentes</a>
+      <a href="#practica">10 · Práctica</a>
+      <a href="#ejercicios">11 · Ejercicios varios</a>
     </div>
+  </div>
+</header>
+
+<section id="armonica">
+  <div class="container">
+    <h2 class="section-title">1. Funciones armónicas</h2>
+    <p class="section-intro">Si una función analítica se escribe como \(f(z)=u(x,y)+iv(x,y)\), las ecuaciones de Cauchy-Riemann implican que sus partes real e imaginaria satisfacen la ecuación de Laplace.</p>
+    <div class="formula">\(\displaystyle \nabla^2u=u_{xx}+u_{yy}=0,\qquad \nabla^2v=v_{xx}+v_{yy}=0.\)</div>
+    <div class="grid">
+      <article class="card"><h3>Definición</h3><p>Una función real \(u(x,y)\) es armónica en un dominio si satisface \(\nabla^2u=0\) en ese dominio.</p></article>
+      <article class="card"><h3>Relación con analiticidad</h3><p>Si \(f=u+iv\) es analítica, entonces \(u\) y \(v\) son armónicas. La construcción de un conjugado requiere las condiciones apropiadas.</p></article>
+    </div>
+    <div class="lab">
+      <div class="lab-head">Laboratorio · Verificar la ecuación de Laplace</div>
+      <div class="lab-body">
+        <p>Selecciona una función y comprueba si su laplaciano es cero.</p>
+        <select id="harm" class="answer-select">
+          <option value="">Selecciona</option>
+          <option value="a">\(u(x,y)=x^2-y^2\)</option>
+          <option value="b">\(u(x,y)=e^x\cos y\)</option>
+          <option value="c">\(u(x,y)=x^2+y^2\)</option>
+          <option value="d">\(u(x,y)=\ln|z|,\ z\neq0\)</option>
+        </select><br>
+        <button onclick="harmonic()">Comprobar</button>
+        <div id="harmOut" class="output"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ejemplos" class="soft">
+  <div class="container">
+    <h2 class="section-title">2. Ejemplos de funciones armónicas</h2>
+    <p class="section-intro">Las partes real e imaginaria de funciones analíticas proporcionan ejemplos naturales de funciones armónicas.</p>
+    <div class="grid">
+      <article class="card"><h3>\(z^2\)</h3><div class="formula">\(\displaystyle z^2=(x^2-y^2)+i(2xy)\)</div><p>Por tanto, \(u=x^2-y^2\) y \(v=2xy\) son armónicas en \(\mathbb C\).</p></article>
+      <article class="card"><h3>\(e^z\)</h3><div class="formula">\(\displaystyle e^z=e^x(\cos y+i\sin y)\)</div><p>Así, \(e^x\cos y\) y \(e^x\sin y\) son armónicas en \(\mathbb C\).</p></article>
+      <article class="card"><h3>Argumento</h3><div class="formula">\(\displaystyle \arg(z)=\tan^{-1}\!\left(\frac{y}{x}\right)\)</div><p>Una rama del argumento es armónica en un dominio donde esa rama está bien definida.</p></article>
+      <article class="card"><h3>Logaritmo del módulo</h3><div class="formula">\(\displaystyle \ln|z|=\frac12\ln(x^2+y^2)\)</div><p>Es armónica en \(\mathbb C\setminus\{0\}\).</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="conjugado">
+  <div class="container">
+    <h2 class="section-title">3. Conjugado armónico</h2>
+    <p class="section-intro">Si \(u\) es la parte real de una función analítica \(f=u+iv\), la función \(v\) se denomina conjugado armónico de \(u\).</p>
+    <div class="formula">\(\displaystyle u_x=v_y,\qquad u_y=-v_x.\)</div>
+    <div class="card">
+      <h3>Ejemplo: \(u=x^2-y^2\)</h3>
+      <p>Como \(u_x=2x\) y \(u_y=-2y\), las ecuaciones de Cauchy-Riemann producen</p>
+      <div class="formula">\(\displaystyle v_y=2x,\qquad v_x=2y.\)</div>
+      <p>Integrando, \(v=2xy+C\).</p>
+    </div>
+    <div class="lab">
+      <div class="lab-head">Laboratorio · Encontrar el conjugado</div>
+      <div class="lab-body">
+        <p>Selecciona un conjugado armónico de \(x^2-y^2\).</p>
+        <select id="conj" class="answer-select">
+          <option value="">Selecciona</option><option value="a">\(v=2xy+C\)</option><option value="b">\(v=x^2+y^2\)</option><option value="c">\(v=xy+C\)</option>
+        </select><br><button onclick="conjugate()">Comprobar</button><div id="conjOut" class="output"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ortogonalidad" class="soft">
+  <div class="container">
+    <h2 class="section-title">4. Ortogonalidad de las funciones conjugadas</h2>
+    <p class="section-intro">Las curvas de nivel \(u=c_1\) y \(v=c_2\) son ortogonales. Para \(u=x^2-y^2\) y \(v=2xy\), la perpendicularidad puede comprobarse mediante los gradientes.</p>
+    <div class="formula">\(\displaystyle \nabla u\cdot\nabla v=u_xv_x+u_yv_y=0.\)</div>
+    <div class="formula">\(\displaystyle m_1m_2=-1.\)</div>
+    <div class="lab">
+      <div class="lab-head">Visualización · \(u=x^2-y^2\) y \(v=2xy\)</div>
+      <div class="lab-body">
+        <p>Las dos familias de curvas se cruzan perpendicularmente. Las flechas de los ejes ayudan a identificar la orientación.</p>
+        <div class="canvas-wrap"><canvas id="orth" width="900" height="560"></canvas></div>
+        <p class="canvas-caption">Verde: curvas \(u=c\). Azul: curvas \(v=c\). En sus puntos de intersección, las tangentes son perpendiculares.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="valor-medio">
+  <div class="container">
+    <h2 class="section-title">5. Teorema del valor medio</h2>
+    <p class="section-intro">Una función armónica toma en el centro de un círculo el promedio de sus valores sobre la circunferencia.</p>
+    <div class="formula">\(\displaystyle u(z_0)=\frac{1}{2\pi}\int_0^{2\pi}u\!\left(z_0+Re^{i\theta}\right)d\theta.\)</div>
+    <div class="lab">
+      <div class="lab-head">Laboratorio · Promedio sobre una circunferencia</div>
+      <div class="lab-body">
+        <p>Para \(u=x^2-y^2\), el promedio sobre cualquier círculo centrado en el origen debe coincidir con \(u(0,0)=0\).</p>
+        <label for="meanR">Radio \(R\)</label>
+        <input id="meanR" type="number" min="0.1" step="0.1" value="2"><br>
+        <button onclick="mean()">Calcular promedio</button>
+        <div id="meanOut" class="output"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="electrostatica" class="soft">
+  <div class="container">
+    <h2 class="section-title">6. Aplicación a la electrostática</h2>
+    <p class="section-intro">En electrostática, el potencial puede modelarse mediante una función armónica en las regiones donde no hay carga.</p>
+    <div class="formula">\(\displaystyle E=E_x+iE_y=-\left(u_x+iu_y\right)=-\left(\frac{df}{dz}\right)^{\!*}.\)</div>
+    <div class="grid">
+      <article class="card"><h3>Campo complejo</h3><p>\(E_x=\operatorname{Re}(E)\), \(E_y=\operatorname{Im}(E)\) y \(|E|=\sqrt{E_x^2+E_y^2}\).</p></article>
+      <article class="card"><h3>Simetría cilíndrica</h3><div class="formula">\(\displaystyle u=a\ln r+b\)</div><p>La dependencia logarítmica aparece al resolver el problema con simetría cilíndrica.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="poisson">
+  <div class="container">
+    <h2 class="section-title">7. Fórmula integral de Poisson</h2>
+    <p class="section-intro">La fórmula de Poisson proporciona una solución de la ecuación de Laplace en el interior de un círculo a partir de valores sobre su frontera.</p>
+    <div class="formula">
+      \(\displaystyle
+      u(re^{i\phi})=
+      \frac{1}{2\pi}\int_{0}^{2\pi}
+      \frac{R^{2}-r^{2}}
+      {R^{2}-2Rr\cos(\theta-\phi)+r^{2}}
+      u(Re^{i\theta})\,d\theta,
+      \qquad 0\le r<R.
+      \)
+    </div>
+    <div class="note"><strong>Idea clave:</strong> el valor interior se obtiene como un promedio ponderado de los valores de frontera mediante el núcleo de Poisson.</div>
+    <div class="lab">
+      <div class="lab-head">Laboratorio · Núcleo de Poisson</div>
+      <div class="lab-body">
+        <p>Calcula el núcleo cuando \(\theta=\phi\). En ese caso, el denominador se simplifica a \((R-r)^2\).</p>
+        <div class="grid">
+          <div><label for="pR">\(R\)</label><input id="pR" type="number" min="0.1" step="0.1" value="3"></div>
+          <div><label for="pr">\(r\)</label><input id="pr" type="number" min="0" step="0.1" value="1"></div>
+        </div>
+        <button onclick="poisson()">Calcular</button><div id="pOut" class="output"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fluidos" class="soft">
+  <div class="container">
+    <h2 class="section-title">8. Aplicaciones a fluidos</h2>
+    <p class="section-intro">Para un fluido bidimensional estacionario, incomprensible e irrotacional, el potencial de velocidad es armónico y su conjugada es la función de flujo.</p>
+    <div class="formula">\(\displaystyle \mathbf v=\nabla\phi,\qquad \nabla^2\phi=0,\qquad \Phi(z)=\phi+i\psi.\)</div>
+    <div class="formula">\(\displaystyle \mathbf v=(\phi_x,\phi_y)=(\phi_x,-\psi_x).\)</div>
+    <div class="lab">
+      <div class="lab-head">Visualización · Flujo uniforme</div>
+      <div class="lab-body">
+        <p>Para \(\Phi(z)=v_0z\), se tiene \(\phi=v_0x\) y \(\psi=v_0y\). Las flechas indican el sentido del flujo.</p>
+        <div class="canvas-wrap"><canvas id="flow" width="900" height="500"></canvas></div>
+        <p class="canvas-caption">Las líneas horizontales representan trayectorias del flujo; las líneas verticales son equipotenciales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fuentes">
+  <div class="container">
+    <h2 class="section-title">9. Fuentes de flujo y rotaciones</h2>
+    <p class="section-intro">La linealidad de la ecuación de Laplace permite superponer soluciones. Un ejemplo es \(\Phi=A\operatorname{Log}z\).</p>
+    <div class="formula">\(\displaystyle \Phi=A\operatorname{Log}z=A\ln r+iA\theta.\)</div>
+    <div class="grid">
+      <article class="card"><h3>Potencial y flujo</h3><div class="formula">\(\displaystyle \phi=A\ln r,\qquad \psi=A\theta.\)</div><p>Las equipotenciales son círculos y las líneas de flujo son radiales.</p></article>
+      <article class="card"><h3>Fuente o sumidero</h3><p>Para el modelo logarítmico, el signo de \(A\) determina el sentido radial del flujo.</p><div class="formula">\(\displaystyle \text{flujo por unidad de longitud}=2\pi A.\)</div></article>
+    </div>
+    <div class="lab">
+      <div class="lab-head">Visualización · Fuente puntual</div>
+      <div class="lab-body">
+        <label for="sourceA">\(A\)</label>
+        <input id="sourceA" type="number" step="0.5" value="1"><br>
+        <button onclick="source()">Actualizar</button>
+        <div class="canvas-wrap"><canvas id="src" width="900" height="500"></canvas></div>
+        <div id="srcOut" class="output"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="practica">
+  <div class="container">
+    <h2 class="section-title">10. Práctica guiada</h2>
+    <p class="section-intro">Si te equivocas recibirás una pista; si aciertas, una frase breve que refuerza el concepto.</p>
+    <div id="practice"></div>
+  </div>
+</section>
+
+<section id="ejercicios" class="soft">
+  <div class="container">
+    <h2 class="section-title">11. Ejercicios varios</h2>
+    <p class="section-intro">Retoma los conceptos del capítulo y aplica Laplace, conjugados, ortogonalidad, electrostática y fluidos.</p>
+    <div id="exercises"></div>
+  </div>
+</section>
+
+<div class="final-actions">
+  <a class="page-button" href="index.html">← Volver al inicio</a>
+  <a class="page-button" href="#comienzo">Volver al comienzo ↑</a>
 </div>
 
-  
-  <div class="note"><strong>Idea clave:</strong> el valor interior es un promedio ponderado de los valores de frontera mediante el núcleo de Poisson.</div><div class="lab"><div class="lab-head">Laboratorio · Núcleo de Poisson</div><div class="lab-body"><p>Calcula el núcleo cuando \(\theta=\phi\).</p><div class="grid"><div><label>R</label><input id="pR" type="number" min="1" value="3"></div><div><label>r</label><input id="pr" type="number" min="0" value="1"></div></div><button onclick="poisson()">Calcular</button><div id="pOut" class="output"></div></div></div></div></section>
-<section id="fluidos" class="soft"><div class="container"><h2 class="section-title">8. Aplicaciones a fluidos</h2><p class="section-intro">Para un fluido bidimensional estacionario, incomprensible e irrotacional, el potencial velocidad es armónico y su conjugada es la función de flujo.</p><div class="formula">\[\mathbf v=\nabla\phi,\qquad \nabla^2\phi=0,\qquad \Phi(z)=\phi+i\psi.\]</div><div class="formula">\[\mathbf v=(\phi_x,\phi_y)=(\phi_x,-\psi_x).\]</div><div class="lab"><div class="lab-head">Visualización · Flujo uniforme</div><div class="lab-body"><p>Para \(\Phi(z)=v_0z\), se tiene \(\phi=v_0x\) y \(\psi=v_0y\).</p><div class="canvas-wrap"><canvas id="flow" width="900" height="480"></canvas></div><div class="output">Las líneas de flujo son horizontales y las equipotenciales verticales.</div></div></div></div></section>
-<section id="fuentes"><div class="container"><h2 class="section-title">9. Fuentes de flujo y rotaciones</h2><p class="section-intro">La linealidad de Laplace permite superponer soluciones. Un ejemplo es \(\Phi=A\operatorname{Log}z\).</p><div class="formula">\[\Phi=A\operatorname{Log}z=A\ln r+iA\theta.\]</div><div class="grid"><article class="card"><h3>Potencial y flujo</h3><div class="formula">\[\phi=A\ln r,\qquad \psi=A\theta.\]</div><p>Las equipotenciales son círculos y las líneas de flujo son radiales.</p></article><article class="card"><h3>Fuente o sumidero</h3><p>\(A>0\) representa una fuente y \(A<0\) un sumidero.</p><div class="formula">\[\text{flujo por unidad de longitud}=2\pi A.\]</div></article></div><div class="lab"><div class="lab-head">Visualización · Fuente puntual</div><div class="lab-body"><label>A</label><input id="sourceA" type="number" step="0.5" value="1"><br><button onclick="source()">Actualizar</button><div class="canvas-wrap"><canvas id="src" width="900" height="480"></canvas></div><div id="srcOut" class="output"></div></div></div></div></section>
-<section id="practica"><div class="container"><h2 class="section-title">10. Práctica guiada</h2><p class="section-intro">Si te equivocas recibirás una pista; si aciertas, una frase breve que refuerza el concepto.</p><div id="practice"></div></div></section>
-<section id="ejercicios" class="soft"><div class="container"><h2 class="section-title">11. Ejercicios varios</h2><p class="section-intro">Retoma los conceptos del capítulo y aplica Laplace, conjugados, ortogonalidad, electrostática y fluidos.</p><div id="exercises"></div></div></section>
-<div class="final-actions"><a class="page-button" href="index.html">← Volver al inicio</a><a class="page-button" href="#comienzo">Volver al comienzo ↑</a></div>
-<footer><p><strong>Matemáticas Especiales II · Módulo 05 · Funciones Armónicas</strong></p><p class="source">Contenido basado en las <em>Notas de Clase: Matemáticas Especiales II para Física</em>, de <strong>William Herrera y Herbert Vinck Posada</strong>, docentes del Departamento de Física de la Universidad Nacional de Colombia.</p></footer>
+<footer>
+  <p><strong>Matemáticas Especiales II · Módulo 05 · Funciones Armónicas</strong></p>
+  <p class="source">Contenido basado en las <em>Notas de Clase: Matemáticas Especiales II para Física</em>, de <strong>William Herrera y Herbert Vinck Posada</strong>, docentes del Departamento de Física de la Universidad Nacional de Colombia.</p>
+</footer>
+
 <script>
-function fb(id,ok,msg,hint){const e=document.getElementById(id);e.textContent=ok?'✓ '+msg:'✗ '+hint;e.className='feedback '+(ok?'correct':'incorrect')}
-function harmonic(){let v=document.getElementById('harm').value,o=document.getElementById('harmOut');if(v==='a'||v==='b'||v==='d'){o.textContent='✓ Correcto. La función satisface la ecuación de Laplace en su dominio de definición.';o.style.color='#26705F'}else if(v==='c'){o.textContent='✗ Pista: calcula uxx y uyy; para x²+y² los términos se suman.';o.style.color='#A33A3A'}else o.textContent='Selecciona una función.'}
-function conjugate(){let v=document.getElementById('conj').value,o=document.getElementById('conjOut');if(v==='a'){o.textContent='✓ Correcto. Las ecuaciones de Cauchy-Riemann llevan a v=2xy+C.';o.style.color='#26705F'}else if(v)o.textContent='✗ Pista: usa v_y=u_x y v_x=−u_y.';else o.textContent='Selecciona una respuesta.'}
-function mean(){let R=parseFloat(document.getElementById('meanR').value)||1,s=0,N=720;for(let k=0;k<N;k++){let t=2*Math.PI*k/N,x=R*Math.cos(t),y=R*Math.sin(t);s+=x*x-y*y}document.getElementById('meanOut').textContent='Promedio numérico ≈ '+(s/N).toExponential(3)+'. En el centro, u(0,0)=0.'}
-function poisson(){let R=parseFloat(document.getElementById('pR').value),r=parseFloat(document.getElementById('pr').value),o=document.getElementById('pOut');if(!(R>r&&r>=0)){o.textContent='Se requiere R>r≥0.';return}let K=(R*R-r*r)/(R*R-2*R*r+r*r);o.textContent='Para θ=φ, el núcleo de Poisson vale '+K.toFixed(5)+'.'}
-function axes(c){let x=c.getContext('2d'),W=c.width,H=c.height;x.clearRect(0,0,W,H);x.strokeStyle='#DDE6EA';for(let i=50;i<W;i+=50){x.beginPath();x.moveTo(i,0);x.lineTo(i,H);x.stroke()}for(let j=50;j<H;j+=50){x.beginPath();x.moveTo(0,j);x.lineTo(W,j);x.stroke()}x.strokeStyle='#003B5C';x.lineWidth=1.5;x.beginPath();x.moveTo(40,H/2);x.lineTo(W-30,H/2);x.moveTo(W/2,30);x.lineTo(W/2,H-30);x.stroke()}
-function drawOrth(){let c=document.getElementById('orth'),x=c.getContext('2d'),W=c.width,H=c.height,cx=W/2,cy=H/2,s=58;axes(c);function X(a){return cx+a*s}function Y(a){return cy-a*s}x.lineWidth=2;[-2,-1,1,2].forEach(k=>{x.strokeStyle='#65A19B';let a=Math.sqrt(Math.abs(k)),P=[];for(let t=-2;t<=2;t+=.02){let xx,yy;if(k>0){xx=a*Math.cosh(t);yy=a*Math.sinh(t)}else{yy=a*Math.cosh(t);xx=a*Math.sinh(t)}P.push([xx,yy]);P.push([-xx,yy])}for(let sign of [1,-1]){x.beginPath();let first=true;for(let t=-2;t<=2;t+=.02){let xx,yy;if(k>0){xx=sign*a*Math.cosh(t);yy=a*Math.sinh(t)}else{yy=sign*a*Math.cosh(t);xx=a*Math.sinh(t)}if(first){x.moveTo(X(xx),Y(yy));first=false}else x.lineTo(X(xx),Y(yy))}x.stroke()}});x.strokeStyle='#003B5C';[-2,-1,1,2].forEach(k=>{for(let sign of [1,-1]){x.beginPath();let first=true;for(let xx=.08;xx<=4;xx+=.01){let yy=k/(2*xx)*sign;if(first){x.moveTo(X(xx),Y(yy));first=false}else x.lineTo(X(xx),Y(yy))}x.stroke()}});x.fillStyle='#003B5C';x.font='17px "Ancizar Sans"';x.fillText('u=x²−y²',55,35);x.fillText('v=2xy',55,58)}
-function drawFlow(){let c=document.getElementById('flow'),x=c.getContext('2d'),W=c.width,H=c.height;axes(c);x.strokeStyle='#65A19B';x.lineWidth=2;for(let y=60;y<H;y+=70){x.beginPath();x.moveTo(45,y);x.lineTo(W-40,y);x.stroke()}x.strokeStyle='#003B5C';for(let xx=100;xx<W;xx+=110){x.beginPath();x.moveTo(xx,45);x.lineTo(xx,H-40);x.stroke()}};
-function source(){let c=document.getElementById('src'),x=c.getContext('2d'),W=c.width,H=c.height,cx=W/2,cy=H/2,A=parseFloat(document.getElementById('sourceA').value)||0;axes(c);[45,85,125,165,205].forEach(r=>{x.strokeStyle='#65A19B';x.beginPath();x.arc(cx,cy,r,0,2*Math.PI);x.stroke()});x.strokeStyle='#003B5C';x.fillStyle='#003B5C';for(let a=0;a<2*Math.PI;a+=Math.PI/10){let r1=15,r2=205;x.beginPath();x.moveTo(cx+r1*Math.cos(a),cy+r1*Math.sin(a));x.lineTo(cx+r2*Math.cos(a),cy+r2*Math.sin(a));x.stroke();let r=A>=0?r2:r1,ang=A>=0?a:a+Math.PI,px=cx+r*Math.cos(a),py=cy+r*Math.sin(a);x.beginPath();x.moveTo(px,py);x.lineTo(px-12*Math.cos(ang-.45),py-12*Math.sin(ang-.45));x.lineTo(px-12*Math.cos(ang+.45),py-12*Math.sin(ang+.45));x.closePath();x.fill()}x.beginPath();x.arc(cx,cy,7,0,2*Math.PI);x.fill();document.getElementById('srcOut').textContent=A>0?'A>0: fuente puntual, con flujo radial hacia afuera.':A<0?'A<0: sumidero puntual, con flujo radial hacia el centro.':'A=0: no hay fuente ni sumidero.'}
-function makeQuestions(){let p=[['¿Cuál de estas funciones es armónica?',['x²−y²','x²+y²','x²+y'],'a','La ecuación de Laplace se satisface cuando las segundas derivadas se cancelan.','Calcula uxx+uyy.'],['Para u=x²−y², un conjugado armónico es:',['2xy+C','x²+y²','xy+C'],'a','Las ecuaciones de Cauchy-Riemann determinan v=2xy+C.','Usa v_y=u_x y v_x=−u_y.'],['Si u y v son conjugadas armónicas, entonces:',['∇u·∇v=0','∇u·∇v=1','∇u=∇v'],'a','Sus gradientes son perpendiculares.','Recuerda el producto punto de los gradientes.'],['Una función armónica en el centro de un círculo es igual a:',['El promedio de los valores sobre la circunferencia','Siempre cero','El máximo de la frontera'],'a','El teorema del valor medio expresa justamente ese promedio.','Busca el promedio integral sobre la circunferencia.']];let q=document.getElementById('practice');p.forEach((d,i)=>{q.insertAdjacentHTML('beforeend',`<article class="exercise"><h3>Práctica ${i+1}</h3><p>${d[0]}</p><select id="pp${i}" class="answer-select"><option value="">Selecciona</option>${d[1].map((a,j)=>`<option value="${String.fromCharCode(97+j)}">${a}</option>`).join('')}</select><br><button onclick="checkQ('pp${i}','pf${i}','${d[2]}','${d[3]}','${d[4]}')">Comprobar</button><div id="pf${i}" class="feedback"></div></article>`)})}
-function checkQ(s,o,k,ok,h){let v=document.getElementById(s).value;fb(o,v===k,ok,h)}
-function makeExercises(){let d=[['¿En qué dominio es ln|z| armónica?',['ℂ\{0\}','ℂ','{0}'],'a','ln|z| es armónica en ℂ\{0}.','Recuerda dónde está definida y qué ocurre en z=0.'],['Si u=eˣcos y, un conjugado armónico es:',['eˣsin y+C','eˣcos y+C','e⁻ˣsin y+C'],'a','eˣsin y+C es la parte imaginaria de eᶻ.','Escribe eᶻ en términos de x e y.'],['Para u=x²−y² y v=2xy, ∇u·∇v vale:',['0','4xy','4x²+4y²'],'a','Los gradientes son ortogonales y el producto punto es cero.','Calcula los dos gradientes.'],['En una región sin fuentes, el potencial electrostático satisface:',['∇²u=0','∇²u=1','∇u=0 siempre'],'a','La ausencia de fuentes conduce a la ecuación de Laplace.','Relaciona el potencial con la ecuación de Laplace.'],['Para Φ=A Log z con A>0 se modela:',['Una fuente','Un sumidero','Un flujo uniforme'],'a','A>0 representa una fuente puntual.','Revisa el papel del signo de A.'],['Para Φ=A Log z, las líneas de flujo son:',['θ=cte','r=cte','x=cte'],'a','Como ψ=Aθ, sus curvas de nivel son θ=cte.','Distingue las curvas de φ=A ln r de las de ψ=Aθ.']];let q=document.getElementById('exercises');d.forEach((d,i)=>{q.insertAdjacentHTML('beforeend',`<article class="exercise"><h3>Ejercicio ${i+1}</h3><p>${d[0]}</p><select id="ee${i}" class="answer-select"><option value="">Selecciona</option>${d[1].map((a,j)=>`<option value="${String.fromCharCode(97+j)}">${a}</option>`).join('')}</select><br><button onclick="checkQ('ee${i}','ef${i}','${d[2]}','${d[3]}','${d[4]}')">Comprobar</button><div id="ef${i}" class="feedback"></div></article>`)})}
-drawOrth();drawFlow();source();makeQuestions();makeExercises();
-    <script>
-document.addEventListener("DOMContentLoaded", function () {
-    if (window.MathJax) {
-        MathJax.typesetPromise();
+/* ---------- Retroalimentación ---------- */
+function feedback(id, ok, success, hint){
+  const e=document.getElementById(id);
+  e.className='feedback '+(ok?'correct':'incorrect');
+  e.textContent=ok?'✓ '+success:'✗ Pista: '+hint;
+}
+
+function harmonic(){
+  const v=document.getElementById('harm').value;
+  const o=document.getElementById('harmOut');
+  if(v==='a'||v==='b'||v==='d'){
+    o.textContent='✓ Correcto. Su laplaciano es cero en el dominio indicado, por lo que es armónica.';
+    o.style.color='#26705F';
+  }else if(v==='c'){
+    o.textContent='✗ Pista: calcula uxx y uyy; para x²+y² ambas derivadas segundas son positivas y se suman.';
+    o.style.color='#A33A3A';
+  }else{o.textContent='Selecciona una función.';}
+}
+
+function conjugate(){
+  const v=document.getElementById('conj').value;
+  const o=document.getElementById('conjOut');
+  if(v==='a'){
+    o.textContent='✓ Correcto. Las ecuaciones de Cauchy-Riemann llevan a v=2xy+C.';
+    o.style.color='#26705F';
+  }else if(v){
+    o.textContent='✗ Pista: usa v_y=u_x y v_x=−u_y; integra y comprueba ambas ecuaciones.';
+    o.style.color='#A33A3A';
+  }else{o.textContent='Selecciona una respuesta.';}
+}
+
+function mean(){
+  const R=parseFloat(document.getElementById('meanR').value);
+  const o=document.getElementById('meanOut');
+  if(!(R>0)){o.textContent='Pista: el radio debe ser positivo.';return;}
+  let s=0,N=1200;
+  for(let k=0;k<N;k++){
+    const t=2*Math.PI*k/N;
+    const x=R*Math.cos(t),y=R*Math.sin(t);
+    s+=x*x-y*y;
+  }
+  o.textContent='✓ Promedio numérico ≈ '+(s/N).toExponential(3)+'. Coincide con u(0,0)=0, como predice el teorema del valor medio.';
+  o.style.color='#26705F';
+}
+
+function poisson(){
+  const R=parseFloat(document.getElementById('pR').value);
+  const r=parseFloat(document.getElementById('pr').value);
+  const o=document.getElementById('pOut');
+  if(!(R>0 && r>=0 && r<R)){o.textContent='Pista: para estar dentro del círculo debe cumplirse 0≤r<R.';return;}
+  const K=(R*R-r*r)/((R-r)*(R-r));
+  o.textContent='✓ Para θ=φ, el núcleo de Poisson vale '+K.toFixed(5)+'. Aquí se usó cos(0)=1.';
+  o.style.color='#26705F';
+}
+
+/* ---------- Utilidades de canvas ---------- */
+function setupCanvas(id){
+  const c=document.getElementById(id);
+  if(!c) return null;
+  const ctx=c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.fillStyle='#FFFFFF';
+  ctx.fillRect(0,0,c.width,c.height);
+  return {c,ctx,W:c.width,H:c.height};
+}
+
+function arrow(ctx,x1,y1,x2,y2,size=9){
+  const a=Math.atan2(y2-y1,x2-x1);
+  ctx.beginPath();
+  ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-size*Math.cos(a-0.45),y2-size*Math.sin(a-0.45));
+  ctx.lineTo(x2-size*Math.cos(a+0.45),y2-size*Math.sin(a+0.45));
+  ctx.closePath();
+  ctx.fill();
+}
+
+function drawAxes(ctx,W,H,cx,cy,scale){
+  ctx.strokeStyle='#DDE6EA';
+  ctx.lineWidth=1;
+  for(let x=cx%scale;x<W;x+=scale){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=cy%scale;y<H;y+=scale){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+  ctx.strokeStyle='#003B5C';
+  ctx.fillStyle='#003B5C';
+  ctx.lineWidth=1.7;
+  ctx.beginPath();ctx.moveTo(35,cy);ctx.lineTo(W-35,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,H-35);ctx.lineTo(cx,35);ctx.stroke();
+  arrow(ctx,W-55,cy,W-35,cy,10);
+  arrow(ctx,cx,55,cx,35,10);
+
+  ctx.font='18px "Ancizar Sans", sans-serif';
+  ctx.fillText('x',W-27,cy-10);
+  ctx.fillText('y',cx+12,27);
+  ctx.font='15px "Ancizar Sans", sans-serif';
+  ctx.fillText('0',cx+7,cy+19);
+}
+
+/* ---------- Ortogonalidad ---------- */
+function drawOrth(){
+  const s=setupCanvas('orth');
+  if(!s)return;
+  const {ctx,W,H}=s;
+  const cx=W/2,cy=H/2,scale=65;
+  const X=x=>cx+x*scale;
+  const Y=y=>cy-y*scale;
+  drawAxes(ctx,W,H,cx,cy,scale);
+
+  // u=x²-y²=c
+  const levelsU=[-3,-1,1,3];
+  ctx.strokeStyle='#65A19B';ctx.lineWidth=2.4;
+  levelsU.forEach(k=>{
+    const a=Math.sqrt(Math.abs(k));
+    [-1,1].forEach(sign=>{
+      ctx.beginPath();let started=false;
+      for(let t=-1.75;t<=1.75;t+=0.01){
+        let x,y;
+        if(k>0){x=sign*a*Math.cosh(t);y=a*Math.sinh(t);}
+        else{y=sign*a*Math.cosh(t);x=a*Math.sinh(t);}
+        const px=X(x),py=Y(y);
+        if(px>35&&px<W-35&&py>35&&py<H-35){
+          if(!started){ctx.moveTo(px,py);started=true;}else ctx.lineTo(px,py);
+        }
+      }
+      if(started)ctx.stroke();
+    });
+  });
+
+  // v=2xy=c
+  const levelsV=[-3,-1,1,3];
+  ctx.strokeStyle='#003B5C';ctx.lineWidth=1.9;
+  levelsV.forEach(k=>{
+    [-1,1].forEach(sign=>{
+      ctx.beginPath();let started=false;
+      for(let x=0.08;x<=4.3;x+=0.01){
+        const y=sign*k/(2*x);
+        const px=X(x),py=Y(y);
+        if(px>35&&px<W-35&&py>35&&py<H-35){
+          if(!started){ctx.moveTo(px,py);started=true;}else ctx.lineTo(px,py);
+        }
+      }
+      if(started)ctx.stroke();
+    });
+  });
+
+  // Curvas v=c también tienen simetría en el cuadrante opuesto; el bucle anterior con sign y k ya cubre ambos signos.
+  ctx.font='17px "Ancizar Sans", sans-serif';
+  ctx.fillStyle='#65A19B';ctx.fillText('u = x² − y²',55,34);
+  ctx.fillStyle='#003B5C';ctx.fillText('v = 2xy',55,58);
+}
+
+/* ---------- Flujo uniforme ---------- */
+function drawFlow(){
+  const s=setupCanvas('flow');
+  if(!s)return;
+  const {ctx,W,H}=s;
+  const cx=W/2,cy=H/2,scale=65;
+  drawAxes(ctx,W,H,cx,cy,scale);
+
+  // Líneas horizontales de flujo
+  ctx.strokeStyle='#65A19B';ctx.lineWidth=2;
+  for(let y=70;y<H-45;y+=70){
+    ctx.beginPath();ctx.moveTo(45,y);ctx.lineTo(W-50,y);ctx.stroke();
+    ctx.fillStyle='#65A19B';
+    arrow(ctx,W/2-15,y,W/2+15,y,9);
+  }
+
+  // Equipotenciales verticales
+  ctx.strokeStyle='#B9C9CF';ctx.lineWidth=1.4;
+  for(let x=105;x<W-45;x+=110){
+    ctx.beginPath();ctx.moveTo(x,45);ctx.lineTo(x,H-40);ctx.stroke();
+  }
+
+  ctx.fillStyle='#003B5C';
+  ctx.font='17px "Ancizar Sans", sans-serif';
+  ctx.fillText('líneas de flujo',55,32);
+  ctx.fillStyle='#5F6B73';
+  ctx.fillText('equipotenciales',W-155,32);
+}
+
+/* ---------- Fuente puntual ---------- */
+function source(){
+  const s=setupCanvas('src');
+  if(!s)return;
+  const {ctx,W,H}=s;
+  const cx=W/2,cy=H/2;
+  const A=parseFloat(document.getElementById('sourceA').value)||0;
+  const maxR=Math.min(W,H)*0.37;
+
+  ctx.strokeStyle='#DDE6EA';ctx.lineWidth=1;
+  for(let r=45;r<maxR;r+=45){ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);ctx.stroke();}
+
+  ctx.strokeStyle='#65A19B';ctx.lineWidth=2;
+  for(let r=45;r<maxR;r+=45){ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);ctx.stroke();}
+
+  ctx.strokeStyle='#003B5C';ctx.fillStyle='#003B5C';ctx.lineWidth=1.6;
+  const direction=A>=0?1:-1;
+  for(let a=0;a<2*Math.PI;a+=Math.PI/10){
+    const r1=18,r2=maxR;
+    const x1=cx+r1*Math.cos(a),y1=cy+r1*Math.sin(a);
+    const x2=cx+r2*Math.cos(a),y2=cy+r2*Math.sin(a);
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+    if(A!==0){
+      const tipR=A>0?r2:r1+35;
+      const tipX=cx+tipR*Math.cos(a),tipY=cy+tipR*Math.sin(a);
+      const ang=a+(A>0?0:Math.PI);
+      arrow(ctx,tipX-18*Math.cos(ang),tipY-18*Math.sin(ang),tipX,tipY,10);
     }
-});
+  }
+
+  ctx.beginPath();ctx.arc(cx,cy,7,0,2*Math.PI);ctx.fill();
+  ctx.font='18px "Ancizar Sans", sans-serif';ctx.fillText('0',cx+10,cy+22);
+
+  const out=document.getElementById('srcOut');
+  if(A>0){out.textContent='A>0: fuente puntual; las flechas salen radialmente del origen.';out.style.color='#26705F';}
+  else if(A<0){out.textContent='A<0: sumidero puntual; las flechas apuntan radialmente hacia el origen.';out.style.color='#26705F';}
+  else{out.textContent='A=0: no hay fuente ni sumidero.';out.style.color='';}
+}
+
+/* ---------- Preguntas ---------- */
+function addQuestion(containerId,index,prompt,options,correct,success,hint){
+  const container=document.getElementById(containerId);
+  const article=document.createElement('article');
+  article.className='exercise';
+  const title=document.createElement('h3');
+  title.textContent='Pregunta '+index;
+  article.appendChild(title);
+  const p=document.createElement('p');
+  p.textContent=prompt;
+  article.appendChild(p);
+
+  const select=document.createElement('select');
+  select.className='answer-select';
+  select.id=containerId+'_'+index;
+  const blank=document.createElement('option');blank.value='';blank.textContent='Selecciona';select.appendChild(blank);
+  options.forEach((text,i)=>{const op=document.createElement('option');op.value=String.fromCharCode(97+i);op.textContent=text;select.appendChild(op);});
+  article.appendChild(select);
+  article.appendChild(document.createElement('br'));
+
+  const btn=document.createElement('button');
+  btn.textContent='Comprobar';
+  btn.onclick=()=>{
+    const value=select.value;
+    const fb=article.querySelector('.feedback');
+    if(!value){fb.className='feedback incorrect';fb.textContent='Selecciona una respuesta para comprobarla.';return;}
+    feedbackInline(fb,value===correct,success,hint);
+  };
+  article.appendChild(btn);
+  const fb=document.createElement('div');fb.className='feedback';article.appendChild(fb);
+  container.appendChild(article);
+}
+
+function feedbackInline(el,ok,success,hint){
+  el.className='feedback '+(ok?'correct':'incorrect');
+  el.textContent=ok?'✓ '+success:'✗ Pista: '+hint;
+}
+
+function makePractice(){
+  const q=document.getElementById('practice');
+  addQuestion('practice',1,'¿Cuál de estas funciones es armónica?',['x²−y²','x²+y²','x²+y'],'a','Correcto. Para x²−y² las segundas derivadas se cancelan en la ecuación de Laplace.','Calcula uxx+uyy.');
+  addQuestion('practice',2,'Para u=x²−y², un conjugado armónico es:',['2xy+C','x²+y²','xy+C'],'a','Correcto. Las ecuaciones de Cauchy-Riemann conducen a v=2xy+C.','Usa v_y=u_x y v_x=−u_y.');
+  addQuestion('practice',3,'Si u y v son conjugadas armónicas, entonces:',['∇u·∇v=0','∇u·∇v=1','∇u=∇v'],'a','Correcto. Los gradientes son perpendiculares, por eso su producto punto es cero.','Recuerda el producto punto de los gradientes.');
+  addQuestion('practice',4,'Una función armónica en el centro de un círculo es igual a:',['El promedio de los valores sobre la circunferencia','Siempre cero','El máximo de la frontera'],'a','Correcto. El teorema del valor medio identifica el valor central con ese promedio.','Busca el promedio integral sobre la circunferencia.');
+}
+
+function makeExercises(){
+  addQuestion('exercises',1,'¿En qué dominio es ln|z| armónica?',['ℂ\{0}','ℂ','{0}'],'a','Correcto. ln|z| es armónica en ℂ\{0}.','Recuerda qué ocurre en z=0.');
+  addQuestion('exercises',2,'Si u=eˣcos y, un conjugado armónico es:',['eˣsin y+C','eˣcos y+C','e⁻ˣsin y+C'],'a','Correcto. eˣsin y es la parte imaginaria de eᶻ.','Escribe eᶻ en términos de x e y.');
+  addQuestion('exercises',3,'Para u=x²−y² y v=2xy, ∇u·∇v vale:',['0','4xy','4x²+4y²'],'a','Correcto. Los gradientes son ortogonales y su producto punto es cero.','Calcula primero ambos gradientes.');
+  addQuestion('exercises',4,'En una región sin fuentes, el potencial electrostático satisface:',['∇²u=0','∇²u=1','∇u=0 siempre'],'a','Correcto. En ausencia de fuentes, el potencial satisface la ecuación de Laplace.','Relaciona el potencial con la ecuación de Laplace.');
+  addQuestion('exercises',5,'Para Φ=A Log z con A>0 se modela:',['Una fuente','Un sumidero','Un flujo uniforme'],'a','Correcto. En este modelo A>0 produce flujo radial hacia afuera.','Revisa el papel del signo de A.');
+  addQuestion('exercises',6,'Para Φ=A Log z, las líneas de flujo son:',['θ=cte','r=cte','x=cte'],'a','Correcto. Como ψ=Aθ, sus curvas de nivel son θ=cte.','Distingue φ=A ln r de ψ=Aθ.');
+}
+
+function initModule(){
+  drawOrth();
+  drawFlow();
+  source();
+  makePractice();
+  makeExercises();
+  if(window.MathJax && MathJax.typesetPromise){MathJax.typesetPromise();}
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',initModule);
+}else{
+  initModule();
+}
 </script>
-</script></body></html>
+</body>
+</html>
